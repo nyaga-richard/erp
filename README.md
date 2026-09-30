@@ -83,7 +83,7 @@ npm run seed           # DEVELOPMENT ONLY; creates demo principals/config, not b
 npm run build
 ```
 
-The seed writes `.runtime/demo.json` and `DEMO_ACCESS.md`. Existing development credentials are not silently reset. If a seeded database remains but the credential file is gone, supply its original `DEMO_PASSWORD` or provision a new disposable development database.
+The seed writes `.runtime/demo.json` and `DEMO_ACCESS.md`. Existing development credentials are not silently reset. It is **development-only** and production mode refuses before connecting. Production migrations create schema/system catalogs only; after a reviewed deployment, the separate interactive `sudo bash /opt/erp/scripts/ubuntu/erpctl.sh bootstrap` flow creates the real first company and its safe starter scaffold. Follow [the production onboarding and deployment runbook](docs/deployment/ubuntu-cloudflare-tunnel-trustedsystems.md#6-initial-data-and-database-seeding); never point `npm run seed` at production. If a seeded development database remains but the credential file is gone, supply its original `DEMO_PASSWORD` or provision a new disposable development database.
 
 4. In separate terminals:
 

@@ -1,28 +1,36 @@
 {
   "date": "2026-09-30",
-  "scope": "One-time production first-company/branch/administrator bootstrap; local unit/static verification only",
+  "scope": "One-time production first-company/branch/administrator bootstrap and safe starter scaffold; local unit/build verification only",
+  "validation": {
+    "command": "npm run build -w apps/api",
+    "result": "passed",
+    "runtime": "Node v20.20.2 (project requires Node >=22; compatibility warning applies)"
+  },
   "unitTests": {
-    "file": "apps/api/test/production-onboarding.test.ts",
-    "passed": 7,
+    "command": "node --import tsx --test apps/api/test/production-onboarding.test.ts apps/api/test/demo-seed.test.ts apps/api/test/seed-safety.test.ts",
+    "passed": 11,
     "failed": 0,
+    "productionOnboardingTests": 8,
     "checks": [
       "input validation and normalization",
-      "least-privilege initial administrator permissions",
-      "atomic transaction and Argon2 password hash with no credential disclosure",
+      "migration audit:view permission prerequisite",
+      "least-privilege initial administrator permission set including governed product-reference setup",
+      "atomic transaction, undisclosed Argon2 hash and presence of all starter scaffold writes",
       "fail-closed behavior for existing companies",
       "fail-closed behavior for existing onboarding marker and stale mail worker",
       "dedicated erp_owner role enforcement",
-      "production-only configuration gate"
+      "production-only configuration gate",
+      "shared adjacent fiscal-year helper and valid date boundaries",
+      "development seed forbidden in production before database connection"
     ]
   },
   "staticChecks": {
-    "bootstrapJavaScriptSyntax": "passed",
-    "operatorShellSyntax": "passed",
-    "productionComposeYamlParse": "passed with PyYAML; Docker Compose CLI unavailable",
-    "migrationSqlParse": "passed with pglast"
+    "bootstrapJavaScriptSyntax": "passed as part of Node test execution",
+    "apiTypeScriptBuild": "passed",
+    "realPostgreSQLExecution": "not run"
   },
   "notTested": [
-    "real PostgreSQL migration execution or transaction behavior",
+    "real PostgreSQL migration execution or deferred audit constraints",
     "Docker image build or Compose run",
     "Ubuntu host deployment",
     "live SMTP reset delivery",

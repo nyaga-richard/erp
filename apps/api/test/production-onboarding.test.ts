@@ -6,7 +6,7 @@ import path from 'node:path';
 const onboarding=require('../../../scripts/bootstrap-production.cjs');
 
 const input={companyCode:'acme_ke',companyName:'Acme Kenya Limited',baseCurrency:'kes',branchCode:'hq',branchName:'Nairobi Head Office',adminName:'Admin User',adminEmail:'ADMIN@EXAMPLE.TEST'};
-const permissions=['workspace:view','users:view','users:manage','roles:view','roles:manage','organization:view','organization:manage','organization:profile:manage','warehouses:view','warehouses:manage','approvals:view','approvals:manage','audit:view','security:view','accounts:configuration:view','accounts:propose','customers:propose','customers:approve','inventory:post','periods:close'];
+const permissions=['workspace:view','users:view','users:manage','roles:view','roles:manage','organization:view','organization:manage','organization:profile:manage','warehouses:view','warehouses:manage','approvals:view','approvals:manage','audit:view','security:view','accounts:configuration:view','accounts:propose','products:manage','customers:propose','customers:approve','inventory:post','periods:close'];
 
 function productionEnv(){
  const before={...process.env};Object.assign(process.env,{NODE_ENV:'production',MIGRATION_DATABASE_URL:'postgresql://erp_owner:never-use-this-example@db/erp',AUTH_MAIL_MODE:'smtp',SMTP_URL:'smtp://mail.example.test',SMTP_FROM:'erp@example.test',PUBLIC_WEB_ORIGIN:'https://erp.example.test',RESET_ENCRYPTION_KEY:'a'.repeat(64)});return()=>{for(const key of ['NODE_ENV','MIGRATION_DATABASE_URL','AUTH_MAIL_MODE','SMTP_URL','SMTP_FROM','PUBLIC_WEB_ORIGIN','RESET_ENCRYPTION_KEY']){if(before[key]===undefined)delete process.env[key];else process.env[key]=before[key];}};
@@ -25,8 +25,10 @@ function fakePool({companies=0,marker=false,workerFresh=true,role='erp_owner'}={
    if(q.includes("FROM service_heartbeats WHERE service_name='auth-mail'"))return {rows:[{fresh:workerFresh}],rowCount:1};
    if(q.startsWith('SELECT code FROM currencies'))return {rows:[{code:'KES'}],rowCount:1};
    if(q==='SELECT code FROM permissions ORDER BY code')return {rows:permissions.map(code=>({code})),rowCount:permissions.length};
+   if(q.startsWith('SELECT id,catalog_version FROM'))return {rows:[],rowCount:0};
+   if(q.includes('RETURNING to_jsonb('))return {rows:[{snapshot:{id:'11111111-1111-4111-8111-111111111111',catalog_version:1}}],rowCount:1};
    if(q==='COMMIT'||q==='BEGIN'||q==='ROLLBACK'||q.startsWith('SELECT pg_advisory_xact_lock')||q.startsWith("SELECT set_config"))return {rows:[],rowCount:0};
-   if(q.startsWith('INSERT'))return {rows:[],rowCount:1};
+   if(q.startsWith('INSERT')||q.startsWith('UPDATE'))return {rows:[],rowCount:1};
    throw new Error('Unexpected SQL in bootstrap test: '+q);
   },release(){calls.push({sql:'RELEASE',params:[]});}
  };
@@ -40,15 +42,17 @@ test('production bootstrap validates first-company fields and normalizes codes/c
  assert.throws(()=>onboarding.validateInputs({...input,adminEmail:'not-an-email'}),/valid administrator email/);
 });
 
-test('forward migration installs audit:view required for production bootstrap',()=>{
+test('forward migration and production image include bootstrap prerequisites',()=>{
  const migration=readFileSync(path.resolve(__dirname,'../../../db/022-bootstrap-audit-permission.sql'),'utf8');
+ const dockerfile=readFileSync(path.resolve(__dirname,'../../../Dockerfile.api'),'utf8');
  assert.match(migration,/INSERT INTO permissions[\s\S]*audit:view/);
  assert.match(migration,/ON CONFLICT \(code\) DO NOTHING/);
+ assert.match(dockerfile,/scripts\/company-setup-template\.cjs/);
 });
 
 test('initial admin receives setup/proposal and access rights, never approval/posting rights',()=>{
  const role=onboarding.bootstrapAdminPermissions(permissions);
- assert.ok(role.includes('users:manage'));assert.ok(role.includes('accounts:propose'));assert.ok(role.includes('customers:propose'));
+ assert.ok(role.includes('users:manage'));assert.ok(role.includes('accounts:propose'));assert.ok(role.includes('customers:propose'));assert.ok(role.includes('products:manage'));
  for(const denied of ['customers:approve','inventory:post','periods:close'])assert.ok(!role.includes(denied),`unexpected bootstrap privilege ${denied}`);
  assert.throws(()=>onboarding.bootstrapAdminPermissions(['workspace:view']),/Required permissions are missing/);
 });
@@ -56,10 +60,13 @@ test('initial admin receives setup/proposal and access rights, never approval/po
 test('production bootstrap commits tenant/admin atomically and keeps credentials undisclosed',async()=>{
  const restore=productionEnv();const {pool,calls}=fakePool();
  try{
-  const result=await onboarding.bootstrap(input,{pool});assert.match(result.companyId,/^[0-9a-f-]{36}$/);assert.match(result.branchId,/^[0-9a-f-]{36}$/);assert.ok(result.grantedPermissions>0);
+  const result=await onboarding.bootstrap(input,{pool});assert.match(result.companyId,/^[0-9a-f-]{36}$/);assert.match(result.branchId,/^[0-9a-f-]{36}$/);assert.ok(result.grantedPermissions>0);assert.equal(result.seededYears.length,3);
   const sql=calls.map(x=>x.sql.replace(/\s+/g,' ').trim());assert.ok(sql.includes('BEGIN'));assert.ok(sql.some(q=>q.startsWith('SELECT pg_advisory_xact_lock')));assert.ok(sql.includes('COMMIT'));assert.ok(!sql.includes('ROLLBACK'));
-  const userInsert=calls.find(x=>x.sql.startsWith('INSERT INTO users('));assert.ok(userInsert);assert.match(userInsert.params[3],/^\$argon2id\$/);assert.deepEqual(Object.keys(result).sort(),['branchId','companyId','grantedPermissions','initialAdminId','roleId']);
+  const userInsert=calls.find(x=>x.sql.startsWith('INSERT INTO users('));assert.ok(userInsert);assert.match(userInsert.params[3],/^\$argon2id\$/);assert.deepEqual(Object.keys(result).sort(),['branchId','companyId','grantedPermissions','initialAdminId','roleId','seededYears']);
   assert.ok(sql.some(q=>q.startsWith('INSERT INTO permission_delegations')));assert.ok(sql.some(q=>q.startsWith('INSERT INTO audit_logs')));assert.ok(sql.some(q=>q.startsWith('INSERT INTO production_onboarding')));
+  assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO accounts(')).length,22);assert.equal(calls.filter(x=>x.sql.includes('INSERT INTO financial_periods(')).length,3);assert.ok(sql.some(q=>q.includes('INSERT INTO warehouses(')));
+  assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO units_of_measure(')).length,2);assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO product_categories(')).length,2);assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO brands(')).length,1);
+  const markerPos=sql.findIndex(q=>q.startsWith('INSERT INTO production_onboarding'));const referencePos=sql.findIndex(q=>q.startsWith('INSERT INTO units_of_measure('));assert.ok(markerPos>=0&&markerPos<referencePos,'main onboarding audit/marker precedes reference inserts to preserve deferred actor context');
  }finally{restore();}
 });
 

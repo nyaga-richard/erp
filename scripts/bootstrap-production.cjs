@@ -10,6 +10,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const readline = require('node:readline/promises');
 const {stdin, stdout} = require('node:process');
+const {seedChartOfAccounts,seedFiscalPeriods,seedMainWarehouse,seedStarterProductReferences} = require('./company-setup-template.cjs');
 
 const AUTH_SERVICE = '00000000-0000-4000-8000-000000000001';
 const BOOTSTRAP_LOCK = 738194205;
@@ -17,7 +18,7 @@ const CORE_PERMISSIONS = [
   'workspace:view', 'users:view', 'users:manage', 'roles:view', 'roles:manage',
   'organization:view', 'organization:manage', 'organization:profile:manage',
   'warehouses:view', 'warehouses:manage', 'approvals:view', 'approvals:manage',
-  'audit:view', 'security:view', 'accounts:configuration:view'
+  'audit:view', 'security:view', 'accounts:configuration:view', 'products:manage'
 ];
 
 function validateInputs(input) {
@@ -132,6 +133,12 @@ async function bootstrap(input, options = {}) {
     for (const permission of rolePermissions) await client.query('INSERT INTO role_permissions(company_id,role_id,permission_code) VALUES($1,$2,$3)', [companyId, roleId, permission]);
     await client.query('INSERT INTO user_roles(company_id,user_id,role_id) VALUES($1,$2,$3)', [companyId, adminId, roleId]);
     await client.query('INSERT INTO user_branch_scopes(company_id,user_id,branch_id) VALUES($1,$2,$3)', [companyId, adminId, branchId]);
+
+    // Create a no-balance starter scaffold in the same atomic onboarding transaction.
+    await seedChartOfAccounts(client, companyId, AUTH_SERVICE);
+    const seededYears = await seedFiscalPeriods(client, companyId, AUTH_SERVICE);
+    await seedMainWarehouse(client, companyId, branchId, company.branchName, AUTH_SERVICE);
+
     // The initial company administrator can deliberately delegate the catalogued
     // permission set to separately named people; self-access changes remain blocked.
     await client.query('INSERT INTO permission_delegations(company_id,user_id,permission_code,granted_by) SELECT $1,$2,code,$2 FROM permissions', [companyId, adminId]);
@@ -143,8 +150,12 @@ async function bootstrap(input, options = {}) {
       VALUES($1,$2,$3,'PRODUCTION_ONBOARDING','SUCCESS',$4,$5)`, [companyId, AUTH_SERVICE, adminId, requestId, JSON.stringify({companyCode: company.companyCode, branchCode: company.branchCode, initialAdminId: adminId})]);
     await client.query(`INSERT INTO production_onboarding(singleton,company_id,branch_id,initial_admin_id,completed_by,request_id)
       VALUES(1,$1,$2,$3,$4,$5)`, [companyId, branchId, adminId, AUTH_SERVICE, requestId]);
+
+    // Must remain the final write: reference audit constraints are deferred and
+    // validate the actor context at commit; the reference owner is the new admin.
+    await seedStarterProductReferences(client, companyId, adminId);
     await client.query('COMMIT');
-    return {companyId, branchId, initialAdminId: adminId, roleId, grantedPermissions: rolePermissions.length};
+    return {companyId, branchId, initialAdminId: adminId, roleId, grantedPermissions: rolePermissions.length, seededYears};
   } catch (error) {
     await client.query('ROLLBACK').catch(() => {});
     throw error;
@@ -162,8 +173,9 @@ async function main() {
   stdout.write(`  Company: ${input.companyName} [${input.companyCode}], base ${input.baseCurrency}\n`);
   stdout.write(`  First branch: ${input.branchName} [${input.branchCode}]\n`);
   stdout.write(`  Initial administrator: ${input.adminName} <${input.adminEmail}>\n`);
-  stdout.write('  Data created: company, branch, administrator, restricted setup role and onboarding audit.\n');
-  stdout.write('  Not created: chart of accounts, fiscal periods, tax configuration, customers, products, stock or opening balances.\n\n');
+  stdout.write('  Starter setup: chart of accounts, prior/current/next fiscal years, main warehouse, and governed units/categories/brand references.\n');
+  stdout.write('  Also created: company, branch, initial administrator, setup role, and onboarding/security audit records.\n');
+  stdout.write('  Not created: tax rates or rules, registered products/customers, stock, transactions, or opening balances.\n\n');
   const rl = readline.createInterface({input: stdin, output: stdout});
   try {
     const prompt = `Type CREATE ${input.companyCode} to confirm: `;
@@ -174,8 +186,9 @@ async function main() {
   const result = await bootstrap(input);
   stdout.write('\nProduction onboarding committed. No password or reset token was printed.\n');
   stdout.write(`Company ID: ${result.companyId}\nInitial administrator ID: ${result.initialAdminId}\n`);
+  stdout.write(`Starter fiscal years seeded: ${result.seededYears.join(', ')}\n`);
   stdout.write(`The administrator must use “Forgot password” at ${process.env.PUBLIC_WEB_ORIGIN} to receive a single-use setup link by SMTP.\n`);
-  stdout.write('Retain this release and the database backup. Configure reviewed fiscal periods, chart of accounts, tax settings and approved opening balances before financial use.\n');
+  stdout.write('Before financial use, review the starter chart of accounts and fiscal-year dates, configure approved tax rules and product/customer records, and enter verified opening balances/stock only through the governed workflows. No transaction or balance data was fabricated.\n');
 }
 
 module.exports = {validateInputs, bootstrapAdminPermissions, assertProductionConfiguration, verifyMigrations, bootstrap};
