@@ -4,6 +4,8 @@ dist/
 .cache/
 .runtime/
 .env
+.env.*
+!.env.example
 *.log
 
 **/.next/

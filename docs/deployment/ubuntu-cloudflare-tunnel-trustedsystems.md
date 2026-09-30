@@ -109,26 +109,24 @@ The least-coupled option is still a dedicated ERP tunnel and connector, using th
 
 If you intentionally reuse a connector that runs directly as a host service, do **not** start the Compose `cloudflared` profile. Instead, in that tunnel's configuration/public-hostname route, set `erp.trustedsystems.co.ke` to `http://127.0.0.1:<ERP_WEB_BIND_PORT>` (for the example, `http://127.0.0.1:18080`). Keep the web binding on loopback. A cloudflared process inside a different Docker network cannot resolve this application's `web` service name or use its own `127.0.0.1`; it needs an explicitly reviewed shared network/host-gateway design. Avoid sharing a tunnel token or changing existing ingress routes without the other service owners' approval.
 
-## 5. Validate, deploy, then start the Tunnel
+## 5. Validate, deploy, and start the Tunnel — one command
 
-Use the project's scripts so the same project name and port are applied to deploy, health, restart, logs and rollback. The `erpctl` wrapper reads `COMPOSE_PROJECT_NAME` and `ERP_WEB_BIND_PORT` from `.env` without sourcing the secret file into the shell.
+After `.env` is configured, the dedicated Cloudflare hostname route is set to `http://web:5173`, and `TUNNEL_TOKEN` is present, run this single command. If you are reusing a host-managed tunnel instead, use `deploy` (which validates/deploys/health-checks but does not start a second connector) and keep the existing host tunnel route pointed at loopback.
 
 ```bash
-cd /opt/erp
-sudo scripts/ubuntu/erpctl.sh validate
-sudo scripts/ubuntu/erpctl.sh deploy
-sudo scripts/ubuntu/erpctl.sh health
-sudo scripts/ubuntu/erpctl.sh logs api
-sudo scripts/ubuntu/erpctl.sh logs web
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh deploy-tunnel
+```
 
-# Start the bundled connector only after the web/API are healthy:
-sudo scripts/ubuntu/erpctl.sh tunnel
+It validates Compose, builds the images, backs up an already-running database, starts PostgreSQL, applies migrations, waits for API/auth-worker/web health, runs the local health probe, then starts the bundled Cloudflare connector. It refuses to start the connector if `TUNNEL_TOKEN` is blank. The command returns after the connector container is running; confirm it connects in the Cloudflare dashboard and review logs if needed:
+
+```bash
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh health
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh logs cloudflared
 sudo docker compose --project-name trustedsystems-erp \
   --env-file /opt/erp/.env -f /opt/erp/docker-compose.prod.yml ps
 ```
 
-`deploy` validates the Compose configuration, builds the images, takes a database backup before updating an already-running database, runs the migration command, then waits for API/worker/web health. The API and worker use separate restricted database roles; only the migration service receives the owner connection. The Docker networks separate database, application, and outbound SMTP/tunnel access. PostgreSQL has a named volume and no host port. Do **not** add `container_name:` values; Compose project scoping prevents collisions with other applications.
-
+The `erpctl` wrapper reads `COMPOSE_PROJECT_NAME` and `ERP_WEB_BIND_PORT` from `.env` without sourcing the secret file into the shell. The API and worker use separate restricted database roles; only the migration service receives the owner connection. Docker networks separate database, application, and outbound SMTP/tunnel access. PostgreSQL has a named volume and no host port. Do **not** add `container_name:` values; Compose project scoping prevents collisions with other applications.
 Test locally on the host (with the example port):
 
 ```bash
@@ -144,7 +142,43 @@ curl -I https://erp.trustedsystems.co.ke
 
 A Cloudflare Access redirect is expected if Access is enabled. Once authorized, the login page should load over HTTPS. Confirm the correct TLS certificate/hostname, sign-in, password-reset email, API readiness, and audit/security events before any business use. API `/api/health/ready` is an operational probe, **not** a production-readiness certification; the ERP deliberately reports `productionReady:false` until all release gates pass.
 
-## 6. Operate without disturbing other services
+## 6. Initial data and database seeding
+
+The `deploy-tunnel` command applies database migrations. They create schema/system catalogs (including shared currencies KES/USD/EUR, permission codes, and the internal authentication-service identity), but do **not** create a business tenant, human administrator, chart of accounts, opening balances, tax schedules, customers, or transactions. `docker-compose.prod.yml` deliberately has no demo-seed service.
+
+**Production:** there is not yet a supported first-company/first-administrator bootstrap workflow. Do not run the demo seed, copy demo accounts, or insert an admin/tenant by hand in SQL. The safe production initial-data process is a go-live blocker; it must create the company and first administrator securely, then provision/approve branch, fiscal period, CoA, tax, warehouses, RBAC and any opening balances with attributable approvals and reconciliation.
+
+**Development/staging only:** `apps/api/src/seed.ts` is the existing development seed. It creates the fictional Karibu Retail and Coast Wholesale demo companies, demo branches/warehouses, example chart of accounts/periods, and six demo users/roles. It does not create opening balances, sales, stock movements, AP/AR balances, or real payment activity. Run it only in a **separate Compose project/database**, never with the production file or production volume.
+
+Create a private staging env file (the `.env.*` rule in `.gitignore` excludes it from commits) and set unique values:
+
+```bash
+sudo install -o root -g root -m 0600 /dev/null /opt/erp/.env.demo
+sudoedit /opt/erp/.env.demo
+```
+
+At minimum, `.env.demo` must contain the following values; replace every placeholder with a unique staging secret. `DEMO_PASSWORD` is shared by the demo users, so keep the file private and never reuse any production secret:
+
+```dotenv
+NODE_ENV=development
+POSTGRES_PASSWORD=<unique staging owner password>
+RUNTIME_DB_PASSWORD=<different staging runtime password>
+AUTH_WORKER_DB_PASSWORD=<different staging worker password>
+DEMO_PASSWORD=<long development-only password>
+ERP_WEB_BIND_PORT=18081
+```
+
+Then run the demo seed with its own project name and the **development/reference** Compose file:
+
+```bash
+sudo docker compose --project-name trustedsystems-erp-staging \
+  --env-file /opt/erp/.env.demo -f /opt/erp/compose.yaml \
+  --profile tools run --rm seed
+```
+
+Compose starts the staging database and successful migrations as dependencies before seeding. The `NODE_ENV` guard refuses the seed when configured as production. Do not use `--project-name trustedsystems-erp` or `docker-compose.prod.yml` for this demo seed. The staging demo password is held in `.env.demo`; keep the file mode `0600` and use it only for test accounts.
+
+## 7. Operate without disturbing other services
 
 Useful checks:
 
@@ -152,32 +186,76 @@ Useful checks:
 sudo docker ps --format 'table {{.Names}}\t{{.Ports}}\t{{.Status}}'
 sudo docker stats --no-stream
 sudo ss -lntup
-sudo scripts/ubuntu/erpctl.sh health
-sudo scripts/ubuntu/erpctl.sh logs cloudflared
-sudo scripts/ubuntu/erpctl.sh logs auth-worker
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh health
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh logs cloudflared
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh logs auth-worker
 ```
 
 The Compose host mapping binds only `127.0.0.1:${ERP_WEB_BIND_PORT}:5173`. It must not collide with another service, and it is not reachable directly from the public Internet. API port 3000 and PostgreSQL port 5432 remain internal to Docker. Cloudflared egresses to Cloudflare; no inbound web port is required. Leave existing system services, firewall policies, reverse proxies, and tunnels alone unless their owner has approved a change.
 
+### Day-2 updates from GitHub (for an existing deployment)
+
+Keep using the **same** `COMPOSE_PROJECT_NAME` and existing PostgreSQL volume that the first deployment used. Before replacing files, check the actual project/volume names; if the project changes, Compose can silently create an empty database volume:
+
+```bash
+sudo docker compose ls
+sudo docker volume ls --format '{{.Name}}'
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh health
+```
+
+For each update, select a reviewed immutable GitHub release tag and stage that tag without bringing Git metadata or local secrets into `/opt/erp`:
+
+```bash
+RELEASE_TAG='v<reviewed-release-tag>'
+GITHUB_REPO='git@github.com:<OWNER>/<REPOSITORY>.git'
+SRC="$(mktemp -d)"
+STAGE="$(mktemp -d)"
+git clone --depth 1 --branch "$RELEASE_TAG" "$GITHUB_REPO" "$SRC/repo"
+git -C "$SRC/repo" archive --format=tar "$RELEASE_TAG" | tar -xf - -C "$STAGE"
+command -v rsync >/dev/null || sudo apt-get install -y rsync
+```
+
+Review the proposed sync first. The excludes protect `.env`, `.env.demo` and other local environment files, runtime/backups, and demo credentials. `.env.example` is intentionally refreshed from the new release:
+
+```bash
+FILTERS=(--exclude='/.env' --include='/.env.example' --exclude='/.env.*' \
+  --exclude='/.runtime/' --exclude='/backups/' --exclude='/DEMO_ACCESS.md' \
+  --exclude='*.erpbackup' --exclude='*.pgdump' --exclude='node_modules/' \
+  --exclude='**/.next/' --exclude='**/node_modules/')
+sudo rsync -a --delete --dry-run --itemize-changes "${FILTERS[@]}" "$STAGE/" /opt/erp/
+# Inspect the dry-run list; if it only replaces release files, apply it:
+sudo rsync -a --delete "${FILTERS[@]}" "$STAGE/" /opt/erp/
+# Purge the old checked-in development password sheet if a previous release copied it.
+sudo rm -f /opt/erp/DEMO_ACCESS.md
+```
+
+Do not change `COMPOSE_PROJECT_NAME`, database secrets, backup key, SMTP, Tunnel token, or port merely because a release changed. Use `sudoedit /opt/erp/.env` to set `ERP_RELEASE` to a **new immutable image tag**, retaining the old tag for rollback. Then update the already-deployed app with:
+
+```bash
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh deploy
+```
+
+`deploy` validates/builds, automatically backs up the database if its service is already running, applies migrations, restarts and health-checks API/worker/web. It leaves the already-running Cloudflare connector and DNS route in place. Review `erpctl.sh logs api`, `erpctl.sh logs web`, `erpctl.sh health`, and external HTTPS after the release. Do not use `deploy-tunnel` for routine updates unless you also need to start the bundled connector. Preserve the prior Docker images; rollback is application-image-only and must be schema-compatible. Never run `docker compose down --volumes` or prune the production volume.
+
 At reboot, Docker is enabled and Compose services have `restart: unless-stopped`; still perform a staging reboot/recreation test. For upgrades, install a reviewed release, use a unique `ERP_RELEASE`, run `erpctl deploy`, then monitor health/logs. Image rollback is only safe for a schema-compatible release:
 
 ```bash
-sudo scripts/ubuntu/erpctl.sh rollback <previous-immutable-ERP_RELEASE>
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh rollback <previous-immutable-ERP_RELEASE>
 ```
 
 Do not run `docker compose down --volumes`, `docker volume prune`, or remove the project volumes. A database volume is not a backup. Use the exact project name for any manual `docker compose` command; a different project name creates different empty volumes and may look like data loss.
 
-## 7. Backups and recovery
+## 8. Backups and recovery
 
 Run encrypted database backups and confirm the command succeeds:
 
 ```bash
-sudo scripts/ubuntu/erpctl.sh backup
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh backup
 ```
 
 The backup and PostgreSQL data volumes survive container recreation, **not** loss of the host or Docker disk. Plan a scheduled, encrypted off-host copy of database **and files** to separately controlled storage. Escrow `BACKUP_ENCRYPTION_KEY` separately, set retention and alerting, and test an actual restore into a new database/host before go-live. Do not restore over the live database as a routine rollback. See [the backup/restore runbook](../backups/README.md). Object/file attachments are not yet a completed operational module; deployment of a volume alone does not imply that feature is implemented.
 
-## 8. Current readiness limits
+## 9. Current readiness limits
 
 - A real Docker build/start/recreation/reboot and live Cloudflare Tunnel were not executed in the development sandbox. This runbook does not convert those into verified evidence.
 - A first production tenant/admin bootstrap is not implemented as a safe end-to-end workflow; demo users must not be used in production.

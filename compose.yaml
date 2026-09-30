@@ -84,6 +84,7 @@ services:
     working_dir: /app/apps/api
     command: [node, build/seed.js]
     environment:
+      NODE_ENV: ${NODE_ENV:-development}
       MIGRATION_DATABASE_URL: postgresql://erp_owner:${POSTGRES_PASSWORD}@db:5432/erp
       DEMO_PASSWORD: ${DEMO_PASSWORD:?Choose a development-only password}
     depends_on:

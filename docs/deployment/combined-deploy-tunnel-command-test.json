@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "date": "2026-09-30",
+  "command": "scripts/ubuntu/erpctl.sh deploy-tunnel",
+  "checks": {
+    "shellSyntax": "PASS",
+    "stubbedOrchestrationOrder": [
+      "Compose config validation",
+      "image build",
+      "pre-deploy backup path",
+      "database start",
+      "migrations",
+      "API/auth-worker/web wait",
+      "live/ready health checks",
+      "Cloudflare connector start"
+    ],
+    "emptyTunnelTokenRefused": "implemented; not separately runtime-tested",
+    "composeSeedNODE_ENVGuardPassedThrough": "PASS"
+  },
+  "dockerBuildAndRealTunnel": "NOT_TESTED; no Docker daemon/Cloudflare credentials in this environment",
+  "productionReady": false
+}
