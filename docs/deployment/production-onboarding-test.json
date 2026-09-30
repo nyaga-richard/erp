@@ -1,0 +1,32 @@
+{
+  "date": "2026-09-30",
+  "scope": "One-time production first-company/branch/administrator bootstrap; local unit/static verification only",
+  "unitTests": {
+    "file": "apps/api/test/production-onboarding.test.ts",
+    "passed": 7,
+    "failed": 0,
+    "checks": [
+      "input validation and normalization",
+      "least-privilege initial administrator permissions",
+      "atomic transaction and Argon2 password hash with no credential disclosure",
+      "fail-closed behavior for existing companies",
+      "fail-closed behavior for existing onboarding marker and stale mail worker",
+      "dedicated erp_owner role enforcement",
+      "production-only configuration gate"
+    ]
+  },
+  "staticChecks": {
+    "bootstrapJavaScriptSyntax": "passed",
+    "operatorShellSyntax": "passed",
+    "productionComposeYamlParse": "passed with PyYAML; Docker Compose CLI unavailable",
+    "migrationSqlParse": "passed with pglast"
+  },
+  "notTested": [
+    "real PostgreSQL migration execution or transaction behavior",
+    "Docker image build or Compose run",
+    "Ubuntu host deployment",
+    "live SMTP reset delivery",
+    "first real production tenant bootstrap"
+  ],
+  "productionReady": false
+}

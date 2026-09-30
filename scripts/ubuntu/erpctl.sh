@@ -35,6 +35,7 @@ case "${1:-}" in
  logs) "${dc[@]}" logs --tail=200 "${2:-api}" ;;
  restart) "${dc[@]}" restart api auth-worker web; bash "$ROOT/scripts/health-check.sh" ;;
  tunnel) "${dc[@]}" --profile tunnel up -d cloudflared ;;
+ bootstrap) "${dc[@]}" --profile onboarding run --rm bootstrap ;;
  rollback)
   [[ $# -eq 2 ]] || { echo 'rollback IMMUTABLE_PREVIOUS_RELEASE (schema-compatible only)' >&2; exit 1; }
   [[ "$2" =~ ^[a-zA-Z0-9._-]+$ ]] || exit 1
@@ -42,5 +43,5 @@ case "${1:-}" in
   ERP_RELEASE="$2" "${dc[@]}" up -d --no-build api auth-worker web
   bash "$ROOT/scripts/health-check.sh"
   ;;
- *) echo 'Usage: erpctl.sh validate|deploy|deploy-tunnel|migrate|backup|backup-files|restore|health|logs|restart|tunnel|rollback' >&2; exit 1 ;;
+ *) echo 'Usage: erpctl.sh validate|deploy|deploy-tunnel|migrate|bootstrap|backup|backup-files|restore|health|logs|restart|tunnel|rollback' >&2; exit 1 ;;
 esac

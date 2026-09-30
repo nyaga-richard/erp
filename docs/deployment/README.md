@@ -10,7 +10,7 @@ Use a reviewed supported Ubuntu release with Docker Compose v2 packages. Review 
 
 For `erp.trustedsystems.co.ke`, use the interactive one-command private environment generator in the [host-specific guide](ubuntu-cloudflare-tunnel-trustedsystems.md): `sudo bash /opt/erp/scripts/ubuntu/configure-env.sh`. It generates independent secrets, checks the chosen loopback port, and prompts for HTTPS origin, SMTP, and optional Tunnel token. Store recovery keys in a separate secret manager/offline escrow, not in the backup volume. Never seed a production tenant with demo identities.
 
-Migrations create schema and shared system catalogs, not a production company or human administrator. The development seed is synthetic and forbidden for production use. Safe first-company/first-admin provisioning is not yet implemented, so production activation is blocked; the linked guide documents the isolated staging-only seed command.
+Migrations create schema and shared system catalogs, not a production company or human administrator. The development seed is synthetic and forbidden for production use. A one-time owner-only production bootstrap is available after deployment: run `sudo bash /opt/erp/scripts/ubuntu/erpctl.sh bootstrap` as documented in the [host-specific guide](ubuntu-cloudflare-tunnel-trustedsystems.md#production-create-the-first-real-tenant-and-administrator). It creates the first company, branch and initial administrator, but no CoA, fiscal periods, tax configuration, operational masters or opening balances. The missing company-specific accounting-data onboarding workflows remain production activation gates.
 
 From `/opt/erp` (the combined command validates, deploys, health-checks, then starts the Tunnel):
 

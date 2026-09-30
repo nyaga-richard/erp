@@ -98,6 +98,27 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+  bootstrap:
+    <<: *api-image
+    profiles: [onboarding]
+    command: [node, scripts/bootstrap-production.cjs]
+    stdin_open: true
+    tty: true
+    environment:
+      NODE_ENV: production
+      MIGRATION_DATABASE_URL: postgresql://erp_owner:${POSTGRES_PASSWORD}@db:5432/erp
+      PUBLIC_WEB_ORIGIN: ${PUBLIC_WEB_ORIGIN:?Set trusted HTTPS origin}
+      RESET_ENCRYPTION_KEY: ${RESET_ENCRYPTION_KEY:?Set reset encryption key}
+      AUTH_MAIL_MODE: smtp
+      SMTP_URL: ${SMTP_URL:?Configure real SMTP or controlled staging SMTP}
+      SMTP_FROM: ${SMTP_FROM:?Set verified sender}
+    networks: [database]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+      auth-worker: {condition: service_healthy}
+    restart: 'no'
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
   cloudflared:
     profiles: [tunnel]
     image: cloudflare/cloudflared:latest@sha256:072c067d25ccbe61d46e18f0d0723255f2bb5304f7317caa95b27031520ff92c

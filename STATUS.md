@@ -15,9 +15,11 @@ Authoritative ledgers: [implementation status](docs/IMPLEMENTATION_STATUS.md), [
 
 - **020 customer amendments:** exact optimistic versions, immutable preimage/proposal/decision, profile versus credit grants and independent review, final-row/audit native guards. Original publication/AR binding stay frozen. Operational references conservatively block credit edits; WALK_IN stays anonymous/zero-credit. Desktop/mobile history/proposal/review and least-privilege UI; no financial or stock effect.
 
-- **Next AR-source acceptance is IN_PROGRESS, not green:** isolated governed service/tax/customer fixtures succeed, then `/customer-invoices` fails404 versus201 as expected. Evidence: `docs/testing/red-evidence/service-credit-invoice.txt`; design and future atomic posting/reversal/concurrency assertions in `docs/customers/service-credit-invoice-next.md` and `apps/api/acceptance/service-credit-invoice.test.ts`. No invoice route,021 migration or AR entry exists yet.
+- **Next AR-source acceptance is IN_PROGRESS, not green:** isolated governed service/tax/customer fixtures succeed, then `/customer-invoices` fails404 versus201 as expected. Evidence: `docs/testing/red-evidence/service-credit-invoice.txt`; design and future atomic posting/reversal/concurrency assertions in `docs/customers/service-credit-invoice-next.md` and `apps/api/acceptance/service-credit-invoice.test.ts`. No customer-invoice route, AR posting migration or AR entry exists yet; migration021 is now reserved for the separate production first-tenant bootstrap.
 
 - Continued customer credit dependency:10 pure exact eligibility/due-date tests,3,465 cent cases, immutable replay, no endpoint/reservation/posting authority. Transactional credit enforcement and AR remain unfinished.
+
+- **Production tenant bootstrap (021 authored, not runtime-verified):** added an owner-only interactive one-time command to create the first real company, branch and initial human administrator. It requires exact migrations and a fresh SMTP worker heartbeat; a locked pristine-database check, immutable marker, least-privilege setup role and atomic audit/security records are included. Seven focused unit tests pass (`docs/deployment/production-onboarding-test.json`). It creates no chart of accounts, financial periods or opening balances; production readiness remains false until those data workflows and live-host gates pass.
 
 ## Executed evidence
 

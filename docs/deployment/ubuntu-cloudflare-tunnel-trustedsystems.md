@@ -86,7 +86,7 @@ The helper is intentionally interactive: one command does not eliminate the need
 
 The production Compose file forces `NODE_ENV=production`, secure strict cookies, SMTP reset delivery, and disables preview-memory sessions. Keep the backup key and database credentials in a secret manager or offline escrow separate from the server and backup storage. Backups cannot be decrypted without the exact backup key. Use a dedicated SMTP mailbox/provider; password-reset delivery is not functional until SMTP is configured and tested. Never put secrets in a shell command, URL pasted into a ticket, source control, or the Cloudflare hostname.
 
-> **No initial production administrator is created by migrations.** `npm run seed` and the Compose `seed` profile are development-only. The current API's administrator provisioning requires an existing company administrator, so a fresh production tenant still needs a reviewed bootstrap/onboarding procedure before it is usable. Do not work around this by inserting an unreviewed superuser directly into PostgreSQL. Treat this as a go-live blocker and test the approved first-tenant/first-admin procedure before routing staff to the service.
+> **Production tenants are created by a separate, one-time owner-only onboarding command after deployment; migrations do not create business identities.** Do not run `npm run seed` or the Compose `seed` profile in production. The protected procedure, limits, and command are in [Section 6](#6-initial-data-and-database-seeding). It refuses non-pristine databases and uses the existing HTTPS/SMTP password-reset flow instead of printing an initial password.
 
 ## 4. Configure Cloudflare DNS and the Tunnel
 
@@ -146,7 +146,29 @@ A Cloudflare Access redirect is expected if Access is enabled. Once authorized, 
 
 The `deploy-tunnel` command applies database migrations. They create schema/system catalogs (including shared currencies KES/USD/EUR, permission codes, and the internal authentication-service identity), but do **not** create a business tenant, human administrator, chart of accounts, opening balances, tax schedules, customers, or transactions. `docker-compose.prod.yml` deliberately has no demo-seed service.
 
-**Production:** there is not yet a supported first-company/first-administrator bootstrap workflow. Do not run the demo seed, copy demo accounts, or insert an admin/tenant by hand in SQL. The safe production initial-data process is a go-live blocker; it must create the company and first administrator securely, then provision/approve branch, fiscal period, CoA, tax, warehouses, RBAC and any opening balances with attributable approvals and reconciliation.
+### Production: create the first real tenant and administrator
+
+For an installation already deployed from an earlier release, first follow the [Day-2 update procedure](#day-2-updates-from-github-for-an-existing-deployment) to install the reviewed release containing migration `021` and the bootstrap command. Preserve the existing Compose project, PostgreSQL volume, and secrets; set `ERP_RELEASE` to a **new immutable tag**, then run `sudo bash /opt/erp/scripts/ubuntu/erpctl.sh deploy`. Do not run bootstrap against the old code or an unreviewed source tree.
+
+After that updated deployment is healthy, check that the auth-mail worker has a fresh heartbeat and SMTP delivery is configured. From the server, run this interactive, one-time command:
+
+```bash
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh bootstrap
+```
+
+It prompts for the registered company name/code, base currency, first branch, and the initial administrator's name/work email. Review the displayed summary and type the exact confirmation `CREATE <COMPANY_CODE>` to proceed. The command runs as the dedicated `erp_owner` role in a short-lived, database-network-only container; it is not exposed as an HTTP endpoint and never receives the runtime API password.
+
+The transaction takes a PostgreSQL advisory lock, verifies every migration checksum, requires a fresh auth-worker heartbeat, and refuses if the immutable onboarding marker exists or if any company, membership, or human account is already present. On success it records the company, branch, initial admin, restricted setup role, and audit/security events atomically. Its database marker cannot be changed by application roles. A failed transaction creates none of them; this command is not a repair tool for an existing tenant.
+
+No temporary password or reset token is printed or stored in a file. The administrator uses **Forgot password** at the trusted HTTPS hostname; the single-use reset link is sent through the already-configured SMTP worker. Confirm delivery before proceeding. If the email is wrong or SMTP is not operational, stop and use the separately reviewed account-recovery process—do not set a password with SQL. After successful onboarding, take the first encrypted database backup:
+
+```bash
+sudo bash /opt/erp/scripts/ubuntu/erpctl.sh backup
+```
+
+The initial role can administer users/roles and propose configuration, with read access as catalogued. It deliberately does not grant approve, publish, post, reverse, or period-close rights. Use separately named human accounts and independently reviewed roles for segregation of duties; do not share the initial administrator's credentials.
+
+**This is tenant/admin bootstrap, not a financial-data seed or production-readiness certification.** It does not create a chart of accounts, fiscal periods, tax configuration, customers/suppliers, products, inventory, transactions, or opening balances. Do not invent balances or use the demo seed to fill them. Configure and reconcile company-specific masters and opening data only through reviewed, attributable workflows; several such onboarding/import workflows remain incomplete, so financial use may still be blocked after the admin signs in.
 
 **Development/staging only:** `apps/api/src/seed.ts` is the existing development seed. It creates the fictional Karibu Retail and Coast Wholesale demo companies, demo branches/warehouses, example chart of accounts/periods, and six demo users/roles. It does not create opening balances, sales, stock movements, AP/AR balances, or real payment activity. Run it only in a **separate Compose project/database**, never with the production file or production volume.
 
@@ -258,7 +280,7 @@ The backup and PostgreSQL data volumes survive container recreation, **not** los
 ## 9. Current readiness limits
 
 - A real Docker build/start/recreation/reboot and live Cloudflare Tunnel were not executed in the development sandbox. This runbook does not convert those into verified evidence.
-- A first production tenant/admin bootstrap is not implemented as a safe end-to-end workflow; demo users must not be used in production.
+- The one-time production tenant/admin bootstrap code and migration are authored, but no live Docker/database execution has been performed. It creates no company-specific CoA, fiscal periods, tax setup, opening balances or operational masters; those remain separate activation gates. Demo users must not be used in production.
 - Purchase/AP, retail POS, full AR, complete payments, statements/reports, external provider acceptance, and full reconciliation scenarios are not complete. Do not accept real transactions.
 - Production operations still require verified SMTP, Cloudflare Access policy, off-host backup and restore drills, resource/monitoring/alerting, vulnerability review, and tested deployment/rollback.
 
