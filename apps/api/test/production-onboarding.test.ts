@@ -40,6 +40,12 @@ test('production bootstrap validates first-company fields and normalizes codes/c
  assert.throws(()=>onboarding.validateInputs({...input,adminEmail:'not-an-email'}),/valid administrator email/);
 });
 
+test('forward migration installs audit:view required for production bootstrap',()=>{
+ const migration=readFileSync(path.resolve(__dirname,'../../../db/022-bootstrap-audit-permission.sql'),'utf8');
+ assert.match(migration,/INSERT INTO permissions[\s\S]*audit:view/);
+ assert.match(migration,/ON CONFLICT \(code\) DO NOTHING/);
+});
+
 test('initial admin receives setup/proposal and access rights, never approval/posting rights',()=>{
  const role=onboarding.bootstrapAdminPermissions(permissions);
  assert.ok(role.includes('users:manage'));assert.ok(role.includes('accounts:propose'));assert.ok(role.includes('customers:propose'));
