@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:05:07.619Z",
+  "backupFile": "database-2026-09-30T06-05-06-103Z-fe9ac88f-d0de-4726-a8c7-bf725883c13e.erpbackup",
+  "sha256": "a3b80803f62a212e4416e6358280410ceb2c5a8257b778f09a8428d00822d1ca",
+  "encrypted": true,
+  "target": "erp_restore_amend_1790748306407",
+  "counts": {
+    "sources": "62",
+    "journals": "48",
+    "lines": "96",
+    "audit_events": "1088"
+  },
+  "stockCounts": {
+    "sources": 18,
+    "valuations": 18,
+    "movements": 16,
+    "pools": 6,
+    "reversals": 5
+  },
+  "customerCounts": {
+    "customers": 5,
+    "applied": 5,
+    "bindings": 5,
+    "arTransactions": 0
+  },
+  "amendmentCounts": {
+    "total": 6,
+    "applied": 4,
+    "rejected": 2
+  },
+  "migrations": 20,
+  "checks": {
+    "projectionDiscrepancies": 0,
+    "inventoryGlDiscrepancies": 0,
+    "postingLinkDiscrepancies": 0,
+    "exactPostedAuditDiscrepancies": 0,
+    "originalCostReversalDiscrepancies": 0,
+    "customerAuditDiscrepancies": 0,
+    "customerIdentityDiscrepancies": 0,
+    "amendmentAuditDiscrepancies": 0,
+    "amendmentChainDiscrepancies": 0,
+    "currentCustomerDiscrepancies": 0
+  },
+  "journalArithmetic": "PASS",
+  "scope": "Actual isolated stock, original customer publication, amendment chain/current policy and exact audit restoration; live database unchanged. Not full ERP, offsite/PITR or production-host DR.",
+  "productionHostTested": false
+}

@@ -1,0 +1,15 @@
+FROM node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c AS dependencies
+WORKDIR /opt/erp
+COPY package*.json ./
+COPY apps/api/package.json apps/api/package.json
+COPY apps/web/package.json apps/web/package.json
+RUN npm ci --omit=dev --workspace=@erp/api --include-workspace-root
+FROM postgres:17-bookworm@sha256:639ab7ceb90e13123085b741fb31ef493fba25463002f6da665352e7b534b652
+RUN apt-get update && apt-get install -y --no-install-recommends python3 libstdc++6 ca-certificates && rm -rf /var/lib/apt/lists/* && useradd --uid 1000 --create-home erpops && mkdir -p /backups /restore /storage && chown -R erpops:erpops /backups /restore /storage
+COPY --from=dependencies /usr/local/bin/node /usr/local/bin/node
+WORKDIR /opt/erp
+COPY --from=dependencies /opt/erp/node_modules ./node_modules
+COPY scripts/ops.cjs scripts/file-archive.py ./scripts/
+USER erpops
+ENV NODE_ENV=production BACKUP_DIRECTORY=/backups FILE_STORAGE_ROOT=/storage
+ENTRYPOINT ["node","scripts/ops.cjs"]

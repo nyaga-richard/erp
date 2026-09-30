@@ -1,0 +1,22 @@
+{
+  "restored": true,
+  "kind": "database",
+  "target": "erp_restore_published_rules_20260929",
+  "counts": {
+    "sources": "22",
+    "journals": "17",
+    "lines": "34",
+    "audit_events": "335"
+  },
+  "journalArithmetic": "PASS",
+  "operationalReconciliations": "NOT_IMPLEMENTED",
+  "date": "2026-09-29T10:27:26.009Z",
+  "rules": {
+    "rules": "3",
+    "requests": "6",
+    "retirements": "3",
+    "sealed_contracts": "3"
+  },
+  "publicationLinks": "PASS",
+  "sourceCheckpoint": "2026-09-29T10:27:21.529Z"
+}

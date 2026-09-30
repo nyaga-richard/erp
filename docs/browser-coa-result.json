@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "date": "2026-09-30T05:55:49.884Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Paginated parent search and account proposal",
+    "Pending request absent from live catalog",
+    "Creator cannot self-review",
+    "Reviewer cannot propose without grant",
+    "Independent apply preserves creator",
+    "Versioned display-name correction",
+    "Independent rejection makes no account",
+    "New account available in journal autocomplete",
+    "Amina creates and submits balanced source",
+    "Brian independently approves",
+    "Carol independently posts",
+    "Trial balance includes new account",
+    "Auditor configuration view is read-only",
+    "Escape closes review dialog",
+    "Dark mode account controls",
+    "390px viewport without page overflow"
+  ],
+  "accountCode": "COA-1790747730597",
+  "sourceDocument": "JDR-2026-000034",
+  "consoleErrors": []
+}

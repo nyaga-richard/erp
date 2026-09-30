@@ -1,0 +1,13 @@
+{
+  "restored": true,
+  "kind": "database",
+  "target": "erp_restore_resume_20260930",
+  "counts": {
+    "sources": "56",
+    "journals": "43",
+    "lines": "86",
+    "audit_events": "950"
+  },
+  "journalArithmetic": "PASS",
+  "operationalReconciliations": "NOT_IMPLEMENTED"
+}

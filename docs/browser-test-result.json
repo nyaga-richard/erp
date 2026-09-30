@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "date": "2026-09-30T05:54:42.371Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Login as Amina",
+    "Create balanced draft",
+    "Revise and archive original source",
+    "Submit",
+    "Self-approval disabled",
+    "Login as Brian",
+    "Document navigation survives concurrent refresh",
+    "Independent approval",
+    "Self-post disabled",
+    "Login as Carol",
+    "Independent posting",
+    "Original attribution preserved",
+    "Source→journal→audit drilldown",
+    "Trial balance contains posting",
+    "Dark mode",
+    "390px responsive navigation"
+  ],
+  "sourceDocument": "JDR-2026-000033",
+  "consoleErrors": []
+}

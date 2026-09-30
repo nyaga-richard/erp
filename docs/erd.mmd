@@ -1,0 +1,2329 @@
+erDiagram
+  account_change_requests {
+    uuid id PK
+    uuid company_id
+    text kind
+    uuid target_id
+    integer expected_version
+    uuid new_account_id
+    text code
+    text name
+    text account_type
+    uuid parent_id
+    boolean postable
+    text reason
+    text state
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid reviewed_by
+    timestamp_with_time_zone reviewed_at
+    text review_reason
+    uuid result_account_id
+  }
+  accounting_rule_legs {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text leg_code
+    text side
+    text amount_key
+    uuid rule_set_id
+    uuid account_id
+  }
+  accounting_rule_retirements {
+    uuid id PK
+    uuid company_id
+    uuid rule_set_id
+    integer version
+    date effective_through
+    uuid request_id
+    uuid created_by
+    uuid reviewed_by
+    timestamp_with_time_zone created_at
+  }
+  accounting_rule_sets {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text event_type
+    integer version
+    date valid_from
+    date valid_to
+    integer priority
+    uuid approved_by
+    timestamp_with_time_zone approved_at
+    boolean active
+    uuid branch_id
+    uuid warehouse_id
+    uuid product_id
+    uuid category_id
+    uuid tax_category_id
+    uuid payment_method_id
+    integer contract_version
+    uuid publication_request_id
+  }
+  accounts {
+    uuid id PK
+    uuid company_id
+    text code
+    text name
+    text account_type
+    uuid parent_id
+    text control_type
+    character currency
+    boolean postable
+    boolean active
+    uuid created_by
+    integer version
+    timestamp_with_time_zone created_at
+    uuid updated_by
+    timestamp_with_time_zone updated_at
+    uuid last_request_id
+  }
+  approval_decisions {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    integer revision
+    text decision
+    text comments
+    uuid source_id
+    uuid step_id
+    integer step_no
+  }
+  approval_policies {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text event_type
+    integer version
+    money_amount threshold_base
+    boolean independent_creator
+    boolean independent_poster
+    boolean active
+    uuid branch_id
+    uuid published_by
+    timestamp_with_time_zone published_at
+    timestamp_with_time_zone superseded_at
+  }
+  approval_steps {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    integer step_no
+    text required_permission
+    integer minimum_approvers
+    uuid policy_id
+  }
+  attachments {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text object_key
+    text original_name
+    text mime_type
+    bigint size_bytes
+    text sha256
+    text scan_status
+    date retained_until
+    boolean legal_hold
+    uuid source_id
+  }
+  audit_logs {
+    uuid id PK
+    uuid company_id
+    uuid actor_id
+    uuid initiated_by
+    text action
+    text module
+    text entity_type
+    uuid entity_id
+    uuid source_id
+    uuid request_id
+    uuid session_id
+    inet ip
+    text device
+    jsonb old_values
+    jsonb new_values
+    text reason
+    timestamp_with_time_zone created_at
+  }
+  auth_delivery_outbox {
+    uuid id PK
+    uuid reset_token_id
+    uuid user_id
+    uuid created_by
+    text encrypted_payload
+    timestamp_with_time_zone expires_at
+    timestamp_with_time_zone created_at
+    timestamp_with_time_zone sent_at
+    integer attempts
+    timestamp_with_time_zone lease_until
+    text last_error_code
+  }
+  auth_rate_limits {
+    text bucket
+    timestamp_with_time_zone window_start
+    integer attempts
+  }
+  bank_accounts {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text name
+    text institution
+    text account_reference_encrypted
+    character currency
+    uuid account_id
+  }
+  branches {
+    uuid id PK
+    uuid company_id
+    text code
+    text name
+    boolean active
+    uuid created_by
+    integer version
+    timestamp_with_time_zone created_at
+    uuid updated_by
+    timestamp_with_time_zone updated_at
+  }
+  brands {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text name
+    integer catalog_version
+  }
+  cash_counts {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    money_amount counted_amount
+    jsonb denomination_snapshot
+    uuid approved_by
+    timestamp_with_time_zone approved_at
+    text reason
+    uuid session_id
+    uuid account_id
+  }
+  cash_movements {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    money_amount signed_amount
+    text movement_type
+    uuid source_id
+    uuid session_id
+    uuid account_id
+    uuid journal_line_id
+  }
+  cashier_sessions {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    uuid cashier_id
+    text status
+    timestamp_with_time_zone opened_at
+    timestamp_with_time_zone closed_at
+    uuid reconciled_by
+    uuid approved_by
+    money_amount expected_cash
+    money_amount actual_cash
+    text variance_reason
+    uuid terminal_id
+    uuid branch_id
+  }
+  companies {
+    uuid id PK
+    text code
+    text name
+    text tax_pin
+    character base_currency
+    text timezone
+    boolean active
+    uuid created_by
+    timestamp_with_time_zone created_at
+    boolean independent_approval
+    boolean independent_posting
+    integer version
+    uuid updated_by
+    timestamp_with_time_zone updated_at
+  }
+  cost_centers {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text code
+    text name
+  }
+  cost_layer_allocations {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount quantity
+    money_amount base_value
+    uuid layer_id
+    uuid issue_movement_id
+  }
+  cost_layers {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount received_quantity
+    unit_amount unit_cost
+    uuid receipt_movement_id
+  }
+  currencies {
+    character code
+    text name
+    smallint scale
+  }
+  customer_accounts {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid customer_id
+    uuid control_account_id
+  }
+  customer_amendment_requests {
+    uuid id PK
+    uuid company_id
+    uuid customer_id
+    integer expected_version
+    text name
+    text phone
+    text email
+    text address
+    money_amount credit_limit
+    integer payment_terms_days
+    boolean credit_hold
+    jsonb before_snapshot
+    boolean credit_changed
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text reason
+    text state
+    uuid reviewed_by
+    timestamp_with_time_zone reviewed_at
+    text review_reason
+  }
+  customer_change_requests {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text number
+    text name
+    text phone
+    text email
+    text address
+    text tax_pin
+    text customer_type
+    money_amount credit_limit
+    integer payment_terms_days
+    character currency
+    uuid control_account_id
+    uuid tax_category_id
+    text reason
+    uuid new_customer_id
+    uuid new_account_id
+    text state
+    uuid reviewed_by
+    timestamp_with_time_zone reviewed_at
+    text review_reason
+  }
+  customer_transactions {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text entry_type
+    character currency
+    money_amount debit
+    money_amount credit
+    money_amount base_debit
+    money_amount base_credit
+    date due_date
+    uuid customer_id
+    uuid source_id
+    uuid control_account_id
+    uuid journal_line_id
+  }
+  customers {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text number
+    text name
+    text phone
+    text email
+    text address
+    text tax_pin
+    integer payment_terms_days
+    character currency
+    boolean active
+    text customer_type
+    money_amount credit_limit
+    boolean credit_hold
+    uuid tax_category_id
+    uuid publication_request_id
+    uuid approved_by
+    timestamp_with_time_zone approved_at
+    integer version
+  }
+  document_events {
+    uuid id PK
+    uuid company_id
+    uuid source_id
+    uuid actor_id
+    text action
+    text old_status
+    text new_status
+    text reason
+    integer revision
+    timestamp_with_time_zone created_at
+  }
+  document_links {
+    uuid company_id
+    uuid source_id
+    uuid target_id
+    text relation
+    uuid created_by
+    timestamp_with_time_zone created_at
+  }
+  document_numbering_defaults {
+    text document_type
+    text prefix
+    integer padding
+    integer version
+  }
+  document_numbering_policies {
+    uuid id PK
+    uuid company_id
+    uuid branch_id
+    text document_type
+    integer calendar_year
+    text prefix
+    integer padding
+    integer version
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid updated_by
+    timestamp_with_time_zone updated_at
+    uuid last_request_id
+  }
+  document_sequences {
+    uuid company_id
+    uuid branch_id
+    text document_type
+    integer financial_year
+    text prefix
+    bigint last_value
+    integer padding
+    uuid allocated_by
+    timestamp_with_time_zone allocated_at
+  }
+  exchange_rates {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    character currency
+    character base_currency
+    timestamp_with_time_zone effective_at
+    rate_amount rate
+    text provider
+  }
+  expense_categories {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text name
+    uuid expense_account_id
+  }
+  expense_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    integer line_no
+    quantity_amount quantity
+    unit_amount unit_price
+    money_amount discount
+    money_amount net
+    money_amount tax
+    money_amount gross
+    jsonb tax_snapshot
+    uuid expense_id
+    uuid category_id
+    uuid account_id
+    uuid cost_center_id
+  }
+  expenses {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    text payee_name
+    text description
+    money_amount net
+    money_amount tax
+    money_amount gross
+    uuid supplier_id
+    uuid payment_id
+  }
+  financial_periods {
+    uuid id PK
+    uuid company_id
+    text name
+    date starts_on
+    date ends_on
+    text status
+    uuid created_by
+    uuid updated_by
+    timestamp_with_time_zone updated_at
+  }
+  fiscal_submissions {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text adapter
+    integer version
+    jsonb payload_snapshot
+    text payload_hash
+    text status
+    text external_reference
+    jsonb fiscal_receipt
+    integer attempt_count
+    text last_error
+    uuid source_id
+  }
+  grn_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount accepted_quantity
+    quantity_amount rejected_quantity
+    quantity_amount damaged_quantity
+    unit_amount provisional_unit_cost
+    uuid grn_id
+    uuid order_line_id
+    uuid product_id
+    uuid lot_id
+    uuid serial_id
+  }
+  grns {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    text delivery_reference
+    uuid order_id
+    uuid supplier_id
+    uuid warehouse_id
+  }
+  idempotency_keys {
+    uuid company_id
+    uuid actor_id
+    text command
+    text key
+    text request_hash
+    jsonb result
+    timestamp_with_time_zone created_at
+  }
+  integration_inbox {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text provider
+    text external_event_key
+    text payload_hash
+    text encrypted_payload
+    timestamp_with_time_zone received_at
+    timestamp_with_time_zone processed_at
+    text failure_reason
+  }
+  inventory_adjustment_lines {
+    uuid id PK
+    uuid company_id
+    uuid source_id
+    uuid warehouse_id
+    uuid product_id
+    uuid original_movement_id
+    quantity_amount quantity
+    money_amount gain_value
+    uuid created_by
+    timestamp_with_time_zone created_at
+  }
+  inventory_balances {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount quantity
+    money_amount base_value
+    bigint version
+    uuid warehouse_id
+    uuid product_id
+    date last_valued_date
+  }
+  inventory_lots {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text batch_number
+    date expiry_date
+    uuid product_id
+  }
+  inventory_movements {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text movement_type
+    uuid source_line_id
+    timestamp_with_time_zone occurred_at
+    quantity_amount quantity
+    money_amount base_value
+    unit_amount unit_cost
+    uuid approved_by
+    uuid source_id
+    uuid warehouse_id
+    uuid product_id
+    uuid lot_id
+    uuid serial_id
+    uuid journal_id
+    uuid original_movement_id
+    uuid valuation_id
+    bigint pool_version
+  }
+  inventory_serials {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text serial_number
+    uuid product_id
+  }
+  inventory_valuations {
+    uuid id PK
+    uuid company_id
+    uuid source_id
+    integer revision
+    bigint pool_version
+    quantity_amount before_quantity
+    money_amount before_value
+    quantity_amount quantity_delta
+    money_amount value_delta
+    quantity_amount after_quantity
+    money_amount after_value
+    unit_amount unit_cost
+    uuid rule_id
+    jsonb rule_snapshot
+    uuid created_by
+    timestamp_with_time_zone created_at
+  }
+  invoice_receipt_allocations {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount quantity
+    money_amount matched_value
+    uuid invoice_line_id
+    uuid grn_line_id
+  }
+  journal_entries {
+    uuid id PK
+    uuid company_id
+    uuid branch_id
+    uuid source_id
+    text number
+    date accounting_date
+    uuid period_id
+    character currency
+    character base_currency
+    rate_amount exchange_rate
+    text status
+    text description
+    uuid created_by
+    uuid posted_by
+    timestamp_with_time_zone posted_at
+    uuid reversal_of
+    jsonb rule_snapshot
+  }
+  journal_lines {
+    uuid id PK
+    uuid company_id
+    uuid journal_id
+    integer line_no
+    uuid account_id
+    money_amount debit
+    money_amount credit
+    money_amount base_debit
+    money_amount base_credit
+    text description
+    jsonb dimensions
+    uuid created_by
+  }
+  journal_posting_rule_applications {
+    uuid company_id
+    uuid journal_id
+    uuid rule_set_id
+  }
+  login_history {
+    uuid id PK
+    uuid user_id
+    text email_digest
+    boolean success
+    text reason
+    inet ip
+    timestamp_with_time_zone created_at
+  }
+  match_exceptions {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text variance_type
+    numeric expected
+    numeric actual
+    text decision
+    uuid decided_by
+    timestamp_with_time_zone decided_at
+    text reason
+    uuid invoice_id
+    uuid tolerance_id
+  }
+  match_tolerances {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    integer version
+    rate_amount quantity_percent
+    rate_amount price_percent
+    money_amount tax_amount
+    date valid_from
+  }
+  memberships {
+    uuid company_id
+    uuid user_id
+    boolean active
+    integer version
+    uuid created_by
+    uuid updated_by
+    timestamp_with_time_zone updated_at
+  }
+  mobile_money_accounts {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text name
+    text provider
+    text merchant_code
+    text credential_secret_ref
+    character currency
+    uuid account_id
+  }
+  numbering_change_requests {
+    uuid id PK
+    uuid company_id
+    uuid branch_id
+    text document_type
+    integer calendar_year
+    text prefix
+    integer padding
+    integer expected_version
+    uuid target_id
+    uuid new_policy_id
+    text reason
+    text state
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid reviewed_by
+    timestamp_with_time_zone reviewed_at
+    text review_reason
+    uuid result_policy_id
+  }
+  outbox_events {
+    uuid id PK
+    uuid company_id
+    uuid source_id
+    text event_type
+    integer event_version
+    jsonb payload
+    uuid created_by
+    timestamp_with_time_zone created_at
+    timestamp_with_time_zone available_at
+    timestamp_with_time_zone processed_at
+    integer attempts
+    text last_error
+    timestamp_with_time_zone lease_until
+  }
+  partner_notes {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    text direction
+    money_amount net
+    money_amount tax
+    money_amount gross
+    text reason
+    uuid customer_id
+    uuid supplier_id
+    uuid original_source_id
+  }
+  password_reset_tokens {
+    uuid id PK
+    uuid user_id
+    text token_hash
+    timestamp_with_time_zone expires_at
+    timestamp_with_time_zone used_at
+    timestamp_with_time_zone created_at
+  }
+  payment_allocations {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    money_amount amount
+    money_amount base_amount
+    uuid payment_id
+    uuid invoice_source_id
+    uuid allocation_source_id
+    uuid reversal_of
+  }
+  payment_attempts {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text provider
+    text merchant_code
+    text checkout_reference
+    text external_receipt
+    text state
+    text request_hash
+    jsonb response_redacted
+    timestamp_with_time_zone verified_at
+    uuid payment_id
+  }
+  payment_methods {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text code
+    text name
+    text channel
+    boolean requires_verification
+    boolean active
+    uuid account_id
+  }
+  payments {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    text direction
+    money_amount amount
+    character currency
+    rate_amount exchange_rate
+    money_amount base_amount
+    text reference
+    text status
+    uuid initiated_by
+    uuid posted_by
+    timestamp_with_time_zone posted_at
+    uuid reversed_by
+    timestamp_with_time_zone reversed_at
+    jsonb verification_evidence
+    uuid method_id
+    uuid account_id
+    uuid customer_id
+    uuid supplier_id
+    uuid cashier_session_id
+  }
+  permission_delegations {
+    uuid company_id
+    uuid user_id
+    text permission_code
+    uuid granted_by
+    timestamp_with_time_zone created_at
+  }
+  permissions {
+    text code
+    text description
+  }
+  pos_carts {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    integer version
+    text state
+    jsonb cart_snapshot
+    timestamp_with_time_zone expires_at
+    uuid customer_id
+    uuid session_id
+  }
+  pos_terminals {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text code
+    text name
+    boolean active
+    uuid branch_id
+    uuid warehouse_id
+  }
+  posting_event_contracts {
+    text event_type
+    integer contract_version
+    text workflow_status
+    text origin_migration
+    text migration_principal
+    timestamp_with_time_zone registered_at
+    timestamp_with_time_zone sealed_at
+  }
+  posting_event_leg_contracts {
+    text event_type
+    integer contract_version
+    text leg_code
+    text side
+    text amount_key
+  }
+  posting_event_leg_eligibility {
+    uuid id PK
+    text event_type
+    integer contract_version
+    text leg_code
+    text account_type
+    text control_type
+  }
+  posting_rule_change_legs {
+    uuid id PK
+    uuid company_id
+    uuid request_id
+    text leg_code
+    uuid account_id
+  }
+  posting_rule_change_requests {
+    uuid id PK
+    uuid company_id
+    text kind
+    text event_type
+    integer contract_version
+    date valid_from
+    date valid_to
+    integer priority
+    uuid branch_id
+    uuid warehouse_id
+    uuid target_id
+    uuid new_rule_id
+    integer expected_version
+    date effective_through
+    text reason
+    text state
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid reviewed_by
+    timestamp_with_time_zone reviewed_at
+    text review_reason
+  }
+  price_lists {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text name
+    character currency
+  }
+  product_barcodes {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text barcode
+    uuid product_id
+    uuid uom_id
+  }
+  product_categories {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text code
+    text name
+    uuid parent_id
+    integer catalog_version
+  }
+  product_change_requests {
+    uuid id PK
+    uuid company_id
+    uuid new_product_id
+    uuid new_profile_id
+    text sku
+    text product_code
+    text name
+    text description
+    text item_type
+    uuid category_id
+    uuid brand_id
+    uuid uom_id
+    uuid tax_category_id
+    character currency
+    unit_amount purchase_price
+    unit_amount selling_price
+    text price_mode
+    date valid_from
+    date valid_to
+    text reason
+    text state
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid reviewed_by
+    timestamp_with_time_zone reviewed_at
+    text review_reason
+  }
+  product_prices {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    unit_amount price
+    quantity_amount min_quantity
+    date valid_from
+    date valid_to
+    boolean inclusive
+    uuid product_id
+    uuid price_list_id
+  }
+  product_request_barcodes {
+    uuid company_id
+    uuid request_id
+    text barcode
+  }
+  product_request_taxes {
+    uuid company_id
+    uuid request_id
+    uuid tax_id
+  }
+  product_tax_profiles {
+    uuid id PK
+    uuid company_id
+    uuid product_id
+    uuid tax_category_id
+    date valid_from
+    date valid_to
+    uuid request_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid approved_by
+    timestamp_with_time_zone approved_at
+  }
+  product_taxes {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    date valid_from
+    date valid_to
+    uuid product_id
+    uuid tax_id
+    uuid profile_id
+  }
+  product_uom_conversions {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount factor
+    uuid product_id
+    uuid uom_id
+  }
+  products {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text sku
+    text product_code
+    text name
+    text description
+    text item_type
+    boolean serialized
+    boolean batch_controlled
+    boolean expiry_controlled
+    unit_amount purchase_price
+    unit_amount selling_price
+    quantity_amount reorder_level
+    quantity_amount min_stock
+    quantity_amount max_stock
+    boolean active
+    uuid category_id
+    uuid brand_id
+    uuid uom_id
+    uuid supplier_id
+    uuid tax_category_id
+    uuid publication_request_id
+    uuid approved_by
+    timestamp_with_time_zone approved_at
+    character currency
+    text price_mode
+  }
+  purchase_order_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    integer line_no
+    quantity_amount quantity
+    unit_amount unit_price
+    money_amount discount
+    money_amount net
+    money_amount tax
+    money_amount gross
+    jsonb tax_snapshot
+    uuid order_id
+    uuid product_id
+    uuid uom_id
+  }
+  purchase_orders {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    date expected_on
+    jsonb payment_terms_snapshot
+    money_amount net
+    money_amount tax
+    money_amount gross
+    uuid supplier_id
+    uuid warehouse_id
+    uuid request_id
+  }
+  purchase_request_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount quantity
+    uuid request_id
+    uuid product_id
+  }
+  purchase_requests {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    text description
+    date required_on
+    uuid warehouse_id
+  }
+  purchase_return_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount quantity
+    money_amount base_value
+    uuid return_id
+    uuid grn_line_id
+    uuid warehouse_id
+  }
+  purchase_returns {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    text reason
+    uuid supplier_id
+    uuid grn_id
+  }
+  quotation_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    integer line_no
+    quantity_amount quantity
+    unit_amount unit_price
+    money_amount discount
+    money_amount net
+    money_amount tax
+    money_amount gross
+    jsonb tax_snapshot
+    uuid quotation_id
+    uuid product_id
+    uuid uom_id
+  }
+  quotations {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    date valid_until
+    jsonb payment_terms_snapshot
+    uuid customer_id
+  }
+  reconciliation_exceptions {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text check_code
+    money_amount expected
+    money_amount actual
+    jsonb dimensions
+    uuid resolution_source_id
+    uuid resolved_by
+    timestamp_with_time_zone resolved_at
+    uuid run_id
+    uuid source_id
+  }
+  reconciliation_runs {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    timestamp_with_time_zone cutoff_at
+    jsonb snapshot_watermarks
+    text status
+    timestamp_with_time_zone completed_at
+  }
+  report_exports {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text report_type
+    jsonb filters
+    timestamp_with_time_zone snapshot_at
+    text format
+    text status
+    text object_key
+    text content_hash
+    timestamp_with_time_zone expires_at
+  }
+  role_permissions {
+    uuid company_id
+    uuid role_id
+    text permission_code
+  }
+  roles {
+    uuid id PK
+    uuid company_id
+    text name
+    uuid created_by
+    integer version
+  }
+  sale_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    integer line_no
+    quantity_amount quantity
+    unit_amount unit_price
+    money_amount discount
+    money_amount net
+    money_amount tax
+    money_amount gross
+    jsonb tax_snapshot
+    money_amount cogs
+    uuid sale_id
+    uuid product_id
+    uuid uom_id
+  }
+  sale_payments {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    money_amount applied_amount
+    money_amount tendered_amount
+    uuid sale_id
+    uuid payment_id
+  }
+  sales {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    text sale_type
+    date due_date
+    money_amount net
+    money_amount tax
+    money_amount gross
+    uuid customer_id
+    uuid warehouse_id
+    uuid terminal_id
+    uuid cashier_session_id
+    uuid sales_order_id
+  }
+  sales_order_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    integer line_no
+    quantity_amount quantity
+    unit_amount unit_price
+    money_amount discount
+    money_amount net
+    money_amount tax
+    money_amount gross
+    jsonb tax_snapshot
+    uuid order_id
+    uuid product_id
+    uuid uom_id
+  }
+  sales_orders {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    date valid_until
+    jsonb payment_terms_snapshot
+    uuid customer_id
+  }
+  sales_return_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount quantity
+    money_amount net
+    money_amount tax
+    money_amount original_cost
+    jsonb tax_snapshot
+    uuid return_id
+    uuid original_line_id
+    uuid warehouse_id
+  }
+  sales_returns {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    text reason
+    text disposition
+    uuid original_sale_id
+    uuid customer_id
+  }
+  security_events {
+    uuid id PK
+    uuid company_id
+    uuid actor_id
+    uuid subject_user_id
+    uuid session_id
+    text action
+    text outcome
+    uuid request_id
+    inet ip
+    jsonb details
+    timestamp_with_time_zone created_at
+  }
+  service_heartbeats {
+    text service_name
+    uuid instance_id
+    timestamp_with_time_zone last_seen_at
+  }
+  sessions {
+    uuid id PK
+    uuid user_id
+    text token_hash
+    text csrf_hash
+    timestamp_with_time_zone expires_at
+    timestamp_with_time_zone last_seen_at
+    timestamp_with_time_zone revoked_at
+    timestamp_with_time_zone created_at
+    inet ip
+    text device
+  }
+  settlement_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text external_reference
+    money_amount amount
+    money_amount fee
+    text exception_reason
+    uuid statement_id
+    uuid payment_id
+  }
+  settlement_statements {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text provider
+    text external_reference
+    date statement_date
+    character currency
+  }
+  source_documents {
+    uuid id PK
+    uuid company_id
+    uuid branch_id
+    text document_type
+    text document_number
+    date business_date
+    character currency
+    rate_amount exchange_rate
+    text status
+    integer revision
+    text description
+    jsonb payload
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid initiated_by
+    uuid updated_by
+    timestamp_with_time_zone updated_at
+    uuid approved_by
+    timestamp_with_time_zone approved_at
+    uuid posted_by
+    timestamp_with_time_zone posted_at
+    uuid cancelled_by
+    timestamp_with_time_zone cancelled_at
+    uuid original_document_id
+    text reversal_reason
+    jsonb approval_snapshot
+  }
+  source_revisions {
+    uuid id PK
+    uuid company_id
+    uuid source_id
+    integer revision
+    jsonb snapshot
+    uuid changed_by
+    text reason
+    timestamp_with_time_zone created_at
+  }
+  stock_count_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount system_quantity
+    quantity_amount counted_quantity
+    uuid counted_by
+    timestamp_with_time_zone counted_at
+    money_amount variance_value
+    uuid count_id
+    uuid product_id
+    uuid lot_id
+  }
+  stock_counts {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    timestamp_with_time_zone cutoff_at
+    jsonb count_scope
+    boolean blind
+    uuid warehouse_id
+  }
+  stock_reservations {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount quantity
+    timestamp_with_time_zone expires_at
+    text status
+    uuid source_id
+    uuid warehouse_id
+    uuid product_id
+  }
+  stock_transfer_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    quantity_amount requested_quantity
+    uuid transfer_id
+    uuid product_id
+  }
+  stock_transfer_receipts {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    quantity_amount quantity
+    text discrepancy_reason
+    uuid transfer_line_id
+    uuid movement_id
+  }
+  stock_transfers {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    uuid dispatched_by
+    timestamp_with_time_zone dispatched_at
+    uuid received_by
+    timestamp_with_time_zone received_at
+    uuid from_warehouse_id
+    uuid to_warehouse_id
+    uuid transit_warehouse_id
+  }
+  supplier_accounts {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid supplier_id
+    uuid control_account_id
+  }
+  supplier_invoice_lines {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    integer line_no
+    quantity_amount quantity
+    unit_amount unit_price
+    money_amount discount
+    money_amount net
+    money_amount tax
+    money_amount gross
+    jsonb tax_snapshot
+    uuid invoice_id
+    uuid product_id
+    uuid expense_account_id
+  }
+  supplier_invoices {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid source_id
+    text supplier_invoice_number
+    date invoice_date
+    date due_date
+    money_amount net
+    money_amount tax
+    money_amount gross
+    uuid supplier_id
+  }
+  supplier_transactions {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text entry_type
+    character currency
+    money_amount debit
+    money_amount credit
+    money_amount base_debit
+    money_amount base_credit
+    date due_date
+    uuid supplier_id
+    uuid source_id
+    uuid control_account_id
+    uuid journal_line_id
+  }
+  suppliers {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text number
+    text name
+    text phone
+    text email
+    text address
+    text tax_pin
+    integer payment_terms_days
+    character currency
+    boolean active
+    text credit_terms
+    uuid tax_category_id
+  }
+  system_configuration {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text key
+    integer version
+    jsonb value
+    uuid approved_by
+    timestamp_with_time_zone effective_at
+  }
+  tax_categories {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text code
+    text name
+    text classification
+    uuid publication_request_id
+    uuid approved_by
+    timestamp_with_time_zone approved_at
+  }
+  tax_change_requests {
+    uuid id PK
+    uuid company_id
+    text kind
+    uuid record_id
+    text code
+    text name
+    text tax_type
+    text classification
+    uuid tax_id
+    uuid category_id
+    date valid_from
+    date valid_to
+    rate_amount rate
+    boolean inclusive
+    rate_amount recoverable_fraction
+    uuid input_account_id
+    uuid output_account_id
+    text basis
+    text reason
+    text state
+    uuid created_by
+    timestamp_with_time_zone created_at
+    uuid reviewed_by
+    timestamp_with_time_zone reviewed_at
+    text review_reason
+  }
+  tax_rates {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    date valid_from
+    date valid_to
+    rate_amount rate
+    boolean inclusive
+    rate_amount recoverable_fraction
+    integer priority
+    uuid tax_id
+    uuid category_id
+    uuid input_account_id
+    uuid output_account_id
+    uuid publication_request_id
+    uuid approved_by
+    timestamp_with_time_zone approved_at
+  }
+  tax_transactions {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    date tax_point
+    money_amount taxable_base
+    money_amount tax_amount
+    money_amount base_tax_amount
+    rate_amount rate_snapshot
+    text classification_snapshot
+    boolean inclusive_snapshot
+    rate_amount eligible_fraction_snapshot
+    jsonb tax_rule_snapshot
+    uuid source_line_id
+    uuid source_id
+    uuid rate_id
+    uuid account_id
+    uuid journal_line_id
+  }
+  taxes {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text code
+    text name
+    text tax_type
+    boolean active
+    uuid publication_request_id
+    uuid approved_by
+    timestamp_with_time_zone approved_at
+  }
+  units_of_measure {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text code
+    text name
+    smallint quantity_scale
+    integer catalog_version
+  }
+  user_branch_scopes {
+    uuid company_id
+    uuid user_id
+    uuid branch_id
+  }
+  user_roles {
+    uuid company_id
+    uuid user_id
+    uuid role_id
+  }
+  users {
+    uuid id PK
+    text email
+    text display_name
+    text principal_type
+    text service_code
+    text password_hash
+    boolean active
+    integer failed_logins
+    timestamp_with_time_zone locked_until
+    timestamp_with_time_zone created_at
+  }
+  valuation_policies {
+    uuid id PK
+    uuid company_id
+    uuid created_by
+    timestamp_with_time_zone created_at
+    text method
+    date effective_from
+    boolean active
+    uuid warehouse_id
+  }
+  warehouses {
+    uuid id PK
+    uuid company_id
+    uuid branch_id
+    text code
+    text name
+    text location_type
+    boolean active
+    uuid created_by
+    integer version
+    timestamp_with_time_zone created_at
+    uuid updated_by
+    timestamp_with_time_zone updated_at
+  }
+  companies ||--o{ account_change_requests : "company_id"
+  accounts ||--o{ account_change_requests : "company_id, parent_id"
+  accounts ||--o{ account_change_requests : "company_id, result_account_id"
+  accounts ||--o{ account_change_requests : "company_id, target_id"
+  users ||--o{ account_change_requests : "created_by"
+  users ||--o{ account_change_requests : "reviewed_by"
+  accounts ||--o{ accounting_rule_legs : "company_id, account_id"
+  companies ||--o{ accounting_rule_legs : "company_id"
+  accounting_rule_sets ||--o{ accounting_rule_legs : "company_id, rule_set_id"
+  users ||--o{ accounting_rule_legs : "created_by"
+  companies ||--o{ accounting_rule_retirements : "company_id"
+  posting_rule_change_requests ||--o{ accounting_rule_retirements : "company_id, request_id"
+  accounting_rule_sets ||--o{ accounting_rule_retirements : "company_id, rule_set_id"
+  users ||--o{ accounting_rule_retirements : "created_by"
+  users ||--o{ accounting_rule_retirements : "reviewed_by"
+  users ||--o{ accounting_rule_sets : "approved_by"
+  branches ||--o{ accounting_rule_sets : "company_id, branch_id"
+  product_categories ||--o{ accounting_rule_sets : "company_id, category_id"
+  companies ||--o{ accounting_rule_sets : "company_id"
+  payment_methods ||--o{ accounting_rule_sets : "company_id, payment_method_id"
+  products ||--o{ accounting_rule_sets : "company_id, product_id"
+  posting_rule_change_requests ||--o{ accounting_rule_sets : "company_id, publication_request_id"
+  tax_categories ||--o{ accounting_rule_sets : "company_id, tax_category_id"
+  warehouses ||--o{ accounting_rule_sets : "company_id, warehouse_id"
+  users ||--o{ accounting_rule_sets : "created_by"
+  posting_event_contracts ||--o{ accounting_rule_sets : "event_type, contract_version"
+  companies ||--o{ accounts : "company_id"
+  account_change_requests ||--o{ accounts : "company_id, last_request_id"
+  accounts ||--o{ accounts : "company_id, parent_id"
+  users ||--o{ accounts : "created_by"
+  currencies ||--o{ accounts : "currency"
+  users ||--o{ accounts : "updated_by"
+  companies ||--o{ approval_decisions : "company_id"
+  source_documents ||--o{ approval_decisions : "company_id, source_id"
+  approval_steps ||--o{ approval_decisions : "company_id, step_id"
+  users ||--o{ approval_decisions : "created_by"
+  branches ||--o{ approval_policies : "company_id, branch_id"
+  companies ||--o{ approval_policies : "company_id"
+  users ||--o{ approval_policies : "created_by"
+  users ||--o{ approval_policies : "published_by"
+  companies ||--o{ approval_steps : "company_id"
+  approval_policies ||--o{ approval_steps : "company_id, policy_id"
+  users ||--o{ approval_steps : "created_by"
+  permissions ||--o{ approval_steps : "required_permission"
+  companies ||--o{ attachments : "company_id"
+  source_documents ||--o{ attachments : "company_id, source_id"
+  users ||--o{ attachments : "created_by"
+  users ||--o{ audit_logs : "actor_id"
+  companies ||--o{ audit_logs : "company_id"
+  source_documents ||--o{ audit_logs : "company_id, source_id"
+  users ||--o{ audit_logs : "initiated_by"
+  sessions ||--o{ audit_logs : "session_id"
+  users ||--o{ auth_delivery_outbox : "created_by"
+  password_reset_tokens ||--o{ auth_delivery_outbox : "reset_token_id"
+  users ||--o{ auth_delivery_outbox : "user_id"
+  accounts ||--o{ bank_accounts : "company_id, account_id"
+  companies ||--o{ bank_accounts : "company_id"
+  users ||--o{ bank_accounts : "created_by"
+  currencies ||--o{ bank_accounts : "currency"
+  companies ||--o{ branches : "company_id"
+  users ||--o{ branches : "created_by"
+  users ||--o{ branches : "updated_by"
+  companies ||--o{ brands : "company_id"
+  users ||--o{ brands : "created_by"
+  users ||--o{ cash_counts : "approved_by"
+  accounts ||--o{ cash_counts : "company_id, account_id"
+  companies ||--o{ cash_counts : "company_id"
+  cashier_sessions ||--o{ cash_counts : "company_id, session_id"
+  source_documents ||--o{ cash_counts : "company_id, source_id"
+  users ||--o{ cash_counts : "created_by"
+  accounts ||--o{ cash_movements : "company_id, account_id"
+  companies ||--o{ cash_movements : "company_id"
+  journal_lines ||--o{ cash_movements : "company_id, journal_line_id"
+  cashier_sessions ||--o{ cash_movements : "company_id, session_id"
+  source_documents ||--o{ cash_movements : "company_id, source_id"
+  users ||--o{ cash_movements : "created_by"
+  users ||--o{ cashier_sessions : "approved_by"
+  users ||--o{ cashier_sessions : "cashier_id"
+  branches ||--o{ cashier_sessions : "company_id, branch_id"
+  companies ||--o{ cashier_sessions : "company_id"
+  source_documents ||--o{ cashier_sessions : "company_id, source_id"
+  pos_terminals ||--o{ cashier_sessions : "company_id, terminal_id"
+  users ||--o{ cashier_sessions : "created_by"
+  users ||--o{ cashier_sessions : "reconciled_by"
+  currencies ||--o{ companies : "base_currency"
+  users ||--o{ companies : "created_by"
+  users ||--o{ companies : "updated_by"
+  companies ||--o{ cost_centers : "company_id"
+  users ||--o{ cost_centers : "created_by"
+  companies ||--o{ cost_layer_allocations : "company_id"
+  inventory_movements ||--o{ cost_layer_allocations : "company_id, issue_movement_id"
+  cost_layers ||--o{ cost_layer_allocations : "company_id, layer_id"
+  users ||--o{ cost_layer_allocations : "created_by"
+  companies ||--o{ cost_layers : "company_id"
+  inventory_movements ||--o{ cost_layers : "company_id, receipt_movement_id"
+  users ||--o{ cost_layers : "created_by"
+  accounts ||--o{ customer_accounts : "company_id, control_account_id"
+  customers ||--o{ customer_accounts : "company_id, customer_id"
+  companies ||--o{ customer_accounts : "company_id"
+  users ||--o{ customer_accounts : "created_by"
+  customers ||--o{ customer_amendment_requests : "company_id, customer_id"
+  companies ||--o{ customer_amendment_requests : "company_id"
+  users ||--o{ customer_amendment_requests : "created_by"
+  users ||--o{ customer_amendment_requests : "reviewed_by"
+  accounts ||--o{ customer_change_requests : "company_id, control_account_id"
+  companies ||--o{ customer_change_requests : "company_id"
+  tax_categories ||--o{ customer_change_requests : "company_id, tax_category_id"
+  users ||--o{ customer_change_requests : "created_by"
+  currencies ||--o{ customer_change_requests : "currency"
+  users ||--o{ customer_change_requests : "reviewed_by"
+  accounts ||--o{ customer_transactions : "company_id, control_account_id"
+  customers ||--o{ customer_transactions : "company_id, customer_id"
+  companies ||--o{ customer_transactions : "company_id"
+  journal_lines ||--o{ customer_transactions : "company_id, journal_line_id"
+  source_documents ||--o{ customer_transactions : "company_id, source_id"
+  users ||--o{ customer_transactions : "created_by"
+  currencies ||--o{ customer_transactions : "currency"
+  users ||--o{ customers : "approved_by"
+  companies ||--o{ customers : "company_id"
+  customer_change_requests ||--o{ customers : "company_id, publication_request_id"
+  tax_categories ||--o{ customers : "company_id, tax_category_id"
+  users ||--o{ customers : "created_by"
+  currencies ||--o{ customers : "currency"
+  users ||--o{ document_events : "actor_id"
+  companies ||--o{ document_events : "company_id"
+  source_documents ||--o{ document_events : "company_id, source_id"
+  companies ||--o{ document_links : "company_id"
+  source_documents ||--o{ document_links : "company_id, source_id"
+  source_documents ||--o{ document_links : "company_id, target_id"
+  users ||--o{ document_links : "created_by"
+  branches ||--o{ document_numbering_policies : "company_id, branch_id"
+  companies ||--o{ document_numbering_policies : "company_id"
+  numbering_change_requests ||--o{ document_numbering_policies : "company_id, last_request_id"
+  users ||--o{ document_numbering_policies : "created_by"
+  document_numbering_defaults ||--o{ document_numbering_policies : "document_type"
+  users ||--o{ document_numbering_policies : "updated_by"
+  users ||--o{ document_sequences : "allocated_by"
+  branches ||--o{ document_sequences : "company_id, branch_id"
+  companies ||--o{ document_sequences : "company_id"
+  currencies ||--o{ exchange_rates : "base_currency"
+  companies ||--o{ exchange_rates : "company_id"
+  users ||--o{ exchange_rates : "created_by"
+  currencies ||--o{ exchange_rates : "currency"
+  accounts ||--o{ expense_categories : "company_id, expense_account_id"
+  companies ||--o{ expense_categories : "company_id"
+  users ||--o{ expense_categories : "created_by"
+  accounts ||--o{ expense_lines : "company_id, account_id"
+  expense_categories ||--o{ expense_lines : "company_id, category_id"
+  cost_centers ||--o{ expense_lines : "company_id, cost_center_id"
+  expenses ||--o{ expense_lines : "company_id, expense_id"
+  companies ||--o{ expense_lines : "company_id"
+  users ||--o{ expense_lines : "created_by"
+  companies ||--o{ expenses : "company_id"
+  payments ||--o{ expenses : "company_id, payment_id"
+  source_documents ||--o{ expenses : "company_id, source_id"
+  suppliers ||--o{ expenses : "company_id, supplier_id"
+  users ||--o{ expenses : "created_by"
+  companies ||--o{ financial_periods : "company_id"
+  users ||--o{ financial_periods : "created_by"
+  users ||--o{ financial_periods : "updated_by"
+  companies ||--o{ fiscal_submissions : "company_id"
+  source_documents ||--o{ fiscal_submissions : "company_id, source_id"
+  users ||--o{ fiscal_submissions : "created_by"
+  companies ||--o{ grn_lines : "company_id"
+  grns ||--o{ grn_lines : "company_id, grn_id"
+  inventory_lots ||--o{ grn_lines : "company_id, lot_id"
+  purchase_order_lines ||--o{ grn_lines : "company_id, order_line_id"
+  products ||--o{ grn_lines : "company_id, product_id"
+  inventory_serials ||--o{ grn_lines : "company_id, serial_id"
+  users ||--o{ grn_lines : "created_by"
+  companies ||--o{ grns : "company_id"
+  purchase_orders ||--o{ grns : "company_id, order_id"
+  source_documents ||--o{ grns : "company_id, source_id"
+  suppliers ||--o{ grns : "company_id, supplier_id"
+  warehouses ||--o{ grns : "company_id, warehouse_id"
+  users ||--o{ grns : "created_by"
+  users ||--o{ idempotency_keys : "actor_id"
+  companies ||--o{ idempotency_keys : "company_id"
+  companies ||--o{ integration_inbox : "company_id"
+  users ||--o{ integration_inbox : "created_by"
+  companies ||--o{ inventory_adjustment_lines : "company_id"
+  inventory_movements ||--o{ inventory_adjustment_lines : "company_id, original_movement_id"
+  products ||--o{ inventory_adjustment_lines : "company_id, product_id"
+  source_documents ||--o{ inventory_adjustment_lines : "company_id, source_id"
+  warehouses ||--o{ inventory_adjustment_lines : "company_id, warehouse_id"
+  users ||--o{ inventory_adjustment_lines : "created_by"
+  companies ||--o{ inventory_balances : "company_id"
+  products ||--o{ inventory_balances : "company_id, product_id"
+  warehouses ||--o{ inventory_balances : "company_id, warehouse_id"
+  users ||--o{ inventory_balances : "created_by"
+  companies ||--o{ inventory_lots : "company_id"
+  products ||--o{ inventory_lots : "company_id, product_id"
+  users ||--o{ inventory_lots : "created_by"
+  users ||--o{ inventory_movements : "approved_by"
+  companies ||--o{ inventory_movements : "company_id"
+  journal_entries ||--o{ inventory_movements : "company_id, journal_id"
+  inventory_lots ||--o{ inventory_movements : "company_id, lot_id"
+  inventory_movements ||--o{ inventory_movements : "company_id, original_movement_id"
+  products ||--o{ inventory_movements : "company_id, product_id"
+  inventory_serials ||--o{ inventory_movements : "company_id, serial_id"
+  source_documents ||--o{ inventory_movements : "company_id, source_id"
+  inventory_valuations ||--o{ inventory_movements : "company_id, valuation_id"
+  warehouses ||--o{ inventory_movements : "company_id, warehouse_id"
+  users ||--o{ inventory_movements : "created_by"
+  companies ||--o{ inventory_serials : "company_id"
+  products ||--o{ inventory_serials : "company_id, product_id"
+  users ||--o{ inventory_serials : "created_by"
+  companies ||--o{ inventory_valuations : "company_id"
+  accounting_rule_sets ||--o{ inventory_valuations : "company_id, rule_id"
+  source_documents ||--o{ inventory_valuations : "company_id, source_id"
+  users ||--o{ inventory_valuations : "created_by"
+  companies ||--o{ invoice_receipt_allocations : "company_id"
+  grn_lines ||--o{ invoice_receipt_allocations : "company_id, grn_line_id"
+  supplier_invoice_lines ||--o{ invoice_receipt_allocations : "company_id, invoice_line_id"
+  users ||--o{ invoice_receipt_allocations : "created_by"
+  currencies ||--o{ journal_entries : "base_currency"
+  branches ||--o{ journal_entries : "company_id, branch_id"
+  companies ||--o{ journal_entries : "company_id"
+  financial_periods ||--o{ journal_entries : "company_id, period_id"
+  journal_entries ||--o{ journal_entries : "company_id, reversal_of"
+  source_documents ||--o{ journal_entries : "company_id, source_id"
+  users ||--o{ journal_entries : "created_by"
+  currencies ||--o{ journal_entries : "currency"
+  users ||--o{ journal_entries : "posted_by"
+  accounts ||--o{ journal_lines : "company_id, account_id"
+  companies ||--o{ journal_lines : "company_id"
+  journal_entries ||--o{ journal_lines : "company_id, journal_id"
+  users ||--o{ journal_lines : "created_by"
+  companies ||--o{ journal_posting_rule_applications : "company_id"
+  journal_entries ||--o{ journal_posting_rule_applications : "company_id, journal_id"
+  accounting_rule_sets ||--o{ journal_posting_rule_applications : "company_id, rule_set_id"
+  users ||--o{ login_history : "user_id"
+  companies ||--o{ match_exceptions : "company_id"
+  supplier_invoices ||--o{ match_exceptions : "company_id, invoice_id"
+  match_tolerances ||--o{ match_exceptions : "company_id, tolerance_id"
+  users ||--o{ match_exceptions : "created_by"
+  users ||--o{ match_exceptions : "decided_by"
+  companies ||--o{ match_tolerances : "company_id"
+  users ||--o{ match_tolerances : "created_by"
+  companies ||--o{ memberships : "company_id"
+  users ||--o{ memberships : "created_by"
+  users ||--o{ memberships : "updated_by"
+  users ||--o{ memberships : "user_id"
+  accounts ||--o{ mobile_money_accounts : "company_id, account_id"
+  companies ||--o{ mobile_money_accounts : "company_id"
+  users ||--o{ mobile_money_accounts : "created_by"
+  currencies ||--o{ mobile_money_accounts : "currency"
+  branches ||--o{ numbering_change_requests : "company_id, branch_id"
+  companies ||--o{ numbering_change_requests : "company_id"
+  document_numbering_policies ||--o{ numbering_change_requests : "company_id, result_policy_id"
+  document_numbering_policies ||--o{ numbering_change_requests : "company_id, target_id"
+  users ||--o{ numbering_change_requests : "created_by"
+  document_numbering_defaults ||--o{ numbering_change_requests : "document_type"
+  users ||--o{ numbering_change_requests : "reviewed_by"
+  companies ||--o{ outbox_events : "company_id"
+  source_documents ||--o{ outbox_events : "company_id, source_id"
+  users ||--o{ outbox_events : "created_by"
+  customers ||--o{ partner_notes : "company_id, customer_id"
+  companies ||--o{ partner_notes : "company_id"
+  source_documents ||--o{ partner_notes : "company_id, original_source_id"
+  source_documents ||--o{ partner_notes : "company_id, source_id"
+  suppliers ||--o{ partner_notes : "company_id, supplier_id"
+  users ||--o{ partner_notes : "created_by"
+  users ||--o{ password_reset_tokens : "user_id"
+  source_documents ||--o{ payment_allocations : "company_id, allocation_source_id"
+  companies ||--o{ payment_allocations : "company_id"
+  source_documents ||--o{ payment_allocations : "company_id, invoice_source_id"
+  payments ||--o{ payment_allocations : "company_id, payment_id"
+  payment_allocations ||--o{ payment_allocations : "company_id, reversal_of"
+  users ||--o{ payment_allocations : "created_by"
+  companies ||--o{ payment_attempts : "company_id"
+  payments ||--o{ payment_attempts : "company_id, payment_id"
+  users ||--o{ payment_attempts : "created_by"
+  accounts ||--o{ payment_methods : "company_id, account_id"
+  companies ||--o{ payment_methods : "company_id"
+  users ||--o{ payment_methods : "created_by"
+  accounts ||--o{ payments : "company_id, account_id"
+  cashier_sessions ||--o{ payments : "company_id, cashier_session_id"
+  customers ||--o{ payments : "company_id, customer_id"
+  companies ||--o{ payments : "company_id"
+  payment_methods ||--o{ payments : "company_id, method_id"
+  source_documents ||--o{ payments : "company_id, source_id"
+  suppliers ||--o{ payments : "company_id, supplier_id"
+  users ||--o{ payments : "created_by"
+  currencies ||--o{ payments : "currency"
+  users ||--o{ payments : "initiated_by"
+  users ||--o{ payments : "posted_by"
+  users ||--o{ payments : "reversed_by"
+  companies ||--o{ permission_delegations : "company_id"
+  memberships ||--o{ permission_delegations : "company_id, user_id"
+  users ||--o{ permission_delegations : "granted_by"
+  permissions ||--o{ permission_delegations : "permission_code"
+  users ||--o{ permission_delegations : "user_id"
+  customers ||--o{ pos_carts : "company_id, customer_id"
+  companies ||--o{ pos_carts : "company_id"
+  cashier_sessions ||--o{ pos_carts : "company_id, session_id"
+  source_documents ||--o{ pos_carts : "company_id, source_id"
+  users ||--o{ pos_carts : "created_by"
+  branches ||--o{ pos_terminals : "company_id, branch_id"
+  companies ||--o{ pos_terminals : "company_id"
+  warehouses ||--o{ pos_terminals : "company_id, warehouse_id"
+  users ||--o{ pos_terminals : "created_by"
+  posting_event_contracts ||--o{ posting_event_leg_contracts : "event_type, contract_version"
+  posting_event_leg_contracts ||--o{ posting_event_leg_eligibility : "event_type, contract_version, leg_code"
+  accounts ||--o{ posting_rule_change_legs : "company_id, account_id"
+  companies ||--o{ posting_rule_change_legs : "company_id"
+  posting_rule_change_requests ||--o{ posting_rule_change_legs : "company_id, request_id"
+  branches ||--o{ posting_rule_change_requests : "company_id, branch_id"
+  companies ||--o{ posting_rule_change_requests : "company_id"
+  accounting_rule_sets ||--o{ posting_rule_change_requests : "company_id, target_id"
+  warehouses ||--o{ posting_rule_change_requests : "company_id, warehouse_id"
+  users ||--o{ posting_rule_change_requests : "created_by"
+  posting_event_contracts ||--o{ posting_rule_change_requests : "event_type, contract_version"
+  users ||--o{ posting_rule_change_requests : "reviewed_by"
+  companies ||--o{ price_lists : "company_id"
+  users ||--o{ price_lists : "created_by"
+  currencies ||--o{ price_lists : "currency"
+  companies ||--o{ product_barcodes : "company_id"
+  products ||--o{ product_barcodes : "company_id, product_id"
+  units_of_measure ||--o{ product_barcodes : "company_id, uom_id"
+  users ||--o{ product_barcodes : "created_by"
+  companies ||--o{ product_categories : "company_id"
+  product_categories ||--o{ product_categories : "company_id, parent_id"
+  users ||--o{ product_categories : "created_by"
+  brands ||--o{ product_change_requests : "company_id, brand_id"
+  product_categories ||--o{ product_change_requests : "company_id, category_id"
+  companies ||--o{ product_change_requests : "company_id"
+  tax_categories ||--o{ product_change_requests : "company_id, tax_category_id"
+  units_of_measure ||--o{ product_change_requests : "company_id, uom_id"
+  users ||--o{ product_change_requests : "created_by"
+  currencies ||--o{ product_change_requests : "currency"
+  users ||--o{ product_change_requests : "reviewed_by"
+  companies ||--o{ product_prices : "company_id"
+  price_lists ||--o{ product_prices : "company_id, price_list_id"
+  products ||--o{ product_prices : "company_id, product_id"
+  users ||--o{ product_prices : "created_by"
+  product_change_requests ||--o{ product_request_barcodes : "company_id, request_id"
+  product_change_requests ||--o{ product_request_taxes : "company_id, request_id"
+  taxes ||--o{ product_request_taxes : "company_id, tax_id"
+  users ||--o{ product_tax_profiles : "approved_by"
+  companies ||--o{ product_tax_profiles : "company_id"
+  products ||--o{ product_tax_profiles : "company_id, product_id"
+  product_change_requests ||--o{ product_tax_profiles : "company_id, request_id"
+  tax_categories ||--o{ product_tax_profiles : "company_id, tax_category_id"
+  users ||--o{ product_tax_profiles : "created_by"
+  companies ||--o{ product_taxes : "company_id"
+  products ||--o{ product_taxes : "company_id, product_id"
+  product_tax_profiles ||--o{ product_taxes : "company_id, profile_id"
+  taxes ||--o{ product_taxes : "company_id, tax_id"
+  users ||--o{ product_taxes : "created_by"
+  companies ||--o{ product_uom_conversions : "company_id"
+  products ||--o{ product_uom_conversions : "company_id, product_id"
+  units_of_measure ||--o{ product_uom_conversions : "company_id, uom_id"
+  users ||--o{ product_uom_conversions : "created_by"
+  users ||--o{ products : "approved_by"
+  brands ||--o{ products : "company_id, brand_id"
+  product_categories ||--o{ products : "company_id, category_id"
+  companies ||--o{ products : "company_id"
+  product_change_requests ||--o{ products : "company_id, publication_request_id"
+  suppliers ||--o{ products : "company_id, supplier_id"
+  tax_categories ||--o{ products : "company_id, tax_category_id"
+  units_of_measure ||--o{ products : "company_id, uom_id"
+  users ||--o{ products : "created_by"
+  currencies ||--o{ products : "currency"
+  companies ||--o{ purchase_order_lines : "company_id"
+  purchase_orders ||--o{ purchase_order_lines : "company_id, order_id"
+  products ||--o{ purchase_order_lines : "company_id, product_id"
+  units_of_measure ||--o{ purchase_order_lines : "company_id, uom_id"
+  users ||--o{ purchase_order_lines : "created_by"
+  companies ||--o{ purchase_orders : "company_id"
+  purchase_requests ||--o{ purchase_orders : "company_id, request_id"
+  source_documents ||--o{ purchase_orders : "company_id, source_id"
+  suppliers ||--o{ purchase_orders : "company_id, supplier_id"
+  warehouses ||--o{ purchase_orders : "company_id, warehouse_id"
+  users ||--o{ purchase_orders : "created_by"
+  companies ||--o{ purchase_request_lines : "company_id"
+  products ||--o{ purchase_request_lines : "company_id, product_id"
+  purchase_requests ||--o{ purchase_request_lines : "company_id, request_id"
+  users ||--o{ purchase_request_lines : "created_by"
+  companies ||--o{ purchase_requests : "company_id"
+  source_documents ||--o{ purchase_requests : "company_id, source_id"
+  warehouses ||--o{ purchase_requests : "company_id, warehouse_id"
+  users ||--o{ purchase_requests : "created_by"
+  companies ||--o{ purchase_return_lines : "company_id"
+  grn_lines ||--o{ purchase_return_lines : "company_id, grn_line_id"
+  purchase_returns ||--o{ purchase_return_lines : "company_id, return_id"
+  warehouses ||--o{ purchase_return_lines : "company_id, warehouse_id"
+  users ||--o{ purchase_return_lines : "created_by"
+  companies ||--o{ purchase_returns : "company_id"
+  grns ||--o{ purchase_returns : "company_id, grn_id"
+  source_documents ||--o{ purchase_returns : "company_id, source_id"
+  suppliers ||--o{ purchase_returns : "company_id, supplier_id"
+  users ||--o{ purchase_returns : "created_by"
+  companies ||--o{ quotation_lines : "company_id"
+  products ||--o{ quotation_lines : "company_id, product_id"
+  quotations ||--o{ quotation_lines : "company_id, quotation_id"
+  units_of_measure ||--o{ quotation_lines : "company_id, uom_id"
+  users ||--o{ quotation_lines : "created_by"
+  customers ||--o{ quotations : "company_id, customer_id"
+  companies ||--o{ quotations : "company_id"
+  source_documents ||--o{ quotations : "company_id, source_id"
+  users ||--o{ quotations : "created_by"
+  companies ||--o{ reconciliation_exceptions : "company_id"
+  source_documents ||--o{ reconciliation_exceptions : "company_id, resolution_source_id"
+  reconciliation_runs ||--o{ reconciliation_exceptions : "company_id, run_id"
+  source_documents ||--o{ reconciliation_exceptions : "company_id, source_id"
+  users ||--o{ reconciliation_exceptions : "created_by"
+  users ||--o{ reconciliation_exceptions : "resolved_by"
+  companies ||--o{ reconciliation_runs : "company_id"
+  users ||--o{ reconciliation_runs : "created_by"
+  companies ||--o{ report_exports : "company_id"
+  users ||--o{ report_exports : "created_by"
+  companies ||--o{ role_permissions : "company_id"
+  roles ||--o{ role_permissions : "company_id, role_id"
+  permissions ||--o{ role_permissions : "permission_code"
+  companies ||--o{ roles : "company_id"
+  users ||--o{ roles : "created_by"
+  companies ||--o{ sale_lines : "company_id"
+  products ||--o{ sale_lines : "company_id, product_id"
+  sales ||--o{ sale_lines : "company_id, sale_id"
+  units_of_measure ||--o{ sale_lines : "company_id, uom_id"
+  users ||--o{ sale_lines : "created_by"
+  companies ||--o{ sale_payments : "company_id"
+  payments ||--o{ sale_payments : "company_id, payment_id"
+  sales ||--o{ sale_payments : "company_id, sale_id"
+  users ||--o{ sale_payments : "created_by"
+  cashier_sessions ||--o{ sales : "company_id, cashier_session_id"
+  customers ||--o{ sales : "company_id, customer_id"
+  companies ||--o{ sales : "company_id"
+  sales_orders ||--o{ sales : "company_id, sales_order_id"
+  source_documents ||--o{ sales : "company_id, source_id"
+  pos_terminals ||--o{ sales : "company_id, terminal_id"
+  warehouses ||--o{ sales : "company_id, warehouse_id"
+  users ||--o{ sales : "created_by"
+  companies ||--o{ sales_order_lines : "company_id"
+  sales_orders ||--o{ sales_order_lines : "company_id, order_id"
+  products ||--o{ sales_order_lines : "company_id, product_id"
+  units_of_measure ||--o{ sales_order_lines : "company_id, uom_id"
+  users ||--o{ sales_order_lines : "created_by"
+  customers ||--o{ sales_orders : "company_id, customer_id"
+  companies ||--o{ sales_orders : "company_id"
+  source_documents ||--o{ sales_orders : "company_id, source_id"
+  users ||--o{ sales_orders : "created_by"
+  companies ||--o{ sales_return_lines : "company_id"
+  sale_lines ||--o{ sales_return_lines : "company_id, original_line_id"
+  sales_returns ||--o{ sales_return_lines : "company_id, return_id"
+  warehouses ||--o{ sales_return_lines : "company_id, warehouse_id"
+  users ||--o{ sales_return_lines : "created_by"
+  customers ||--o{ sales_returns : "company_id, customer_id"
+  companies ||--o{ sales_returns : "company_id"
+  sales ||--o{ sales_returns : "company_id, original_sale_id"
+  source_documents ||--o{ sales_returns : "company_id, source_id"
+  users ||--o{ sales_returns : "created_by"
+  users ||--o{ security_events : "actor_id"
+  companies ||--o{ security_events : "company_id"
+  sessions ||--o{ security_events : "session_id"
+  users ||--o{ security_events : "subject_user_id"
+  users ||--o{ sessions : "user_id"
+  companies ||--o{ settlement_lines : "company_id"
+  payments ||--o{ settlement_lines : "company_id, payment_id"
+  settlement_statements ||--o{ settlement_lines : "company_id, statement_id"
+  users ||--o{ settlement_lines : "created_by"
+  companies ||--o{ settlement_statements : "company_id"
+  users ||--o{ settlement_statements : "created_by"
+  currencies ||--o{ settlement_statements : "currency"
+  users ||--o{ source_documents : "approved_by"
+  users ||--o{ source_documents : "cancelled_by"
+  branches ||--o{ source_documents : "company_id, branch_id"
+  companies ||--o{ source_documents : "company_id"
+  source_documents ||--o{ source_documents : "company_id, original_document_id"
+  users ||--o{ source_documents : "created_by"
+  currencies ||--o{ source_documents : "currency"
+  users ||--o{ source_documents : "initiated_by"
+  users ||--o{ source_documents : "posted_by"
+  users ||--o{ source_documents : "updated_by"
+  users ||--o{ source_revisions : "changed_by"
+  companies ||--o{ source_revisions : "company_id"
+  source_documents ||--o{ source_revisions : "company_id, source_id"
+  stock_counts ||--o{ stock_count_lines : "company_id, count_id"
+  companies ||--o{ stock_count_lines : "company_id"
+  inventory_lots ||--o{ stock_count_lines : "company_id, lot_id"
+  products ||--o{ stock_count_lines : "company_id, product_id"
+  users ||--o{ stock_count_lines : "counted_by"
+  users ||--o{ stock_count_lines : "created_by"
+  companies ||--o{ stock_counts : "company_id"
+  source_documents ||--o{ stock_counts : "company_id, source_id"
+  warehouses ||--o{ stock_counts : "company_id, warehouse_id"
+  users ||--o{ stock_counts : "created_by"
+  companies ||--o{ stock_reservations : "company_id"
+  products ||--o{ stock_reservations : "company_id, product_id"
+  source_documents ||--o{ stock_reservations : "company_id, source_id"
+  warehouses ||--o{ stock_reservations : "company_id, warehouse_id"
+  users ||--o{ stock_reservations : "created_by"
+  companies ||--o{ stock_transfer_lines : "company_id"
+  products ||--o{ stock_transfer_lines : "company_id, product_id"
+  stock_transfers ||--o{ stock_transfer_lines : "company_id, transfer_id"
+  users ||--o{ stock_transfer_lines : "created_by"
+  companies ||--o{ stock_transfer_receipts : "company_id"
+  inventory_movements ||--o{ stock_transfer_receipts : "company_id, movement_id"
+  source_documents ||--o{ stock_transfer_receipts : "company_id, source_id"
+  stock_transfer_lines ||--o{ stock_transfer_receipts : "company_id, transfer_line_id"
+  users ||--o{ stock_transfer_receipts : "created_by"
+  companies ||--o{ stock_transfers : "company_id"
+  warehouses ||--o{ stock_transfers : "company_id, from_warehouse_id"
+  source_documents ||--o{ stock_transfers : "company_id, source_id"
+  warehouses ||--o{ stock_transfers : "company_id, to_warehouse_id"
+  warehouses ||--o{ stock_transfers : "company_id, transit_warehouse_id"
+  users ||--o{ stock_transfers : "created_by"
+  users ||--o{ stock_transfers : "dispatched_by"
+  users ||--o{ stock_transfers : "received_by"
+  accounts ||--o{ supplier_accounts : "company_id, control_account_id"
+  companies ||--o{ supplier_accounts : "company_id"
+  suppliers ||--o{ supplier_accounts : "company_id, supplier_id"
+  users ||--o{ supplier_accounts : "created_by"
+  accounts ||--o{ supplier_invoice_lines : "company_id, expense_account_id"
+  companies ||--o{ supplier_invoice_lines : "company_id"
+  supplier_invoices ||--o{ supplier_invoice_lines : "company_id, invoice_id"
+  products ||--o{ supplier_invoice_lines : "company_id, product_id"
+  users ||--o{ supplier_invoice_lines : "created_by"
+  companies ||--o{ supplier_invoices : "company_id"
+  source_documents ||--o{ supplier_invoices : "company_id, source_id"
+  suppliers ||--o{ supplier_invoices : "company_id, supplier_id"
+  users ||--o{ supplier_invoices : "created_by"
+  accounts ||--o{ supplier_transactions : "company_id, control_account_id"
+  companies ||--o{ supplier_transactions : "company_id"
+  journal_lines ||--o{ supplier_transactions : "company_id, journal_line_id"
+  source_documents ||--o{ supplier_transactions : "company_id, source_id"
+  suppliers ||--o{ supplier_transactions : "company_id, supplier_id"
+  users ||--o{ supplier_transactions : "created_by"
+  currencies ||--o{ supplier_transactions : "currency"
+  companies ||--o{ suppliers : "company_id"
+  tax_categories ||--o{ suppliers : "company_id, tax_category_id"
+  users ||--o{ suppliers : "created_by"
+  currencies ||--o{ suppliers : "currency"
+  users ||--o{ system_configuration : "approved_by"
+  companies ||--o{ system_configuration : "company_id"
+  users ||--o{ system_configuration : "created_by"
+  users ||--o{ tax_categories : "approved_by"
+  companies ||--o{ tax_categories : "company_id"
+  tax_change_requests ||--o{ tax_categories : "company_id, publication_request_id"
+  users ||--o{ tax_categories : "created_by"
+  tax_categories ||--o{ tax_change_requests : "company_id, category_id"
+  companies ||--o{ tax_change_requests : "company_id"
+  accounts ||--o{ tax_change_requests : "company_id, input_account_id"
+  accounts ||--o{ tax_change_requests : "company_id, output_account_id"
+  taxes ||--o{ tax_change_requests : "company_id, tax_id"
+  users ||--o{ tax_change_requests : "created_by"
+  users ||--o{ tax_change_requests : "reviewed_by"
+  users ||--o{ tax_rates : "approved_by"
+  tax_categories ||--o{ tax_rates : "company_id, category_id"
+  companies ||--o{ tax_rates : "company_id"
+  accounts ||--o{ tax_rates : "company_id, input_account_id"
+  accounts ||--o{ tax_rates : "company_id, output_account_id"
+  tax_change_requests ||--o{ tax_rates : "company_id, publication_request_id"
+  taxes ||--o{ tax_rates : "company_id, tax_id"
+  users ||--o{ tax_rates : "created_by"
+  accounts ||--o{ tax_transactions : "company_id, account_id"
+  companies ||--o{ tax_transactions : "company_id"
+  journal_lines ||--o{ tax_transactions : "company_id, journal_line_id"
+  tax_rates ||--o{ tax_transactions : "company_id, rate_id"
+  source_documents ||--o{ tax_transactions : "company_id, source_id"
+  users ||--o{ tax_transactions : "created_by"
+  users ||--o{ taxes : "approved_by"
+  companies ||--o{ taxes : "company_id"
+  tax_change_requests ||--o{ taxes : "company_id, publication_request_id"
+  users ||--o{ taxes : "created_by"
+  companies ||--o{ units_of_measure : "company_id"
+  users ||--o{ units_of_measure : "created_by"
+  branches ||--o{ user_branch_scopes : "company_id, branch_id"
+  companies ||--o{ user_branch_scopes : "company_id"
+  memberships ||--o{ user_branch_scopes : "company_id, user_id"
+  users ||--o{ user_branch_scopes : "user_id"
+  companies ||--o{ user_roles : "company_id"
+  roles ||--o{ user_roles : "company_id, role_id"
+  memberships ||--o{ user_roles : "company_id, user_id"
+  users ||--o{ user_roles : "user_id"
+  companies ||--o{ valuation_policies : "company_id"
+  warehouses ||--o{ valuation_policies : "company_id, warehouse_id"
+  users ||--o{ valuation_policies : "created_by"
+  branches ||--o{ warehouses : "company_id, branch_id"
+  companies ||--o{ warehouses : "company_id"
+  users ||--o{ warehouses : "created_by"
+  users ||--o{ warehouses : "updated_by"

@@ -1,0 +1,54 @@
+
+> kenya-retail-erp@0.5.0 test:unit:web
+> node --import tsx --test tests/web-format.test.ts
+
+TAP version 13
+# Subtest: Money display preserves cents above JavaScript safe-number precision
+ok 1 - Money display preserves cents above JavaScript safe-number precision
+  ---
+  duration_ms: 1.39342
+  type: 'test'
+  ...
+# Subtest: Money display handles grouping, signed balances and padded cents exactly
+ok 2 - Money display handles grouping, signed balances and padded cents exactly
+  ---
+  duration_ms: 0.228809
+  type: 'test'
+  ...
+# Subtest: Money display never silently rounds or coerces malformed/unsafe numeric values
+ok 3 - Money display never silently rounds or coerces malformed/unsafe numeric values
+  ---
+  duration_ms: 0.187449
+  type: 'test'
+  ...
+# Subtest: Money display accepts exact safe-integer fallback values only
+ok 4 - Money display accepts exact safe-integer fallback values only
+  ---
+  duration_ms: 0.132822
+  type: 'test'
+  ...
+# Subtest: Money display round-trips 4000 signed arbitrary-precision cent amounts
+ok 5 - Money display round-trips 4000 signed arbitrary-precision cent amounts
+  ---
+  duration_ms: 29.152106
+  type: 'test'
+  ...
+# Subtest: Nairobi default business date respects midnight, year and leap-day boundaries
+ok 6 - Nairobi default business date respects midnight, year and leap-day boundaries
+  ---
+  duration_ms: 54.473235
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 416.704414
+
+> @erp/web@0.5.0 typecheck
+> tsc --noEmit
+

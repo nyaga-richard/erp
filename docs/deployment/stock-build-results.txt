@@ -1,0 +1,97 @@
+
+> @erp/web@0.5.0 typecheck
+> tsc --noEmit
+
+
+> kenya-retail-erp@0.5.0 test:unit:web
+> node --import tsx --test tests/web-format.test.ts
+
+TAP version 13
+# Subtest: Money display preserves cents above JavaScript safe-number precision
+ok 1 - Money display preserves cents above JavaScript safe-number precision
+  ---
+  duration_ms: 1.006324
+  type: 'test'
+  ...
+# Subtest: Money display handles grouping, signed balances and padded cents exactly
+ok 2 - Money display handles grouping, signed balances and padded cents exactly
+  ---
+  duration_ms: 0.331661
+  type: 'test'
+  ...
+# Subtest: Money display never silently rounds or coerces malformed/unsafe numeric values
+ok 3 - Money display never silently rounds or coerces malformed/unsafe numeric values
+  ---
+  duration_ms: 0.219668
+  type: 'test'
+  ...
+# Subtest: Money display accepts exact safe-integer fallback values only
+ok 4 - Money display accepts exact safe-integer fallback values only
+  ---
+  duration_ms: 0.128082
+  type: 'test'
+  ...
+# Subtest: Money display round-trips 4000 signed arbitrary-precision cent amounts
+ok 5 - Money display round-trips 4000 signed arbitrary-precision cent amounts
+  ---
+  duration_ms: 21.815115
+  type: 'test'
+  ...
+# Subtest: Nairobi default business date respects midnight, year and leap-day boundaries
+ok 6 - Nairobi default business date respects midnight, year and leap-day boundaries
+  ---
+  duration_ms: 13.476971
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 276.421213
+
+> @erp/web@0.5.0 build
+> next build --webpack
+
+▲ Next.js 16.3.6 (webpack)
+✓ Running next.config.mjs took 14ms
+- Experiments (use with caution):
+  ⨯ reactDebugChannel
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 8.3s
+  Running TypeScript ...
+  Finished TypeScript in 5.7s ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/2) ...
+✓ Generating static pages using 1 worker (2/2) in 372ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ƒ /
+└ ○ /_not-found
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+{
+  "passed": true,
+  "date": "2026-09-29T16:33:03.871Z",
+  "checks": [
+    "Production Next build served",
+    "Unique per-response CSP nonce attached to scripts",
+    "Production frame embedding denied",
+    "Workspace hydrates with CSP enabled",
+    "Same-origin private API proxy readiness succeeds"
+  ],
+  "productionBackendTested": false,
+  "dockerTested": false,
+  "consoleErrors": []
+}

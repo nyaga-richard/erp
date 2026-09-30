@@ -1,0 +1,10 @@
+{
+  "pages": 70,
+  "bytes": 394241,
+  "checks": [
+    "reviewed amendments chapter",
+    "261 backend regression count",
+    "next-source acceptance explicitly not green"
+  ],
+  "passed": true
+}

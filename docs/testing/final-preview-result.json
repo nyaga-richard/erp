@@ -1,0 +1,11 @@
+{
+  "date": "2026-09-29T11:56:45.892Z",
+  "passed": true,
+  "httpStatus": 200,
+  "signInEnabled": true,
+  "credentialsBlank": true,
+  "consoleErrors": [],
+  "ready": true,
+  "productionReady": false,
+  "scope": "Local read-only preview smoke; not actual Arena authorization"
+}

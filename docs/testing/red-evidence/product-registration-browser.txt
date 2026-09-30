@@ -1,0 +1,11 @@
+locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: 'Products', exact: true })
+
+    at login (/home/user/kenya-erp/scripts/browser-products-test.cjs:14:439)
+    at async /home/user/kenya-erp/scripts/browser-products-test.cjs:16:25 {
+  log: [
+    "  - waiting for getByRole('button', { name: 'Products', exact: true })"
+  ],
+  name: 'TimeoutError'
+}

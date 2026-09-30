@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:02:58.828Z",
+  "warehouseId": "a0750159-3d70-4726-82a9-a967e30fb2a7",
+  "productId": "35e116dc-335a-49db-bf87-0970f0307bc9",
+  "gain": "819f57dc-7c8d-4767-964e-182b389b7004",
+  "loss": "4e648509-bfcc-44b5-8713-a4080e5bb6e9",
+  "reversal": "c913ae7e-fa65-434a-90b8-c7fd9269bd34",
+  "checks": [
+    "Real independently reviewed scoped posting rules",
+    "Maker/approver/poster segregation",
+    "Atomic gain and weighted-average loss",
+    "Original-cost full reversal with immutable links",
+    "No editable stock balances",
+    "Reconciliation PASS",
+    "General-ledger and audit drilldowns open stock source, retained policy and posted lines",
+    "Exact decimal display",
+    "Keyboard focus and mobile/dark layout"
+  ],
+  "consoleErrors": []
+}

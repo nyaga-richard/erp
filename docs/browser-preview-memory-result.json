@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "date": "2026-09-30T05:55:30.106Z",
+  "browser": "Chromium",
+  "crossSiteIframe": true,
+  "allRequestAndResponseCookiesStripped": true,
+  "checks": [
+    "Password login without cookies",
+    "No credential in localStorage or sessionStorage",
+    "Accounting workspace loads",
+    "Forged CSRF denied",
+    "UI logout revokes server session",
+    "Second user enters Control center and warehouses",
+    "Reload requires sign-in",
+    "UI self-revocation signs out and rejects replay",
+    "Revocation during pending refresh leaves sign-in enabled",
+    "Fresh sign-in after revocation does not reuse old identity"
+  ],
+  "consoleErrors": [],
+  "platformTrafficTokenTested": false
+}

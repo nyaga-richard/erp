@@ -1,0 +1,138 @@
+# Restricted production deployment candidate. Docker execution remains a release gate.
+name: karibu-erp
+x-api-image: &api-image
+  image: karibu-api:${ERP_RELEASE:-local}
+  build:
+    context: .
+    dockerfile: Dockerfile.api
+x-api-env: &api-env
+  NODE_ENV: production
+  DATABASE_URL: postgresql://erp_runtime:${RUNTIME_DB_PASSWORD:?Set runtime password}@db:5432/erp
+  COOKIE_SECURE: 'true'
+  SESSION_COOKIE_MODE: strict
+  ENABLE_PREVIEW_MEMORY_SESSION: 'false'
+  PUBLIC_WEB_ORIGIN: ${PUBLIC_WEB_ORIGIN:?Set trusted HTTPS origin}
+  RESET_ENCRYPTION_KEY: ${RESET_ENCRYPTION_KEY:?Set reset encryption key}
+  AUTH_MAIL_MODE: smtp
+  SMTP_URL: ${SMTP_URL:?Configure real SMTP or controlled staging SMTP}
+  SMTP_FROM: ${SMTP_FROM:?Set verified sender}
+  REQUIRE_AUTH_WORKER: 'true'
+  LOG_HTTP_REQUESTS: 'true'
+services:
+  db:
+    image: postgres:17-bookworm@sha256:639ab7ceb90e13123085b741fb31ef493fba25463002f6da665352e7b534b652
+    environment:
+      POSTGRES_DB: erp
+      POSTGRES_USER: erp_owner
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set owner password}
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    volumes: [pgdata:/var/lib/postgresql/data]
+    networks: [database]
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U erp_owner -d erp']
+      interval: 10s
+      timeout: 5s
+      retries: 12
+  migrate:
+    <<: *api-image
+    command: [node, scripts/migrate.cjs]
+    environment:
+      MIGRATION_DATABASE_URL: postgresql://erp_owner:${POSTGRES_PASSWORD}@db:5432/erp
+      RUNTIME_DB_PASSWORD: ${RUNTIME_DB_PASSWORD}
+      AUTH_WORKER_DB_PASSWORD: ${AUTH_WORKER_DB_PASSWORD:?Set worker password}
+    networks: [database]
+    depends_on:
+      db: {condition: service_healthy}
+    restart: 'no'
+  api:
+    <<: *api-image
+    environment: *api-env
+    networks: [database, application]
+    restart: unless-stopped
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+      auth-worker: {condition: service_started}
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/api/health/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+  web:
+    image: karibu-web:${ERP_RELEASE:-local}
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args: {API_INTERNAL_URL: 'http://api:3000'}
+    environment: {NODE_ENV: production, PORT: '5173', HOSTNAME: '0.0.0.0', NEXT_TELEMETRY_DISABLED: '1'}
+    # Loopback diagnostics only; Cloudflare reaches the container on application network.
+    # Loopback diagnostics only. Choose an unused host port via ERP_WEB_BIND_PORT.
+    ports: ['127.0.0.1:${ERP_WEB_BIND_PORT:-8080}:5173']
+    networks: [application]
+    depends_on:
+      api: {condition: service_healthy}
+    restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  auth-worker:
+    <<: *api-image
+    command: [node, scripts/auth-mail-worker.cjs]
+    environment:
+      NODE_ENV: production
+      AUTH_WORKER_DATABASE_URL: postgresql://erp_auth_worker:${AUTH_WORKER_DB_PASSWORD}@db:5432/erp
+      RESET_ENCRYPTION_KEY: ${RESET_ENCRYPTION_KEY}
+      AUTH_MAIL_MODE: smtp
+      SMTP_URL: ${SMTP_URL}
+      SMTP_FROM: ${SMTP_FROM}
+    networks: [database, outbound]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    healthcheck:
+      test: [CMD, node, -e, "const {Pool}=require('pg');const p=new Pool({connectionString:process.env.AUTH_WORKER_DATABASE_URL,connectionTimeoutMillis:2000});p.query(\"SELECT last_seen_at>now()-interval '60 seconds' AS ok FROM service_heartbeats WHERE service_name='auth-mail'\").then(r=>{process.exitCode=r.rows[0]?.ok?0:1}).catch(()=>process.exitCode=1).finally(()=>p.end())"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  cloudflared:
+    profiles: [tunnel]
+    image: cloudflare/cloudflared:latest@sha256:072c067d25ccbe61d46e18f0d0723255f2bb5304f7317caa95b27031520ff92c
+    command: [tunnel, --no-autoupdate, run]
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
+    networks: [application, outbound]
+    depends_on:
+      web: {condition: service_healthy}
+    restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  ops:
+    profiles: [tools]
+    build:
+      context: .
+      dockerfile: Dockerfile.ops
+    environment:
+      NODE_ENV: production
+      BACKUP_DATABASE_URL: postgresql://erp_owner:${POSTGRES_PASSWORD}@db:5432/erp
+      BACKUP_ENCRYPTION_KEY: ${BACKUP_ENCRYPTION_KEY:?Set independent backup encryption key}
+      BACKUP_DIRECTORY: /backups
+      FILE_STORAGE_ROOT: /storage
+    volumes: [backups:/backups, files:/storage:ro, restored_files:/restore]
+    networks: [database]
+    depends_on:
+      db: {condition: service_healthy}
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+networks:
+  database: {internal: true}
+  application: {internal: true}
+  outbound: {}
+volumes:
+  pgdata: {}
+  backups: {}
+  files: {}
+  restored_files: {}

@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "date": "2026-09-29T12:57:17.407Z",
+  "backupFile": "database-2026-09-29T12-57-15-941Z-13850c6f-5c67-42c1-bc3d-66c0b2101c34.erpbackup",
+  "sha256": "7c9c4d1d22f741f8e04be71f685d7da2975c78faacd8051346b6dc4e2cb1cf33",
+  "encrypted": true,
+  "target": "erp_restore_product_1790686636335",
+  "counts": {
+    "sources": "35",
+    "journals": "26",
+    "lines": "52",
+    "audit_events": "666"
+  },
+  "productCounts": {
+    "products": 2,
+    "approved_requests": 2,
+    "profiles": 2,
+    "barcodes": 4,
+    "stock_movements": 0
+  },
+  "migrations": 17,
+  "exactProductAuditDiscrepancies": 0,
+  "checks": [
+    "Actual isolated restore; live database untouched",
+    "All migration checksums retained",
+    "Registered products, profiles and barcodes retained",
+    "Complete native publication and decision audits match restored records",
+    "Exact six-place prices preserved in native audits",
+    "No stock movements fabricated",
+    "Restored journal arithmetic and exported snapshot counts match"
+  ],
+  "operationalReconciliations": "NOT_IMPLEMENTED",
+  "productionHostTested": false
+}

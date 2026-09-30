@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:02:20.615Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Isolated product reader with audit access but no purchase-cost permission",
+    "Credentials established through real development mail/reset flow",
+    "Product-only navigation and default control-center tab",
+    "No implicit proposing or financial access",
+    "Finance endpoint denied by backend",
+    "Product catalog/detail/barcode/history purchase costs masked",
+    "No product proposal authority",
+    "Audit access cannot reveal purchase-cost snapshots"
+  ],
+  "consoleErrors": []
+}

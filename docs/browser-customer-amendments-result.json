@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:03:56.390Z",
+  "customerId": "0fba8034-02b2-4cf3-ae2a-7cad31381cfa",
+  "amendmentId": "8c6c05e4-471c-4123-b90b-299122cdf4ba",
+  "version": 2,
+  "checks": [
+    "Inert versioned proposal",
+    "Independent profile and credit review",
+    "Exact retained before/after values",
+    "Original customer identity retained; amendment maker/reviewer visible",
+    "Credit hold and terms published without financial entries",
+    "Keyboard/Escape and mobile/dark"
+  ],
+  "consoleErrors": []
+}

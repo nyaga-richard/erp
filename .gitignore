@@ -1,0 +1,15 @@
+node_modules/
+build/
+dist/
+.cache/
+.runtime/
+.env
+*.log
+
+**/.next/
+**/tsconfig.tsbuildinfo
+
+*.erpbackup
+*.pgdump
+*.partial-*
+backups/

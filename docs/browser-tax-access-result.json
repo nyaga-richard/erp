@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:01:56.683Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Isolated role with only workspace:view and taxes:view",
+    "Credentials established through real development mail/reset flow",
+    "Tax-only navigation and default control-center tab",
+    "No implicit proposing or financial access",
+    "Finance endpoint denied by backend"
+  ],
+  "consoleErrors": []
+}

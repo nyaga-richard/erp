@@ -1,0 +1,17 @@
+{
+  "schema": {
+    "tables": 135,
+    "columns": 1453,
+    "foreignKeys": 579,
+    "generatedAt": "2026-09-29T16:49:44.706Z"
+  },
+  "openApiPaths": 95,
+  "requirements": 353,
+  "architecturePages": 65,
+  "architectureBytes": 367957,
+  "backendTests": 250,
+  "browserSuites": 21,
+  "browserScope": "Frozen runtime/UI baseline before later unreferenced pure credit helper",
+  "restoreReceipt": "docs/testing/customer-restoration.json",
+  "productionReady": false
+}

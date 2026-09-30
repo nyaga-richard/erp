@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:03:47.501Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Real reset-mail identity with only customer and audit reads",
+    "Customer-only default navigation and exact credit-policy display",
+    "No editable balance, proposal or review controls",
+    "Backend denies both mutation endpoints and generic finance access"
+  ],
+  "consoleErrors": []
+}

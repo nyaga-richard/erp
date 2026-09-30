@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "pdfPages": 64,
+  "pdfBytes": 377672,
+  "openApiPaths": 76,
+  "browserSuites": 17,
+  "schema": {
+    "tables": 132,
+    "columns": 1397,
+    "foreignKeys": 560,
+    "generatedAt": "2026-09-29T12:41:13.506Z"
+  },
+  "backendTests": 214,
+  "productionReady": false,
+  "date": "2026-09-29T13:00:08.376930+00:00",
+  "liveReadiness": true,
+  "previewOriginMatchesCurrentSandbox": true
+}

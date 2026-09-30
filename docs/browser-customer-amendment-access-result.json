@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:04:06.372Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Real reset-mail profile editor without credit permission",
+    "Profile-only proposal allowed; no finance or initial registration authority",
+    "Limit/terms/hold inputs disabled; forged credit change denied403",
+    "Both profile grants still cannot self-review",
+    "Independent attributed rejection preserves fixture history; test membership retired"
+  ],
+  "consoleErrors": []
+}

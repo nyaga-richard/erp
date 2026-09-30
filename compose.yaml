@@ -1,0 +1,94 @@
+# Development/reference deployment. Requires Docker Compose. Not validated in this workspace.
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: erp
+      POSTGRES_USER: erp_owner
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a unique owner password}
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U erp_owner -d erp']
+      interval: 5s
+      retries: 15
+    # No public database port.
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: [node, scripts/migrate.cjs]
+    environment:
+      MIGRATION_DATABASE_URL: postgresql://erp_owner:${POSTGRES_PASSWORD}@db:5432/erp
+      RUNTIME_DB_PASSWORD: ${RUNTIME_DB_PASSWORD:?Set a unique runtime password}
+      AUTH_WORKER_DB_PASSWORD: ${AUTH_WORKER_DB_PASSWORD:?Set a unique worker password}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: 'no'
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    environment:
+      DATABASE_URL: postgresql://erp_runtime:${RUNTIME_DB_PASSWORD}@db:5432/erp
+      AUTH_WORKER_DATABASE_URL: postgresql://erp_auth_worker:${AUTH_WORKER_DB_PASSWORD}@db:5432/erp
+      NODE_ENV: ${NODE_ENV:-development}
+      RESET_ENCRYPTION_KEY: ${RESET_ENCRYPTION_KEY:-}
+      AUTH_MAIL_MODE: ${AUTH_MAIL_MODE:-}
+      PUBLIC_WEB_ORIGIN: ${PUBLIC_WEB_ORIGIN:-}
+      SMTP_URL: ${SMTP_URL:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      SESSION_COOKIE_MODE: ${SESSION_COOKIE_MODE:-strict}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      PORT: 3000
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - '127.0.0.1:${ERP_WEB_BIND_PORT:-8080}:5173'
+    depends_on:
+      - api
+    restart: unless-stopped
+  auth-worker:
+    profiles: [auth]
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: [node, scripts/auth-mail-worker.cjs]
+    environment:
+      DATABASE_URL: postgresql://erp_runtime:${RUNTIME_DB_PASSWORD}@db:5432/erp
+      AUTH_WORKER_DATABASE_URL: postgresql://erp_auth_worker:${AUTH_WORKER_DB_PASSWORD}@db:5432/erp
+      NODE_ENV: ${NODE_ENV:-development}
+      RESET_ENCRYPTION_KEY: ${RESET_ENCRYPTION_KEY:-}
+      AUTH_MAIL_MODE: ${AUTH_MAIL_MODE:-}
+      SMTP_URL: ${SMTP_URL:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+    volumes:
+      - authmail:/app/.runtime/mail
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+  seed:
+    profiles: [tools]
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    working_dir: /app/apps/api
+    command: [node, build/seed.js]
+    environment:
+      MIGRATION_DATABASE_URL: postgresql://erp_owner:${POSTGRES_PASSWORD}@db:5432/erp
+      DEMO_PASSWORD: ${DEMO_PASSWORD:?Choose a development-only password}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+volumes:
+  pgdata:
+  authmail:

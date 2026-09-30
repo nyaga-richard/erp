@@ -1,0 +1,2 @@
+[ 1079.380924] oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=code-interpreter.service,mems_allowed=0,global_oom,task_memcg=/user,task=next-server (v1,pid=6266,uid=1000
+[ 1079.380953] Out of memory: Killed process 6266 (next-server (v1) total-vm:56787344kB, anon-rss:1019656kB, file-rss:0kB, shmem-rss:0kB, UID:1000 pgtables:12296kB oom_score_adj:100

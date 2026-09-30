@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "date": "2026-09-30T05:54:10.167Z",
+  "checks": [
+    "Production Next build served",
+    "Unique per-response CSP nonce attached to scripts",
+    "Production frame embedding denied",
+    "Workspace hydrates with CSP enabled",
+    "Same-origin private API proxy readiness succeeds"
+  ],
+  "productionBackendTested": false,
+  "dockerTested": false,
+  "consoleErrors": []
+}

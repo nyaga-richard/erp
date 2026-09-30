@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "date": "2026-09-30T05:55:23.201Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Company display-name revision and restore",
+    "Company selector label refreshed",
+    "Create branch and search active parent",
+    "Create warehouse without stock",
+    "Immutable code, parent and type",
+    "Optimistic name revision",
+    "Active child prevents parent deactivation",
+    "Empty warehouse deactivation",
+    "Parent branch deactivation",
+    "Child cannot reactivate under inactive parent",
+    "Parent then child reactivation",
+    "Read-only reviewer cannot change configuration"
+  ],
+  "consoleErrors": []
+}

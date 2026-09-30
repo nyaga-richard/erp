@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "date": "2026-09-30T05:55:02.683Z",
+  "browser": "Chromium",
+  "parentOrigin": "https://127.0.0.1:<ephemeral>",
+  "childOrigin": "https://localhost:<ephemeral>",
+  "checks": [
+    "Sign-in disabled until held cookie bootstrap completes",
+    "Stale cookie/CSRF context requires sign-in",
+    "Missing tab CSRF requires sign-in",
+    "Cross-site iframe password login",
+    "Secure HttpOnly partitioned cookie",
+    "Session survives frame reload",
+    "Forged CSRF remains denied",
+    "Logout clears matching partitioned cookie"
+  ],
+  "consoleErrors": [],
+  "platformTrafficTokenTested": false
+}

@@ -1,0 +1,13 @@
+BEGIN;
+CREATE TABLE IF NOT EXISTS schema_migrations(name text PRIMARY KEY,checksum text NOT NULL,applied_at timestamptz NOT NULL DEFAULT now(),applied_by text NOT NULL DEFAULT current_user);
+GRANT SELECT ON schema_migrations TO erp_runtime;
+CREATE TABLE service_heartbeats(service_name text PRIMARY KEY CHECK(service_name='auth-mail'),instance_id uuid NOT NULL,last_seen_at timestamptz NOT NULL DEFAULT now());
+DO $$ BEGIN IF NOT EXISTS(SELECT 1 FROM pg_roles WHERE rolname='erp_auth_worker') THEN CREATE ROLE erp_auth_worker LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOBYPASSRLS; END IF; END $$;
+GRANT USAGE ON SCHEMA public TO erp_auth_worker;
+GRANT SELECT ON service_heartbeats TO erp_runtime,erp_auth_worker;
+GRANT INSERT,UPDATE(instance_id,last_seen_at) ON service_heartbeats TO erp_auth_worker;
+GRANT SELECT ON auth_delivery_outbox TO erp_auth_worker;
+GRANT SELECT(id,used_at) ON password_reset_tokens TO erp_auth_worker;
+GRANT UPDATE(sent_at,attempts,lease_until,last_error_code) ON auth_delivery_outbox TO erp_auth_worker;
+GRANT INSERT(actor_id,subject_user_id,action,outcome,request_id,details) ON security_events TO erp_auth_worker;
+COMMIT;

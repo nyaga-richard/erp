@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:01:52.931Z",
+  "requests": [
+    "b3401003-0b68-4428-a5a4-2a01cf72ead8",
+    "8bd344fd-49db-4485-acd8-a89da0642305",
+    "c817669e-4eaa-4668-8d61-9c4af3d3e473"
+  ],
+  "rateId": "7b9e95da-c529-47cc-8141-4cfa5f97c1c1",
+  "checks": [
+    "Reviewed tax and category masters",
+    "Self-review denial",
+    "Effective decimal schedule and eligible tax accounts",
+    "Independent rate publication",
+    "ID-based exact calculation and recoverability",
+    "Missing schedule fails visibly; stale result cleared",
+    "Dialog focus/Escape",
+    "Mobile/dark rendering"
+  ],
+  "consoleErrors": []
+}

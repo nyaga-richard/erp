@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-29T12:02:15.356127+00:00",
+  "pages": 60,
+  "bytes": 354744,
+  "checks": {
+    "backend_count": true,
+    "schema_count": true,
+    "tax_configuration": true,
+    "product_references": true,
+    "current_date": true
+  }
+}

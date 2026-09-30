@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "date": "2026-09-30T05:44:53.879Z",
+  "backupFile": "database-2026-09-30T05-44-52-558Z-4816b1dc-4322-4fc6-8b0f-32701b214fa7.erpbackup",
+  "sha256": "30438866b9e3d75e966dccdc45b08e4ad8fbf446cef610a821d6c5d2a51da087",
+  "encrypted": true,
+  "target": "erp_restore_customer_1790747092918",
+  "counts": {
+    "sources": "56",
+    "journals": "43",
+    "lines": "86",
+    "audit_events": "950"
+  },
+  "stockCounts": {
+    "sources": 15,
+    "valuations": 15,
+    "movements": 13,
+    "pools": 5,
+    "reversals": 4
+  },
+  "customerCounts": {
+    "customers": 2,
+    "applied": 2,
+    "bindings": 2,
+    "arTransactions": 0
+  },
+  "migrations": 19,
+  "checks": {
+    "projectionDiscrepancies": 0,
+    "inventoryGlDiscrepancies": 0,
+    "postingLinkDiscrepancies": 0,
+    "exactPostedAuditDiscrepancies": 0,
+    "originalCostReversalDiscrepancies": 0,
+    "customerAuditDiscrepancies": 0,
+    "customerIdentityDiscrepancies": 0
+  },
+  "journalArithmetic": "PASS",
+  "scope": "Actual isolated stock and customer publication/binding/exact audit restoration; live database unchanged. Not full ERP, offsite/PITR or production-host DR.",
+  "productionHostTested": false
+}

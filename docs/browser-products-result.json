@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:02:16.866Z",
+  "requestId": "e7a8e77b-25b1-4517-a376-b8b7d6832372",
+  "productId": "35e116dc-335a-49db-bf87-0970f0307bc9",
+  "barcode": "001790748127857",
+  "checks": [
+    "Governed reference and reviewed tax pickers",
+    "Exact six-place prices",
+    "Independent product approval and self-review denial",
+    "Published SKU catalog/search",
+    "Leading-zero exact barcode lookup",
+    "Server-price dated tax preview; missing profile clears result",
+    "Keyboard focus/Escape",
+    "Mobile/dark layout"
+  ],
+  "consoleErrors": []
+}

@@ -1,0 +1,3500 @@
+[
+  {
+    "name": "account_change_requests_company_id_fkey",
+    "child": "account_change_requests",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "account_change_requests_company_id_parent_id_fkey",
+    "child": "account_change_requests",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, parent_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "account_change_requests_company_id_result_account_id_fkey",
+    "child": "account_change_requests",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, result_account_id) REFERENCES accounts(company_id, id) DEFERRABLE INITIALLY DEFERRED"
+  },
+  {
+    "name": "account_change_requests_company_id_target_id_fkey",
+    "child": "account_change_requests",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, target_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "account_change_requests_created_by_fkey",
+    "child": "account_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "account_change_requests_reviewed_by_fkey",
+    "child": "account_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reviewed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "accounting_rule_legs_company_id_account_id_fkey",
+    "child": "accounting_rule_legs",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_legs_company_id_fkey",
+    "child": "accounting_rule_legs",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "accounting_rule_legs_company_id_rule_set_id_fkey",
+    "child": "accounting_rule_legs",
+    "parent": "accounting_rule_sets",
+    "definition": "FOREIGN KEY (company_id, rule_set_id) REFERENCES accounting_rule_sets(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_legs_created_by_fkey",
+    "child": "accounting_rule_legs",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "accounting_rule_retirements_company_id_fkey",
+    "child": "accounting_rule_retirements",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "accounting_rule_retirements_company_id_request_id_fkey",
+    "child": "accounting_rule_retirements",
+    "parent": "posting_rule_change_requests",
+    "definition": "FOREIGN KEY (company_id, request_id) REFERENCES posting_rule_change_requests(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_retirements_company_id_rule_set_id_fkey",
+    "child": "accounting_rule_retirements",
+    "parent": "accounting_rule_sets",
+    "definition": "FOREIGN KEY (company_id, rule_set_id) REFERENCES accounting_rule_sets(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_retirements_created_by_fkey",
+    "child": "accounting_rule_retirements",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "accounting_rule_retirements_reviewed_by_fkey",
+    "child": "accounting_rule_retirements",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reviewed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "accounting_rule_sets_approved_by_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "accounting_rule_sets_company_id_branch_id_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_sets_company_id_category_id_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "product_categories",
+    "definition": "FOREIGN KEY (company_id, category_id) REFERENCES product_categories(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_sets_company_id_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "accounting_rule_sets_company_id_payment_method_id_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "payment_methods",
+    "definition": "FOREIGN KEY (company_id, payment_method_id) REFERENCES payment_methods(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_sets_company_id_product_id_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_sets_company_id_publication_request_id_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "posting_rule_change_requests",
+    "definition": "FOREIGN KEY (company_id, publication_request_id) REFERENCES posting_rule_change_requests(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_sets_company_id_tax_category_id_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "tax_categories",
+    "definition": "FOREIGN KEY (company_id, tax_category_id) REFERENCES tax_categories(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_sets_company_id_warehouse_id_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "accounting_rule_sets_created_by_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "accounting_rule_sets_event_type_contract_version_fkey",
+    "child": "accounting_rule_sets",
+    "parent": "posting_event_contracts",
+    "definition": "FOREIGN KEY (event_type, contract_version) REFERENCES posting_event_contracts(event_type, contract_version)"
+  },
+  {
+    "name": "accounts_company_id_fkey",
+    "child": "accounts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "accounts_company_id_last_request_id_fkey",
+    "child": "accounts",
+    "parent": "account_change_requests",
+    "definition": "FOREIGN KEY (company_id, last_request_id) REFERENCES account_change_requests(company_id, id)"
+  },
+  {
+    "name": "accounts_company_id_parent_id_fkey",
+    "child": "accounts",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, parent_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "accounts_created_by_fkey",
+    "child": "accounts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "accounts_currency_fkey",
+    "child": "accounts",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "accounts_updated_by_fkey",
+    "child": "accounts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (updated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "approval_decisions_company_id_fkey",
+    "child": "approval_decisions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "approval_decisions_company_id_source_id_fkey",
+    "child": "approval_decisions",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "approval_decisions_company_id_step_id_fkey",
+    "child": "approval_decisions",
+    "parent": "approval_steps",
+    "definition": "FOREIGN KEY (company_id, step_id) REFERENCES approval_steps(company_id, id)"
+  },
+  {
+    "name": "approval_decisions_created_by_fkey",
+    "child": "approval_decisions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "approval_policies_company_id_branch_id_fkey",
+    "child": "approval_policies",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "approval_policies_company_id_fkey",
+    "child": "approval_policies",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "approval_policies_created_by_fkey",
+    "child": "approval_policies",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "approval_policies_published_by_fkey",
+    "child": "approval_policies",
+    "parent": "users",
+    "definition": "FOREIGN KEY (published_by) REFERENCES users(id)"
+  },
+  {
+    "name": "approval_steps_company_id_fkey",
+    "child": "approval_steps",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "approval_steps_company_id_policy_id_fkey",
+    "child": "approval_steps",
+    "parent": "approval_policies",
+    "definition": "FOREIGN KEY (company_id, policy_id) REFERENCES approval_policies(company_id, id)"
+  },
+  {
+    "name": "approval_steps_created_by_fkey",
+    "child": "approval_steps",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "approval_steps_required_permission_fkey",
+    "child": "approval_steps",
+    "parent": "permissions",
+    "definition": "FOREIGN KEY (required_permission) REFERENCES permissions(code)"
+  },
+  {
+    "name": "attachments_company_id_fkey",
+    "child": "attachments",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "attachments_company_id_source_id_fkey",
+    "child": "attachments",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "attachments_created_by_fkey",
+    "child": "attachments",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "audit_logs_actor_id_fkey",
+    "child": "audit_logs",
+    "parent": "users",
+    "definition": "FOREIGN KEY (actor_id) REFERENCES users(id)"
+  },
+  {
+    "name": "audit_logs_company_id_fkey",
+    "child": "audit_logs",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "audit_logs_company_id_source_id_fkey",
+    "child": "audit_logs",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "audit_logs_initiated_by_fkey",
+    "child": "audit_logs",
+    "parent": "users",
+    "definition": "FOREIGN KEY (initiated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "audit_logs_session_id_fkey",
+    "child": "audit_logs",
+    "parent": "sessions",
+    "definition": "FOREIGN KEY (session_id) REFERENCES sessions(id)"
+  },
+  {
+    "name": "auth_delivery_outbox_created_by_fkey",
+    "child": "auth_delivery_outbox",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "auth_delivery_outbox_reset_token_id_fkey",
+    "child": "auth_delivery_outbox",
+    "parent": "password_reset_tokens",
+    "definition": "FOREIGN KEY (reset_token_id) REFERENCES password_reset_tokens(id)"
+  },
+  {
+    "name": "auth_delivery_outbox_user_id_fkey",
+    "child": "auth_delivery_outbox",
+    "parent": "users",
+    "definition": "FOREIGN KEY (user_id) REFERENCES users(id)"
+  },
+  {
+    "name": "bank_accounts_company_id_account_id_fkey",
+    "child": "bank_accounts",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "bank_accounts_company_id_fkey",
+    "child": "bank_accounts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "bank_accounts_created_by_fkey",
+    "child": "bank_accounts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "bank_accounts_currency_fkey",
+    "child": "bank_accounts",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "branches_company_id_fkey",
+    "child": "branches",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "branches_created_by_fkey",
+    "child": "branches",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "branches_updated_by_fkey",
+    "child": "branches",
+    "parent": "users",
+    "definition": "FOREIGN KEY (updated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "brands_company_id_fkey",
+    "child": "brands",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "brands_created_by_fkey",
+    "child": "brands",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "cash_counts_approved_by_fkey",
+    "child": "cash_counts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "cash_counts_company_id_account_id_fkey",
+    "child": "cash_counts",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "cash_counts_company_id_fkey",
+    "child": "cash_counts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "cash_counts_company_id_session_id_fkey",
+    "child": "cash_counts",
+    "parent": "cashier_sessions",
+    "definition": "FOREIGN KEY (company_id, session_id) REFERENCES cashier_sessions(company_id, id)"
+  },
+  {
+    "name": "cash_counts_company_id_source_id_fkey",
+    "child": "cash_counts",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "cash_counts_created_by_fkey",
+    "child": "cash_counts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "cash_movements_company_id_account_id_fkey",
+    "child": "cash_movements",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "cash_movements_company_id_fkey",
+    "child": "cash_movements",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "cash_movements_company_id_journal_line_id_fkey",
+    "child": "cash_movements",
+    "parent": "journal_lines",
+    "definition": "FOREIGN KEY (company_id, journal_line_id) REFERENCES journal_lines(company_id, id)"
+  },
+  {
+    "name": "cash_movements_company_id_session_id_fkey",
+    "child": "cash_movements",
+    "parent": "cashier_sessions",
+    "definition": "FOREIGN KEY (company_id, session_id) REFERENCES cashier_sessions(company_id, id)"
+  },
+  {
+    "name": "cash_movements_company_id_source_id_fkey",
+    "child": "cash_movements",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "cash_movements_created_by_fkey",
+    "child": "cash_movements",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "cashier_sessions_approved_by_fkey",
+    "child": "cashier_sessions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "cashier_sessions_cashier_id_fkey",
+    "child": "cashier_sessions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (cashier_id) REFERENCES users(id)"
+  },
+  {
+    "name": "cashier_sessions_company_id_branch_id_fkey",
+    "child": "cashier_sessions",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "cashier_sessions_company_id_fkey",
+    "child": "cashier_sessions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "cashier_sessions_company_id_source_id_fkey",
+    "child": "cashier_sessions",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "cashier_sessions_company_id_terminal_id_fkey",
+    "child": "cashier_sessions",
+    "parent": "pos_terminals",
+    "definition": "FOREIGN KEY (company_id, terminal_id) REFERENCES pos_terminals(company_id, id)"
+  },
+  {
+    "name": "cashier_sessions_created_by_fkey",
+    "child": "cashier_sessions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "cashier_sessions_reconciled_by_fkey",
+    "child": "cashier_sessions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reconciled_by) REFERENCES users(id)"
+  },
+  {
+    "name": "companies_base_currency_fkey",
+    "child": "companies",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (base_currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "companies_created_by_fkey",
+    "child": "companies",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "companies_updated_by_fkey",
+    "child": "companies",
+    "parent": "users",
+    "definition": "FOREIGN KEY (updated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "cost_centers_company_id_fkey",
+    "child": "cost_centers",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "cost_centers_created_by_fkey",
+    "child": "cost_centers",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "cost_layer_allocations_company_id_fkey",
+    "child": "cost_layer_allocations",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "cost_layer_allocations_company_id_issue_movement_id_fkey",
+    "child": "cost_layer_allocations",
+    "parent": "inventory_movements",
+    "definition": "FOREIGN KEY (company_id, issue_movement_id) REFERENCES inventory_movements(company_id, id)"
+  },
+  {
+    "name": "cost_layer_allocations_company_id_layer_id_fkey",
+    "child": "cost_layer_allocations",
+    "parent": "cost_layers",
+    "definition": "FOREIGN KEY (company_id, layer_id) REFERENCES cost_layers(company_id, id)"
+  },
+  {
+    "name": "cost_layer_allocations_created_by_fkey",
+    "child": "cost_layer_allocations",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "cost_layers_company_id_fkey",
+    "child": "cost_layers",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "cost_layers_company_id_receipt_movement_id_fkey",
+    "child": "cost_layers",
+    "parent": "inventory_movements",
+    "definition": "FOREIGN KEY (company_id, receipt_movement_id) REFERENCES inventory_movements(company_id, id)"
+  },
+  {
+    "name": "cost_layers_created_by_fkey",
+    "child": "cost_layers",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "customer_accounts_company_id_control_account_id_fkey",
+    "child": "customer_accounts",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, control_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "customer_accounts_company_id_customer_id_fkey",
+    "child": "customer_accounts",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "customer_accounts_company_id_fkey",
+    "child": "customer_accounts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "customer_accounts_created_by_fkey",
+    "child": "customer_accounts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "customer_amendment_requests_company_id_customer_id_fkey",
+    "child": "customer_amendment_requests",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "customer_amendment_requests_company_id_fkey",
+    "child": "customer_amendment_requests",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "customer_amendment_requests_created_by_fkey",
+    "child": "customer_amendment_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "customer_amendment_requests_reviewed_by_fkey",
+    "child": "customer_amendment_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reviewed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "customer_change_requests_company_id_control_account_id_fkey",
+    "child": "customer_change_requests",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, control_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "customer_change_requests_company_id_fkey",
+    "child": "customer_change_requests",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "customer_change_requests_company_id_tax_category_id_fkey",
+    "child": "customer_change_requests",
+    "parent": "tax_categories",
+    "definition": "FOREIGN KEY (company_id, tax_category_id) REFERENCES tax_categories(company_id, id)"
+  },
+  {
+    "name": "customer_change_requests_created_by_fkey",
+    "child": "customer_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "customer_change_requests_currency_fkey",
+    "child": "customer_change_requests",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "customer_change_requests_reviewed_by_fkey",
+    "child": "customer_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reviewed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "customer_transactions_company_id_control_account_id_fkey",
+    "child": "customer_transactions",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, control_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "customer_transactions_company_id_customer_id_fkey",
+    "child": "customer_transactions",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "customer_transactions_company_id_fkey",
+    "child": "customer_transactions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "customer_transactions_company_id_journal_line_id_fkey",
+    "child": "customer_transactions",
+    "parent": "journal_lines",
+    "definition": "FOREIGN KEY (company_id, journal_line_id) REFERENCES journal_lines(company_id, id)"
+  },
+  {
+    "name": "customer_transactions_company_id_source_id_fkey",
+    "child": "customer_transactions",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "customer_transactions_created_by_fkey",
+    "child": "customer_transactions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "customer_transactions_currency_fkey",
+    "child": "customer_transactions",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "customers_approved_by_fkey",
+    "child": "customers",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "customers_company_id_fkey",
+    "child": "customers",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "customers_company_id_publication_request_id_fkey",
+    "child": "customers",
+    "parent": "customer_change_requests",
+    "definition": "FOREIGN KEY (company_id, publication_request_id) REFERENCES customer_change_requests(company_id, id)"
+  },
+  {
+    "name": "customers_company_id_tax_category_id_fkey",
+    "child": "customers",
+    "parent": "tax_categories",
+    "definition": "FOREIGN KEY (company_id, tax_category_id) REFERENCES tax_categories(company_id, id)"
+  },
+  {
+    "name": "customers_created_by_fkey",
+    "child": "customers",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "customers_currency_fkey",
+    "child": "customers",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "document_events_actor_id_fkey",
+    "child": "document_events",
+    "parent": "users",
+    "definition": "FOREIGN KEY (actor_id) REFERENCES users(id)"
+  },
+  {
+    "name": "document_events_company_id_fkey",
+    "child": "document_events",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "document_events_company_id_source_id_fkey",
+    "child": "document_events",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "document_links_company_id_fkey",
+    "child": "document_links",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "document_links_company_id_source_id_fkey",
+    "child": "document_links",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "document_links_company_id_target_id_fkey",
+    "child": "document_links",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, target_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "document_links_created_by_fkey",
+    "child": "document_links",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "document_numbering_policies_company_id_branch_id_fkey",
+    "child": "document_numbering_policies",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "document_numbering_policies_company_id_fkey",
+    "child": "document_numbering_policies",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "document_numbering_policies_company_id_last_request_id_fkey",
+    "child": "document_numbering_policies",
+    "parent": "numbering_change_requests",
+    "definition": "FOREIGN KEY (company_id, last_request_id) REFERENCES numbering_change_requests(company_id, id)"
+  },
+  {
+    "name": "document_numbering_policies_created_by_fkey",
+    "child": "document_numbering_policies",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "document_numbering_policies_document_type_fkey",
+    "child": "document_numbering_policies",
+    "parent": "document_numbering_defaults",
+    "definition": "FOREIGN KEY (document_type) REFERENCES document_numbering_defaults(document_type)"
+  },
+  {
+    "name": "document_numbering_policies_updated_by_fkey",
+    "child": "document_numbering_policies",
+    "parent": "users",
+    "definition": "FOREIGN KEY (updated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "document_sequences_allocated_by_fkey",
+    "child": "document_sequences",
+    "parent": "users",
+    "definition": "FOREIGN KEY (allocated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "document_sequences_company_id_branch_id_fkey",
+    "child": "document_sequences",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "document_sequences_company_id_fkey",
+    "child": "document_sequences",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "exchange_rates_base_currency_fkey",
+    "child": "exchange_rates",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (base_currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "exchange_rates_company_id_fkey",
+    "child": "exchange_rates",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "exchange_rates_created_by_fkey",
+    "child": "exchange_rates",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "exchange_rates_currency_fkey",
+    "child": "exchange_rates",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "expense_categories_company_id_expense_account_id_fkey",
+    "child": "expense_categories",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, expense_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "expense_categories_company_id_fkey",
+    "child": "expense_categories",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "expense_categories_created_by_fkey",
+    "child": "expense_categories",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "expense_lines_company_id_account_id_fkey",
+    "child": "expense_lines",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "expense_lines_company_id_category_id_fkey",
+    "child": "expense_lines",
+    "parent": "expense_categories",
+    "definition": "FOREIGN KEY (company_id, category_id) REFERENCES expense_categories(company_id, id)"
+  },
+  {
+    "name": "expense_lines_company_id_cost_center_id_fkey",
+    "child": "expense_lines",
+    "parent": "cost_centers",
+    "definition": "FOREIGN KEY (company_id, cost_center_id) REFERENCES cost_centers(company_id, id)"
+  },
+  {
+    "name": "expense_lines_company_id_expense_id_fkey",
+    "child": "expense_lines",
+    "parent": "expenses",
+    "definition": "FOREIGN KEY (company_id, expense_id) REFERENCES expenses(company_id, id)"
+  },
+  {
+    "name": "expense_lines_company_id_fkey",
+    "child": "expense_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "expense_lines_created_by_fkey",
+    "child": "expense_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "expenses_company_id_fkey",
+    "child": "expenses",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "expenses_company_id_payment_id_fkey",
+    "child": "expenses",
+    "parent": "payments",
+    "definition": "FOREIGN KEY (company_id, payment_id) REFERENCES payments(company_id, id)"
+  },
+  {
+    "name": "expenses_company_id_source_id_fkey",
+    "child": "expenses",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "expenses_company_id_supplier_id_fkey",
+    "child": "expenses",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "expenses_created_by_fkey",
+    "child": "expenses",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "financial_periods_company_id_fkey",
+    "child": "financial_periods",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "financial_periods_created_by_fkey",
+    "child": "financial_periods",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "financial_periods_updated_by_fkey",
+    "child": "financial_periods",
+    "parent": "users",
+    "definition": "FOREIGN KEY (updated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "fiscal_submissions_company_id_fkey",
+    "child": "fiscal_submissions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "fiscal_submissions_company_id_source_id_fkey",
+    "child": "fiscal_submissions",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "fiscal_submissions_created_by_fkey",
+    "child": "fiscal_submissions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "grn_lines_company_id_fkey",
+    "child": "grn_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "grn_lines_company_id_grn_id_fkey",
+    "child": "grn_lines",
+    "parent": "grns",
+    "definition": "FOREIGN KEY (company_id, grn_id) REFERENCES grns(company_id, id)"
+  },
+  {
+    "name": "grn_lines_company_id_lot_id_fkey",
+    "child": "grn_lines",
+    "parent": "inventory_lots",
+    "definition": "FOREIGN KEY (company_id, lot_id) REFERENCES inventory_lots(company_id, id)"
+  },
+  {
+    "name": "grn_lines_company_id_order_line_id_fkey",
+    "child": "grn_lines",
+    "parent": "purchase_order_lines",
+    "definition": "FOREIGN KEY (company_id, order_line_id) REFERENCES purchase_order_lines(company_id, id)"
+  },
+  {
+    "name": "grn_lines_company_id_product_id_fkey",
+    "child": "grn_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "grn_lines_company_id_serial_id_fkey",
+    "child": "grn_lines",
+    "parent": "inventory_serials",
+    "definition": "FOREIGN KEY (company_id, serial_id) REFERENCES inventory_serials(company_id, id)"
+  },
+  {
+    "name": "grn_lines_created_by_fkey",
+    "child": "grn_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "grns_company_id_fkey",
+    "child": "grns",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "grns_company_id_order_id_fkey",
+    "child": "grns",
+    "parent": "purchase_orders",
+    "definition": "FOREIGN KEY (company_id, order_id) REFERENCES purchase_orders(company_id, id)"
+  },
+  {
+    "name": "grns_company_id_source_id_fkey",
+    "child": "grns",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "grns_company_id_supplier_id_fkey",
+    "child": "grns",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "grns_company_id_warehouse_id_fkey",
+    "child": "grns",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "grns_created_by_fkey",
+    "child": "grns",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "idempotency_keys_actor_id_fkey",
+    "child": "idempotency_keys",
+    "parent": "users",
+    "definition": "FOREIGN KEY (actor_id) REFERENCES users(id)"
+  },
+  {
+    "name": "idempotency_keys_company_id_fkey",
+    "child": "idempotency_keys",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "integration_inbox_company_id_fkey",
+    "child": "integration_inbox",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "integration_inbox_created_by_fkey",
+    "child": "integration_inbox",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "inventory_adjustment_lines_company_id_fkey",
+    "child": "inventory_adjustment_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "inventory_adjustment_lines_company_id_original_movement_id_fkey",
+    "child": "inventory_adjustment_lines",
+    "parent": "inventory_movements",
+    "definition": "FOREIGN KEY (company_id, original_movement_id) REFERENCES inventory_movements(company_id, id)"
+  },
+  {
+    "name": "inventory_adjustment_lines_company_id_product_id_fkey",
+    "child": "inventory_adjustment_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "inventory_adjustment_lines_company_id_source_id_fkey",
+    "child": "inventory_adjustment_lines",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "inventory_adjustment_lines_company_id_warehouse_id_fkey",
+    "child": "inventory_adjustment_lines",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "inventory_adjustment_lines_created_by_fkey",
+    "child": "inventory_adjustment_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "inventory_balances_company_id_fkey",
+    "child": "inventory_balances",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "inventory_balances_company_id_product_id_fkey",
+    "child": "inventory_balances",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "inventory_balances_company_id_warehouse_id_fkey",
+    "child": "inventory_balances",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "inventory_balances_created_by_fkey",
+    "child": "inventory_balances",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "inventory_lots_company_id_fkey",
+    "child": "inventory_lots",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "inventory_lots_company_id_product_id_fkey",
+    "child": "inventory_lots",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "inventory_lots_created_by_fkey",
+    "child": "inventory_lots",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "inventory_movements_approved_by_fkey",
+    "child": "inventory_movements",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "inventory_movements_company_id_fkey",
+    "child": "inventory_movements",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "inventory_movements_company_id_journal_id_fkey",
+    "child": "inventory_movements",
+    "parent": "journal_entries",
+    "definition": "FOREIGN KEY (company_id, journal_id) REFERENCES journal_entries(company_id, id)"
+  },
+  {
+    "name": "inventory_movements_company_id_lot_id_fkey",
+    "child": "inventory_movements",
+    "parent": "inventory_lots",
+    "definition": "FOREIGN KEY (company_id, lot_id) REFERENCES inventory_lots(company_id, id)"
+  },
+  {
+    "name": "inventory_movements_company_id_original_movement_id_fkey",
+    "child": "inventory_movements",
+    "parent": "inventory_movements",
+    "definition": "FOREIGN KEY (company_id, original_movement_id) REFERENCES inventory_movements(company_id, id)"
+  },
+  {
+    "name": "inventory_movements_company_id_product_id_fkey",
+    "child": "inventory_movements",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "inventory_movements_company_id_serial_id_fkey",
+    "child": "inventory_movements",
+    "parent": "inventory_serials",
+    "definition": "FOREIGN KEY (company_id, serial_id) REFERENCES inventory_serials(company_id, id)"
+  },
+  {
+    "name": "inventory_movements_company_id_source_id_fkey",
+    "child": "inventory_movements",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "inventory_movements_company_id_valuation_id_fkey",
+    "child": "inventory_movements",
+    "parent": "inventory_valuations",
+    "definition": "FOREIGN KEY (company_id, valuation_id) REFERENCES inventory_valuations(company_id, id)"
+  },
+  {
+    "name": "inventory_movements_company_id_warehouse_id_fkey",
+    "child": "inventory_movements",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "inventory_movements_created_by_fkey",
+    "child": "inventory_movements",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "inventory_serials_company_id_fkey",
+    "child": "inventory_serials",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "inventory_serials_company_id_product_id_fkey",
+    "child": "inventory_serials",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "inventory_serials_created_by_fkey",
+    "child": "inventory_serials",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "inventory_valuations_company_id_fkey",
+    "child": "inventory_valuations",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "inventory_valuations_company_id_rule_id_fkey",
+    "child": "inventory_valuations",
+    "parent": "accounting_rule_sets",
+    "definition": "FOREIGN KEY (company_id, rule_id) REFERENCES accounting_rule_sets(company_id, id)"
+  },
+  {
+    "name": "inventory_valuations_company_id_source_id_fkey",
+    "child": "inventory_valuations",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "inventory_valuations_created_by_fkey",
+    "child": "inventory_valuations",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "invoice_receipt_allocations_company_id_fkey",
+    "child": "invoice_receipt_allocations",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "invoice_receipt_allocations_company_id_grn_line_id_fkey",
+    "child": "invoice_receipt_allocations",
+    "parent": "grn_lines",
+    "definition": "FOREIGN KEY (company_id, grn_line_id) REFERENCES grn_lines(company_id, id)"
+  },
+  {
+    "name": "invoice_receipt_allocations_company_id_invoice_line_id_fkey",
+    "child": "invoice_receipt_allocations",
+    "parent": "supplier_invoice_lines",
+    "definition": "FOREIGN KEY (company_id, invoice_line_id) REFERENCES supplier_invoice_lines(company_id, id)"
+  },
+  {
+    "name": "invoice_receipt_allocations_created_by_fkey",
+    "child": "invoice_receipt_allocations",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "journal_entries_base_currency_fkey",
+    "child": "journal_entries",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (base_currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "journal_entries_company_id_branch_id_fkey",
+    "child": "journal_entries",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "journal_entries_company_id_fkey",
+    "child": "journal_entries",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "journal_entries_company_id_period_id_fkey",
+    "child": "journal_entries",
+    "parent": "financial_periods",
+    "definition": "FOREIGN KEY (company_id, period_id) REFERENCES financial_periods(company_id, id)"
+  },
+  {
+    "name": "journal_entries_company_id_reversal_of_fkey",
+    "child": "journal_entries",
+    "parent": "journal_entries",
+    "definition": "FOREIGN KEY (company_id, reversal_of) REFERENCES journal_entries(company_id, id)"
+  },
+  {
+    "name": "journal_entries_company_id_source_id_fkey",
+    "child": "journal_entries",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "journal_entries_created_by_fkey",
+    "child": "journal_entries",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "journal_entries_currency_fkey",
+    "child": "journal_entries",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "journal_entries_posted_by_fkey",
+    "child": "journal_entries",
+    "parent": "users",
+    "definition": "FOREIGN KEY (posted_by) REFERENCES users(id)"
+  },
+  {
+    "name": "journal_lines_company_id_account_id_fkey",
+    "child": "journal_lines",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "journal_lines_company_id_fkey",
+    "child": "journal_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "journal_lines_company_id_journal_id_fkey",
+    "child": "journal_lines",
+    "parent": "journal_entries",
+    "definition": "FOREIGN KEY (company_id, journal_id) REFERENCES journal_entries(company_id, id)"
+  },
+  {
+    "name": "journal_lines_created_by_fkey",
+    "child": "journal_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "journal_posting_rule_applications_company_id_fkey",
+    "child": "journal_posting_rule_applications",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "journal_posting_rule_applications_company_id_journal_id_fkey",
+    "child": "journal_posting_rule_applications",
+    "parent": "journal_entries",
+    "definition": "FOREIGN KEY (company_id, journal_id) REFERENCES journal_entries(company_id, id)"
+  },
+  {
+    "name": "journal_posting_rule_applications_company_id_rule_set_id_fkey",
+    "child": "journal_posting_rule_applications",
+    "parent": "accounting_rule_sets",
+    "definition": "FOREIGN KEY (company_id, rule_set_id) REFERENCES accounting_rule_sets(company_id, id)"
+  },
+  {
+    "name": "login_history_user_id_fkey",
+    "child": "login_history",
+    "parent": "users",
+    "definition": "FOREIGN KEY (user_id) REFERENCES users(id)"
+  },
+  {
+    "name": "match_exceptions_company_id_fkey",
+    "child": "match_exceptions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "match_exceptions_company_id_invoice_id_fkey",
+    "child": "match_exceptions",
+    "parent": "supplier_invoices",
+    "definition": "FOREIGN KEY (company_id, invoice_id) REFERENCES supplier_invoices(company_id, id)"
+  },
+  {
+    "name": "match_exceptions_company_id_tolerance_id_fkey",
+    "child": "match_exceptions",
+    "parent": "match_tolerances",
+    "definition": "FOREIGN KEY (company_id, tolerance_id) REFERENCES match_tolerances(company_id, id)"
+  },
+  {
+    "name": "match_exceptions_created_by_fkey",
+    "child": "match_exceptions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "match_exceptions_decided_by_fkey",
+    "child": "match_exceptions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (decided_by) REFERENCES users(id)"
+  },
+  {
+    "name": "match_tolerances_company_id_fkey",
+    "child": "match_tolerances",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "match_tolerances_created_by_fkey",
+    "child": "match_tolerances",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "memberships_company_id_fkey",
+    "child": "memberships",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "memberships_created_by_fkey",
+    "child": "memberships",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "memberships_updated_by_fkey",
+    "child": "memberships",
+    "parent": "users",
+    "definition": "FOREIGN KEY (updated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "memberships_user_id_fkey",
+    "child": "memberships",
+    "parent": "users",
+    "definition": "FOREIGN KEY (user_id) REFERENCES users(id)"
+  },
+  {
+    "name": "mobile_money_accounts_company_id_account_id_fkey",
+    "child": "mobile_money_accounts",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "mobile_money_accounts_company_id_fkey",
+    "child": "mobile_money_accounts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "mobile_money_accounts_created_by_fkey",
+    "child": "mobile_money_accounts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "mobile_money_accounts_currency_fkey",
+    "child": "mobile_money_accounts",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "numbering_change_requests_company_id_branch_id_fkey",
+    "child": "numbering_change_requests",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "numbering_change_requests_company_id_fkey",
+    "child": "numbering_change_requests",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "numbering_change_requests_company_id_result_policy_id_fkey",
+    "child": "numbering_change_requests",
+    "parent": "document_numbering_policies",
+    "definition": "FOREIGN KEY (company_id, result_policy_id) REFERENCES document_numbering_policies(company_id, id) DEFERRABLE INITIALLY DEFERRED"
+  },
+  {
+    "name": "numbering_change_requests_company_id_target_id_fkey",
+    "child": "numbering_change_requests",
+    "parent": "document_numbering_policies",
+    "definition": "FOREIGN KEY (company_id, target_id) REFERENCES document_numbering_policies(company_id, id)"
+  },
+  {
+    "name": "numbering_change_requests_created_by_fkey",
+    "child": "numbering_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "numbering_change_requests_document_type_fkey",
+    "child": "numbering_change_requests",
+    "parent": "document_numbering_defaults",
+    "definition": "FOREIGN KEY (document_type) REFERENCES document_numbering_defaults(document_type)"
+  },
+  {
+    "name": "numbering_change_requests_reviewed_by_fkey",
+    "child": "numbering_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reviewed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "outbox_events_company_id_fkey",
+    "child": "outbox_events",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "outbox_events_company_id_source_id_fkey",
+    "child": "outbox_events",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "outbox_events_created_by_fkey",
+    "child": "outbox_events",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "partner_notes_company_id_customer_id_fkey",
+    "child": "partner_notes",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "partner_notes_company_id_fkey",
+    "child": "partner_notes",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "partner_notes_company_id_original_source_id_fkey",
+    "child": "partner_notes",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, original_source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "partner_notes_company_id_source_id_fkey",
+    "child": "partner_notes",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "partner_notes_company_id_supplier_id_fkey",
+    "child": "partner_notes",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "partner_notes_created_by_fkey",
+    "child": "partner_notes",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "password_reset_tokens_user_id_fkey",
+    "child": "password_reset_tokens",
+    "parent": "users",
+    "definition": "FOREIGN KEY (user_id) REFERENCES users(id)"
+  },
+  {
+    "name": "payment_allocations_company_id_allocation_source_id_fkey",
+    "child": "payment_allocations",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, allocation_source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "payment_allocations_company_id_fkey",
+    "child": "payment_allocations",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "payment_allocations_company_id_invoice_source_id_fkey",
+    "child": "payment_allocations",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, invoice_source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "payment_allocations_company_id_payment_id_fkey",
+    "child": "payment_allocations",
+    "parent": "payments",
+    "definition": "FOREIGN KEY (company_id, payment_id) REFERENCES payments(company_id, id)"
+  },
+  {
+    "name": "payment_allocations_company_id_reversal_of_fkey",
+    "child": "payment_allocations",
+    "parent": "payment_allocations",
+    "definition": "FOREIGN KEY (company_id, reversal_of) REFERENCES payment_allocations(company_id, id)"
+  },
+  {
+    "name": "payment_allocations_created_by_fkey",
+    "child": "payment_allocations",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "payment_attempts_company_id_fkey",
+    "child": "payment_attempts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "payment_attempts_company_id_payment_id_fkey",
+    "child": "payment_attempts",
+    "parent": "payments",
+    "definition": "FOREIGN KEY (company_id, payment_id) REFERENCES payments(company_id, id)"
+  },
+  {
+    "name": "payment_attempts_created_by_fkey",
+    "child": "payment_attempts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "payment_methods_company_id_account_id_fkey",
+    "child": "payment_methods",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "payment_methods_company_id_fkey",
+    "child": "payment_methods",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "payment_methods_created_by_fkey",
+    "child": "payment_methods",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "payments_company_id_account_id_fkey",
+    "child": "payments",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "payments_company_id_cashier_session_id_fkey",
+    "child": "payments",
+    "parent": "cashier_sessions",
+    "definition": "FOREIGN KEY (company_id, cashier_session_id) REFERENCES cashier_sessions(company_id, id)"
+  },
+  {
+    "name": "payments_company_id_customer_id_fkey",
+    "child": "payments",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "payments_company_id_fkey",
+    "child": "payments",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "payments_company_id_method_id_fkey",
+    "child": "payments",
+    "parent": "payment_methods",
+    "definition": "FOREIGN KEY (company_id, method_id) REFERENCES payment_methods(company_id, id)"
+  },
+  {
+    "name": "payments_company_id_source_id_fkey",
+    "child": "payments",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "payments_company_id_supplier_id_fkey",
+    "child": "payments",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "payments_created_by_fkey",
+    "child": "payments",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "payments_currency_fkey",
+    "child": "payments",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "payments_initiated_by_fkey",
+    "child": "payments",
+    "parent": "users",
+    "definition": "FOREIGN KEY (initiated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "payments_posted_by_fkey",
+    "child": "payments",
+    "parent": "users",
+    "definition": "FOREIGN KEY (posted_by) REFERENCES users(id)"
+  },
+  {
+    "name": "payments_reversed_by_fkey",
+    "child": "payments",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reversed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "permission_delegations_company_id_fkey",
+    "child": "permission_delegations",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "permission_delegations_company_id_user_id_fkey",
+    "child": "permission_delegations",
+    "parent": "memberships",
+    "definition": "FOREIGN KEY (company_id, user_id) REFERENCES memberships(company_id, user_id)"
+  },
+  {
+    "name": "permission_delegations_granted_by_fkey",
+    "child": "permission_delegations",
+    "parent": "users",
+    "definition": "FOREIGN KEY (granted_by) REFERENCES users(id)"
+  },
+  {
+    "name": "permission_delegations_permission_code_fkey",
+    "child": "permission_delegations",
+    "parent": "permissions",
+    "definition": "FOREIGN KEY (permission_code) REFERENCES permissions(code)"
+  },
+  {
+    "name": "permission_delegations_user_id_fkey",
+    "child": "permission_delegations",
+    "parent": "users",
+    "definition": "FOREIGN KEY (user_id) REFERENCES users(id)"
+  },
+  {
+    "name": "pos_carts_company_id_customer_id_fkey",
+    "child": "pos_carts",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "pos_carts_company_id_fkey",
+    "child": "pos_carts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "pos_carts_company_id_session_id_fkey",
+    "child": "pos_carts",
+    "parent": "cashier_sessions",
+    "definition": "FOREIGN KEY (company_id, session_id) REFERENCES cashier_sessions(company_id, id)"
+  },
+  {
+    "name": "pos_carts_company_id_source_id_fkey",
+    "child": "pos_carts",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "pos_carts_created_by_fkey",
+    "child": "pos_carts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "pos_terminals_company_id_branch_id_fkey",
+    "child": "pos_terminals",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "pos_terminals_company_id_fkey",
+    "child": "pos_terminals",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "pos_terminals_company_id_warehouse_id_fkey",
+    "child": "pos_terminals",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "pos_terminals_created_by_fkey",
+    "child": "pos_terminals",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "posting_event_leg_contracts_event_type_contract_version_fkey",
+    "child": "posting_event_leg_contracts",
+    "parent": "posting_event_contracts",
+    "definition": "FOREIGN KEY (event_type, contract_version) REFERENCES posting_event_contracts(event_type, contract_version)"
+  },
+  {
+    "name": "posting_event_leg_eligibility_event_type_contract_version__fkey",
+    "child": "posting_event_leg_eligibility",
+    "parent": "posting_event_leg_contracts",
+    "definition": "FOREIGN KEY (event_type, contract_version, leg_code) REFERENCES posting_event_leg_contracts(event_type, contract_version, leg_code)"
+  },
+  {
+    "name": "posting_rule_change_legs_company_id_account_id_fkey",
+    "child": "posting_rule_change_legs",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "posting_rule_change_legs_company_id_fkey",
+    "child": "posting_rule_change_legs",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "posting_rule_change_legs_company_id_request_id_fkey",
+    "child": "posting_rule_change_legs",
+    "parent": "posting_rule_change_requests",
+    "definition": "FOREIGN KEY (company_id, request_id) REFERENCES posting_rule_change_requests(company_id, id)"
+  },
+  {
+    "name": "posting_rule_change_requests_company_id_branch_id_fkey",
+    "child": "posting_rule_change_requests",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "posting_rule_change_requests_company_id_fkey",
+    "child": "posting_rule_change_requests",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "posting_rule_change_requests_company_id_target_id_fkey",
+    "child": "posting_rule_change_requests",
+    "parent": "accounting_rule_sets",
+    "definition": "FOREIGN KEY (company_id, target_id) REFERENCES accounting_rule_sets(company_id, id)"
+  },
+  {
+    "name": "posting_rule_change_requests_company_id_warehouse_id_fkey",
+    "child": "posting_rule_change_requests",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "posting_rule_change_requests_created_by_fkey",
+    "child": "posting_rule_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "posting_rule_change_requests_event_type_contract_version_fkey",
+    "child": "posting_rule_change_requests",
+    "parent": "posting_event_contracts",
+    "definition": "FOREIGN KEY (event_type, contract_version) REFERENCES posting_event_contracts(event_type, contract_version)"
+  },
+  {
+    "name": "posting_rule_change_requests_reviewed_by_fkey",
+    "child": "posting_rule_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reviewed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "price_lists_company_id_fkey",
+    "child": "price_lists",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "price_lists_created_by_fkey",
+    "child": "price_lists",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "price_lists_currency_fkey",
+    "child": "price_lists",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "product_barcodes_company_id_fkey",
+    "child": "product_barcodes",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "product_barcodes_company_id_product_id_fkey",
+    "child": "product_barcodes",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "product_barcodes_company_id_uom_id_fkey",
+    "child": "product_barcodes",
+    "parent": "units_of_measure",
+    "definition": "FOREIGN KEY (company_id, uom_id) REFERENCES units_of_measure(company_id, id)"
+  },
+  {
+    "name": "product_barcodes_created_by_fkey",
+    "child": "product_barcodes",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "product_categories_company_id_fkey",
+    "child": "product_categories",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "product_categories_company_id_parent_id_fkey",
+    "child": "product_categories",
+    "parent": "product_categories",
+    "definition": "FOREIGN KEY (company_id, parent_id) REFERENCES product_categories(company_id, id)"
+  },
+  {
+    "name": "product_categories_created_by_fkey",
+    "child": "product_categories",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "product_change_requests_company_id_brand_id_fkey",
+    "child": "product_change_requests",
+    "parent": "brands",
+    "definition": "FOREIGN KEY (company_id, brand_id) REFERENCES brands(company_id, id)"
+  },
+  {
+    "name": "product_change_requests_company_id_category_id_fkey",
+    "child": "product_change_requests",
+    "parent": "product_categories",
+    "definition": "FOREIGN KEY (company_id, category_id) REFERENCES product_categories(company_id, id)"
+  },
+  {
+    "name": "product_change_requests_company_id_fkey",
+    "child": "product_change_requests",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "product_change_requests_company_id_tax_category_id_fkey",
+    "child": "product_change_requests",
+    "parent": "tax_categories",
+    "definition": "FOREIGN KEY (company_id, tax_category_id) REFERENCES tax_categories(company_id, id)"
+  },
+  {
+    "name": "product_change_requests_company_id_uom_id_fkey",
+    "child": "product_change_requests",
+    "parent": "units_of_measure",
+    "definition": "FOREIGN KEY (company_id, uom_id) REFERENCES units_of_measure(company_id, id)"
+  },
+  {
+    "name": "product_change_requests_created_by_fkey",
+    "child": "product_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "product_change_requests_currency_fkey",
+    "child": "product_change_requests",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "product_change_requests_reviewed_by_fkey",
+    "child": "product_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reviewed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "product_prices_company_id_fkey",
+    "child": "product_prices",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "product_prices_company_id_price_list_id_fkey",
+    "child": "product_prices",
+    "parent": "price_lists",
+    "definition": "FOREIGN KEY (company_id, price_list_id) REFERENCES price_lists(company_id, id)"
+  },
+  {
+    "name": "product_prices_company_id_product_id_fkey",
+    "child": "product_prices",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "product_prices_created_by_fkey",
+    "child": "product_prices",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "product_request_barcodes_company_id_request_id_fkey",
+    "child": "product_request_barcodes",
+    "parent": "product_change_requests",
+    "definition": "FOREIGN KEY (company_id, request_id) REFERENCES product_change_requests(company_id, id)"
+  },
+  {
+    "name": "product_request_taxes_company_id_request_id_fkey",
+    "child": "product_request_taxes",
+    "parent": "product_change_requests",
+    "definition": "FOREIGN KEY (company_id, request_id) REFERENCES product_change_requests(company_id, id)"
+  },
+  {
+    "name": "product_request_taxes_company_id_tax_id_fkey",
+    "child": "product_request_taxes",
+    "parent": "taxes",
+    "definition": "FOREIGN KEY (company_id, tax_id) REFERENCES taxes(company_id, id)"
+  },
+  {
+    "name": "product_tax_profiles_approved_by_fkey",
+    "child": "product_tax_profiles",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "product_tax_profiles_company_id_fkey",
+    "child": "product_tax_profiles",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "product_tax_profiles_company_id_product_id_fkey",
+    "child": "product_tax_profiles",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "product_tax_profiles_company_id_request_id_fkey",
+    "child": "product_tax_profiles",
+    "parent": "product_change_requests",
+    "definition": "FOREIGN KEY (company_id, request_id) REFERENCES product_change_requests(company_id, id)"
+  },
+  {
+    "name": "product_tax_profiles_company_id_tax_category_id_fkey",
+    "child": "product_tax_profiles",
+    "parent": "tax_categories",
+    "definition": "FOREIGN KEY (company_id, tax_category_id) REFERENCES tax_categories(company_id, id)"
+  },
+  {
+    "name": "product_tax_profiles_created_by_fkey",
+    "child": "product_tax_profiles",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "product_taxes_company_id_fkey",
+    "child": "product_taxes",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "product_taxes_company_id_product_id_fkey",
+    "child": "product_taxes",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "product_taxes_company_id_profile_id_fkey",
+    "child": "product_taxes",
+    "parent": "product_tax_profiles",
+    "definition": "FOREIGN KEY (company_id, profile_id) REFERENCES product_tax_profiles(company_id, id)"
+  },
+  {
+    "name": "product_taxes_company_id_tax_id_fkey",
+    "child": "product_taxes",
+    "parent": "taxes",
+    "definition": "FOREIGN KEY (company_id, tax_id) REFERENCES taxes(company_id, id)"
+  },
+  {
+    "name": "product_taxes_created_by_fkey",
+    "child": "product_taxes",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "product_uom_conversions_company_id_fkey",
+    "child": "product_uom_conversions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "product_uom_conversions_company_id_product_id_fkey",
+    "child": "product_uom_conversions",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "product_uom_conversions_company_id_uom_id_fkey",
+    "child": "product_uom_conversions",
+    "parent": "units_of_measure",
+    "definition": "FOREIGN KEY (company_id, uom_id) REFERENCES units_of_measure(company_id, id)"
+  },
+  {
+    "name": "product_uom_conversions_created_by_fkey",
+    "child": "product_uom_conversions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "products_approved_by_fkey",
+    "child": "products",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "products_company_id_brand_id_fkey",
+    "child": "products",
+    "parent": "brands",
+    "definition": "FOREIGN KEY (company_id, brand_id) REFERENCES brands(company_id, id)"
+  },
+  {
+    "name": "products_company_id_category_id_fkey",
+    "child": "products",
+    "parent": "product_categories",
+    "definition": "FOREIGN KEY (company_id, category_id) REFERENCES product_categories(company_id, id)"
+  },
+  {
+    "name": "products_company_id_fkey",
+    "child": "products",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "products_company_id_publication_request_id_fkey",
+    "child": "products",
+    "parent": "product_change_requests",
+    "definition": "FOREIGN KEY (company_id, publication_request_id) REFERENCES product_change_requests(company_id, id)"
+  },
+  {
+    "name": "products_company_id_supplier_id_fkey",
+    "child": "products",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "products_company_id_tax_category_id_fkey",
+    "child": "products",
+    "parent": "tax_categories",
+    "definition": "FOREIGN KEY (company_id, tax_category_id) REFERENCES tax_categories(company_id, id)"
+  },
+  {
+    "name": "products_company_id_uom_id_fkey",
+    "child": "products",
+    "parent": "units_of_measure",
+    "definition": "FOREIGN KEY (company_id, uom_id) REFERENCES units_of_measure(company_id, id)"
+  },
+  {
+    "name": "products_created_by_fkey",
+    "child": "products",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "products_currency_fkey",
+    "child": "products",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "purchase_order_lines_company_id_fkey",
+    "child": "purchase_order_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "purchase_order_lines_company_id_order_id_fkey",
+    "child": "purchase_order_lines",
+    "parent": "purchase_orders",
+    "definition": "FOREIGN KEY (company_id, order_id) REFERENCES purchase_orders(company_id, id)"
+  },
+  {
+    "name": "purchase_order_lines_company_id_product_id_fkey",
+    "child": "purchase_order_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "purchase_order_lines_company_id_uom_id_fkey",
+    "child": "purchase_order_lines",
+    "parent": "units_of_measure",
+    "definition": "FOREIGN KEY (company_id, uom_id) REFERENCES units_of_measure(company_id, id)"
+  },
+  {
+    "name": "purchase_order_lines_created_by_fkey",
+    "child": "purchase_order_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "purchase_orders_company_id_fkey",
+    "child": "purchase_orders",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "purchase_orders_company_id_request_id_fkey",
+    "child": "purchase_orders",
+    "parent": "purchase_requests",
+    "definition": "FOREIGN KEY (company_id, request_id) REFERENCES purchase_requests(company_id, id)"
+  },
+  {
+    "name": "purchase_orders_company_id_source_id_fkey",
+    "child": "purchase_orders",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "purchase_orders_company_id_supplier_id_fkey",
+    "child": "purchase_orders",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "purchase_orders_company_id_warehouse_id_fkey",
+    "child": "purchase_orders",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "purchase_orders_created_by_fkey",
+    "child": "purchase_orders",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "purchase_request_lines_company_id_fkey",
+    "child": "purchase_request_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "purchase_request_lines_company_id_product_id_fkey",
+    "child": "purchase_request_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "purchase_request_lines_company_id_request_id_fkey",
+    "child": "purchase_request_lines",
+    "parent": "purchase_requests",
+    "definition": "FOREIGN KEY (company_id, request_id) REFERENCES purchase_requests(company_id, id)"
+  },
+  {
+    "name": "purchase_request_lines_created_by_fkey",
+    "child": "purchase_request_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "purchase_requests_company_id_fkey",
+    "child": "purchase_requests",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "purchase_requests_company_id_source_id_fkey",
+    "child": "purchase_requests",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "purchase_requests_company_id_warehouse_id_fkey",
+    "child": "purchase_requests",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "purchase_requests_created_by_fkey",
+    "child": "purchase_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "purchase_return_lines_company_id_fkey",
+    "child": "purchase_return_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "purchase_return_lines_company_id_grn_line_id_fkey",
+    "child": "purchase_return_lines",
+    "parent": "grn_lines",
+    "definition": "FOREIGN KEY (company_id, grn_line_id) REFERENCES grn_lines(company_id, id)"
+  },
+  {
+    "name": "purchase_return_lines_company_id_return_id_fkey",
+    "child": "purchase_return_lines",
+    "parent": "purchase_returns",
+    "definition": "FOREIGN KEY (company_id, return_id) REFERENCES purchase_returns(company_id, id)"
+  },
+  {
+    "name": "purchase_return_lines_company_id_warehouse_id_fkey",
+    "child": "purchase_return_lines",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "purchase_return_lines_created_by_fkey",
+    "child": "purchase_return_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "purchase_returns_company_id_fkey",
+    "child": "purchase_returns",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "purchase_returns_company_id_grn_id_fkey",
+    "child": "purchase_returns",
+    "parent": "grns",
+    "definition": "FOREIGN KEY (company_id, grn_id) REFERENCES grns(company_id, id)"
+  },
+  {
+    "name": "purchase_returns_company_id_source_id_fkey",
+    "child": "purchase_returns",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "purchase_returns_company_id_supplier_id_fkey",
+    "child": "purchase_returns",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "purchase_returns_created_by_fkey",
+    "child": "purchase_returns",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "quotation_lines_company_id_fkey",
+    "child": "quotation_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "quotation_lines_company_id_product_id_fkey",
+    "child": "quotation_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "quotation_lines_company_id_quotation_id_fkey",
+    "child": "quotation_lines",
+    "parent": "quotations",
+    "definition": "FOREIGN KEY (company_id, quotation_id) REFERENCES quotations(company_id, id)"
+  },
+  {
+    "name": "quotation_lines_company_id_uom_id_fkey",
+    "child": "quotation_lines",
+    "parent": "units_of_measure",
+    "definition": "FOREIGN KEY (company_id, uom_id) REFERENCES units_of_measure(company_id, id)"
+  },
+  {
+    "name": "quotation_lines_created_by_fkey",
+    "child": "quotation_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "quotations_company_id_customer_id_fkey",
+    "child": "quotations",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "quotations_company_id_fkey",
+    "child": "quotations",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "quotations_company_id_source_id_fkey",
+    "child": "quotations",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "quotations_created_by_fkey",
+    "child": "quotations",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "reconciliation_exceptions_company_id_fkey",
+    "child": "reconciliation_exceptions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "reconciliation_exceptions_company_id_resolution_source_id_fkey",
+    "child": "reconciliation_exceptions",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, resolution_source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "reconciliation_exceptions_company_id_run_id_fkey",
+    "child": "reconciliation_exceptions",
+    "parent": "reconciliation_runs",
+    "definition": "FOREIGN KEY (company_id, run_id) REFERENCES reconciliation_runs(company_id, id)"
+  },
+  {
+    "name": "reconciliation_exceptions_company_id_source_id_fkey",
+    "child": "reconciliation_exceptions",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "reconciliation_exceptions_created_by_fkey",
+    "child": "reconciliation_exceptions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "reconciliation_exceptions_resolved_by_fkey",
+    "child": "reconciliation_exceptions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (resolved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "reconciliation_runs_company_id_fkey",
+    "child": "reconciliation_runs",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "reconciliation_runs_created_by_fkey",
+    "child": "reconciliation_runs",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "report_exports_company_id_fkey",
+    "child": "report_exports",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "report_exports_created_by_fkey",
+    "child": "report_exports",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "role_permissions_company_id_fkey",
+    "child": "role_permissions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "role_permissions_company_id_role_id_fkey",
+    "child": "role_permissions",
+    "parent": "roles",
+    "definition": "FOREIGN KEY (company_id, role_id) REFERENCES roles(company_id, id)"
+  },
+  {
+    "name": "role_permissions_permission_code_fkey",
+    "child": "role_permissions",
+    "parent": "permissions",
+    "definition": "FOREIGN KEY (permission_code) REFERENCES permissions(code)"
+  },
+  {
+    "name": "roles_company_id_fkey",
+    "child": "roles",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "roles_created_by_fkey",
+    "child": "roles",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "sale_lines_company_id_fkey",
+    "child": "sale_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "sale_lines_company_id_product_id_fkey",
+    "child": "sale_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "sale_lines_company_id_sale_id_fkey",
+    "child": "sale_lines",
+    "parent": "sales",
+    "definition": "FOREIGN KEY (company_id, sale_id) REFERENCES sales(company_id, id)"
+  },
+  {
+    "name": "sale_lines_company_id_uom_id_fkey",
+    "child": "sale_lines",
+    "parent": "units_of_measure",
+    "definition": "FOREIGN KEY (company_id, uom_id) REFERENCES units_of_measure(company_id, id)"
+  },
+  {
+    "name": "sale_lines_created_by_fkey",
+    "child": "sale_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "sale_payments_company_id_fkey",
+    "child": "sale_payments",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "sale_payments_company_id_payment_id_fkey",
+    "child": "sale_payments",
+    "parent": "payments",
+    "definition": "FOREIGN KEY (company_id, payment_id) REFERENCES payments(company_id, id)"
+  },
+  {
+    "name": "sale_payments_company_id_sale_id_fkey",
+    "child": "sale_payments",
+    "parent": "sales",
+    "definition": "FOREIGN KEY (company_id, sale_id) REFERENCES sales(company_id, id)"
+  },
+  {
+    "name": "sale_payments_created_by_fkey",
+    "child": "sale_payments",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "sales_company_id_cashier_session_id_fkey",
+    "child": "sales",
+    "parent": "cashier_sessions",
+    "definition": "FOREIGN KEY (company_id, cashier_session_id) REFERENCES cashier_sessions(company_id, id)"
+  },
+  {
+    "name": "sales_company_id_customer_id_fkey",
+    "child": "sales",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "sales_company_id_fkey",
+    "child": "sales",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "sales_company_id_sales_order_id_fkey",
+    "child": "sales",
+    "parent": "sales_orders",
+    "definition": "FOREIGN KEY (company_id, sales_order_id) REFERENCES sales_orders(company_id, id)"
+  },
+  {
+    "name": "sales_company_id_source_id_fkey",
+    "child": "sales",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "sales_company_id_terminal_id_fkey",
+    "child": "sales",
+    "parent": "pos_terminals",
+    "definition": "FOREIGN KEY (company_id, terminal_id) REFERENCES pos_terminals(company_id, id)"
+  },
+  {
+    "name": "sales_company_id_warehouse_id_fkey",
+    "child": "sales",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "sales_created_by_fkey",
+    "child": "sales",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "sales_order_lines_company_id_fkey",
+    "child": "sales_order_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "sales_order_lines_company_id_order_id_fkey",
+    "child": "sales_order_lines",
+    "parent": "sales_orders",
+    "definition": "FOREIGN KEY (company_id, order_id) REFERENCES sales_orders(company_id, id)"
+  },
+  {
+    "name": "sales_order_lines_company_id_product_id_fkey",
+    "child": "sales_order_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "sales_order_lines_company_id_uom_id_fkey",
+    "child": "sales_order_lines",
+    "parent": "units_of_measure",
+    "definition": "FOREIGN KEY (company_id, uom_id) REFERENCES units_of_measure(company_id, id)"
+  },
+  {
+    "name": "sales_order_lines_created_by_fkey",
+    "child": "sales_order_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "sales_orders_company_id_customer_id_fkey",
+    "child": "sales_orders",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "sales_orders_company_id_fkey",
+    "child": "sales_orders",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "sales_orders_company_id_source_id_fkey",
+    "child": "sales_orders",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "sales_orders_created_by_fkey",
+    "child": "sales_orders",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "sales_return_lines_company_id_fkey",
+    "child": "sales_return_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "sales_return_lines_company_id_original_line_id_fkey",
+    "child": "sales_return_lines",
+    "parent": "sale_lines",
+    "definition": "FOREIGN KEY (company_id, original_line_id) REFERENCES sale_lines(company_id, id)"
+  },
+  {
+    "name": "sales_return_lines_company_id_return_id_fkey",
+    "child": "sales_return_lines",
+    "parent": "sales_returns",
+    "definition": "FOREIGN KEY (company_id, return_id) REFERENCES sales_returns(company_id, id)"
+  },
+  {
+    "name": "sales_return_lines_company_id_warehouse_id_fkey",
+    "child": "sales_return_lines",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "sales_return_lines_created_by_fkey",
+    "child": "sales_return_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "sales_returns_company_id_customer_id_fkey",
+    "child": "sales_returns",
+    "parent": "customers",
+    "definition": "FOREIGN KEY (company_id, customer_id) REFERENCES customers(company_id, id)"
+  },
+  {
+    "name": "sales_returns_company_id_fkey",
+    "child": "sales_returns",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "sales_returns_company_id_original_sale_id_fkey",
+    "child": "sales_returns",
+    "parent": "sales",
+    "definition": "FOREIGN KEY (company_id, original_sale_id) REFERENCES sales(company_id, id)"
+  },
+  {
+    "name": "sales_returns_company_id_source_id_fkey",
+    "child": "sales_returns",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "sales_returns_created_by_fkey",
+    "child": "sales_returns",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "security_events_actor_id_fkey",
+    "child": "security_events",
+    "parent": "users",
+    "definition": "FOREIGN KEY (actor_id) REFERENCES users(id)"
+  },
+  {
+    "name": "security_events_company_id_fkey",
+    "child": "security_events",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "security_events_session_id_fkey",
+    "child": "security_events",
+    "parent": "sessions",
+    "definition": "FOREIGN KEY (session_id) REFERENCES sessions(id)"
+  },
+  {
+    "name": "security_events_subject_user_id_fkey",
+    "child": "security_events",
+    "parent": "users",
+    "definition": "FOREIGN KEY (subject_user_id) REFERENCES users(id)"
+  },
+  {
+    "name": "sessions_user_id_fkey",
+    "child": "sessions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (user_id) REFERENCES users(id)"
+  },
+  {
+    "name": "settlement_lines_company_id_fkey",
+    "child": "settlement_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "settlement_lines_company_id_payment_id_fkey",
+    "child": "settlement_lines",
+    "parent": "payments",
+    "definition": "FOREIGN KEY (company_id, payment_id) REFERENCES payments(company_id, id)"
+  },
+  {
+    "name": "settlement_lines_company_id_statement_id_fkey",
+    "child": "settlement_lines",
+    "parent": "settlement_statements",
+    "definition": "FOREIGN KEY (company_id, statement_id) REFERENCES settlement_statements(company_id, id)"
+  },
+  {
+    "name": "settlement_lines_created_by_fkey",
+    "child": "settlement_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "settlement_statements_company_id_fkey",
+    "child": "settlement_statements",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "settlement_statements_created_by_fkey",
+    "child": "settlement_statements",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "settlement_statements_currency_fkey",
+    "child": "settlement_statements",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "source_documents_approved_by_fkey",
+    "child": "source_documents",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "source_documents_cancelled_by_fkey",
+    "child": "source_documents",
+    "parent": "users",
+    "definition": "FOREIGN KEY (cancelled_by) REFERENCES users(id)"
+  },
+  {
+    "name": "source_documents_company_id_branch_id_fkey",
+    "child": "source_documents",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "source_documents_company_id_fkey",
+    "child": "source_documents",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "source_documents_company_id_original_document_id_fkey",
+    "child": "source_documents",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, original_document_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "source_documents_created_by_fkey",
+    "child": "source_documents",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "source_documents_currency_fkey",
+    "child": "source_documents",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "source_documents_initiated_by_fkey",
+    "child": "source_documents",
+    "parent": "users",
+    "definition": "FOREIGN KEY (initiated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "source_documents_posted_by_fkey",
+    "child": "source_documents",
+    "parent": "users",
+    "definition": "FOREIGN KEY (posted_by) REFERENCES users(id)"
+  },
+  {
+    "name": "source_documents_updated_by_fkey",
+    "child": "source_documents",
+    "parent": "users",
+    "definition": "FOREIGN KEY (updated_by) REFERENCES users(id)"
+  },
+  {
+    "name": "source_revisions_changed_by_fkey",
+    "child": "source_revisions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (changed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "source_revisions_company_id_fkey",
+    "child": "source_revisions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "source_revisions_company_id_source_id_fkey",
+    "child": "source_revisions",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "stock_count_lines_company_id_count_id_fkey",
+    "child": "stock_count_lines",
+    "parent": "stock_counts",
+    "definition": "FOREIGN KEY (company_id, count_id) REFERENCES stock_counts(company_id, id)"
+  },
+  {
+    "name": "stock_count_lines_company_id_fkey",
+    "child": "stock_count_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "stock_count_lines_company_id_lot_id_fkey",
+    "child": "stock_count_lines",
+    "parent": "inventory_lots",
+    "definition": "FOREIGN KEY (company_id, lot_id) REFERENCES inventory_lots(company_id, id)"
+  },
+  {
+    "name": "stock_count_lines_company_id_product_id_fkey",
+    "child": "stock_count_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "stock_count_lines_counted_by_fkey",
+    "child": "stock_count_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (counted_by) REFERENCES users(id)"
+  },
+  {
+    "name": "stock_count_lines_created_by_fkey",
+    "child": "stock_count_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "stock_counts_company_id_fkey",
+    "child": "stock_counts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "stock_counts_company_id_source_id_fkey",
+    "child": "stock_counts",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "stock_counts_company_id_warehouse_id_fkey",
+    "child": "stock_counts",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "stock_counts_created_by_fkey",
+    "child": "stock_counts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "stock_reservations_company_id_fkey",
+    "child": "stock_reservations",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "stock_reservations_company_id_product_id_fkey",
+    "child": "stock_reservations",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "stock_reservations_company_id_source_id_fkey",
+    "child": "stock_reservations",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "stock_reservations_company_id_warehouse_id_fkey",
+    "child": "stock_reservations",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "stock_reservations_created_by_fkey",
+    "child": "stock_reservations",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "stock_transfer_lines_company_id_fkey",
+    "child": "stock_transfer_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "stock_transfer_lines_company_id_product_id_fkey",
+    "child": "stock_transfer_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "stock_transfer_lines_company_id_transfer_id_fkey",
+    "child": "stock_transfer_lines",
+    "parent": "stock_transfers",
+    "definition": "FOREIGN KEY (company_id, transfer_id) REFERENCES stock_transfers(company_id, id)"
+  },
+  {
+    "name": "stock_transfer_lines_created_by_fkey",
+    "child": "stock_transfer_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "stock_transfer_receipts_company_id_fkey",
+    "child": "stock_transfer_receipts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "stock_transfer_receipts_company_id_movement_id_fkey",
+    "child": "stock_transfer_receipts",
+    "parent": "inventory_movements",
+    "definition": "FOREIGN KEY (company_id, movement_id) REFERENCES inventory_movements(company_id, id)"
+  },
+  {
+    "name": "stock_transfer_receipts_company_id_source_id_fkey",
+    "child": "stock_transfer_receipts",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "stock_transfer_receipts_company_id_transfer_line_id_fkey",
+    "child": "stock_transfer_receipts",
+    "parent": "stock_transfer_lines",
+    "definition": "FOREIGN KEY (company_id, transfer_line_id) REFERENCES stock_transfer_lines(company_id, id)"
+  },
+  {
+    "name": "stock_transfer_receipts_created_by_fkey",
+    "child": "stock_transfer_receipts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "stock_transfers_company_id_fkey",
+    "child": "stock_transfers",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "stock_transfers_company_id_from_warehouse_id_fkey",
+    "child": "stock_transfers",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, from_warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "stock_transfers_company_id_source_id_fkey",
+    "child": "stock_transfers",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "stock_transfers_company_id_to_warehouse_id_fkey",
+    "child": "stock_transfers",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, to_warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "stock_transfers_company_id_transit_warehouse_id_fkey",
+    "child": "stock_transfers",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, transit_warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "stock_transfers_created_by_fkey",
+    "child": "stock_transfers",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "stock_transfers_dispatched_by_fkey",
+    "child": "stock_transfers",
+    "parent": "users",
+    "definition": "FOREIGN KEY (dispatched_by) REFERENCES users(id)"
+  },
+  {
+    "name": "stock_transfers_received_by_fkey",
+    "child": "stock_transfers",
+    "parent": "users",
+    "definition": "FOREIGN KEY (received_by) REFERENCES users(id)"
+  },
+  {
+    "name": "supplier_accounts_company_id_control_account_id_fkey",
+    "child": "supplier_accounts",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, control_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "supplier_accounts_company_id_fkey",
+    "child": "supplier_accounts",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "supplier_accounts_company_id_supplier_id_fkey",
+    "child": "supplier_accounts",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "supplier_accounts_created_by_fkey",
+    "child": "supplier_accounts",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "supplier_invoice_lines_company_id_expense_account_id_fkey",
+    "child": "supplier_invoice_lines",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, expense_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "supplier_invoice_lines_company_id_fkey",
+    "child": "supplier_invoice_lines",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "supplier_invoice_lines_company_id_invoice_id_fkey",
+    "child": "supplier_invoice_lines",
+    "parent": "supplier_invoices",
+    "definition": "FOREIGN KEY (company_id, invoice_id) REFERENCES supplier_invoices(company_id, id)"
+  },
+  {
+    "name": "supplier_invoice_lines_company_id_product_id_fkey",
+    "child": "supplier_invoice_lines",
+    "parent": "products",
+    "definition": "FOREIGN KEY (company_id, product_id) REFERENCES products(company_id, id)"
+  },
+  {
+    "name": "supplier_invoice_lines_created_by_fkey",
+    "child": "supplier_invoice_lines",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "supplier_invoices_company_id_fkey",
+    "child": "supplier_invoices",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "supplier_invoices_company_id_source_id_fkey",
+    "child": "supplier_invoices",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "supplier_invoices_company_id_supplier_id_fkey",
+    "child": "supplier_invoices",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "supplier_invoices_created_by_fkey",
+    "child": "supplier_invoices",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "supplier_transactions_company_id_control_account_id_fkey",
+    "child": "supplier_transactions",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, control_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "supplier_transactions_company_id_fkey",
+    "child": "supplier_transactions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "supplier_transactions_company_id_journal_line_id_fkey",
+    "child": "supplier_transactions",
+    "parent": "journal_lines",
+    "definition": "FOREIGN KEY (company_id, journal_line_id) REFERENCES journal_lines(company_id, id)"
+  },
+  {
+    "name": "supplier_transactions_company_id_source_id_fkey",
+    "child": "supplier_transactions",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "supplier_transactions_company_id_supplier_id_fkey",
+    "child": "supplier_transactions",
+    "parent": "suppliers",
+    "definition": "FOREIGN KEY (company_id, supplier_id) REFERENCES suppliers(company_id, id)"
+  },
+  {
+    "name": "supplier_transactions_created_by_fkey",
+    "child": "supplier_transactions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "supplier_transactions_currency_fkey",
+    "child": "supplier_transactions",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "suppliers_company_id_fkey",
+    "child": "suppliers",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "suppliers_company_id_tax_category_id_fkey",
+    "child": "suppliers",
+    "parent": "tax_categories",
+    "definition": "FOREIGN KEY (company_id, tax_category_id) REFERENCES tax_categories(company_id, id)"
+  },
+  {
+    "name": "suppliers_created_by_fkey",
+    "child": "suppliers",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "suppliers_currency_fkey",
+    "child": "suppliers",
+    "parent": "currencies",
+    "definition": "FOREIGN KEY (currency) REFERENCES currencies(code)"
+  },
+  {
+    "name": "system_configuration_approved_by_fkey",
+    "child": "system_configuration",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "system_configuration_company_id_fkey",
+    "child": "system_configuration",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "system_configuration_created_by_fkey",
+    "child": "system_configuration",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "tax_categories_approved_by_fkey",
+    "child": "tax_categories",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "tax_categories_company_id_fkey",
+    "child": "tax_categories",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "tax_categories_company_id_publication_request_id_fkey",
+    "child": "tax_categories",
+    "parent": "tax_change_requests",
+    "definition": "FOREIGN KEY (company_id, publication_request_id) REFERENCES tax_change_requests(company_id, id)"
+  },
+  {
+    "name": "tax_categories_created_by_fkey",
+    "child": "tax_categories",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "tax_change_requests_company_id_category_id_fkey",
+    "child": "tax_change_requests",
+    "parent": "tax_categories",
+    "definition": "FOREIGN KEY (company_id, category_id) REFERENCES tax_categories(company_id, id)"
+  },
+  {
+    "name": "tax_change_requests_company_id_fkey",
+    "child": "tax_change_requests",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "tax_change_requests_company_id_input_account_id_fkey",
+    "child": "tax_change_requests",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, input_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "tax_change_requests_company_id_output_account_id_fkey",
+    "child": "tax_change_requests",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, output_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "tax_change_requests_company_id_tax_id_fkey",
+    "child": "tax_change_requests",
+    "parent": "taxes",
+    "definition": "FOREIGN KEY (company_id, tax_id) REFERENCES taxes(company_id, id)"
+  },
+  {
+    "name": "tax_change_requests_created_by_fkey",
+    "child": "tax_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "tax_change_requests_reviewed_by_fkey",
+    "child": "tax_change_requests",
+    "parent": "users",
+    "definition": "FOREIGN KEY (reviewed_by) REFERENCES users(id)"
+  },
+  {
+    "name": "tax_rates_approved_by_fkey",
+    "child": "tax_rates",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "tax_rates_company_id_category_id_fkey",
+    "child": "tax_rates",
+    "parent": "tax_categories",
+    "definition": "FOREIGN KEY (company_id, category_id) REFERENCES tax_categories(company_id, id)"
+  },
+  {
+    "name": "tax_rates_company_id_fkey",
+    "child": "tax_rates",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "tax_rates_company_id_input_account_id_fkey",
+    "child": "tax_rates",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, input_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "tax_rates_company_id_output_account_id_fkey",
+    "child": "tax_rates",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, output_account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "tax_rates_company_id_publication_request_id_fkey",
+    "child": "tax_rates",
+    "parent": "tax_change_requests",
+    "definition": "FOREIGN KEY (company_id, publication_request_id) REFERENCES tax_change_requests(company_id, id)"
+  },
+  {
+    "name": "tax_rates_company_id_tax_id_fkey",
+    "child": "tax_rates",
+    "parent": "taxes",
+    "definition": "FOREIGN KEY (company_id, tax_id) REFERENCES taxes(company_id, id)"
+  },
+  {
+    "name": "tax_rates_created_by_fkey",
+    "child": "tax_rates",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "tax_transactions_company_id_account_id_fkey",
+    "child": "tax_transactions",
+    "parent": "accounts",
+    "definition": "FOREIGN KEY (company_id, account_id) REFERENCES accounts(company_id, id)"
+  },
+  {
+    "name": "tax_transactions_company_id_fkey",
+    "child": "tax_transactions",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "tax_transactions_company_id_journal_line_id_fkey",
+    "child": "tax_transactions",
+    "parent": "journal_lines",
+    "definition": "FOREIGN KEY (company_id, journal_line_id) REFERENCES journal_lines(company_id, id)"
+  },
+  {
+    "name": "tax_transactions_company_id_rate_id_fkey",
+    "child": "tax_transactions",
+    "parent": "tax_rates",
+    "definition": "FOREIGN KEY (company_id, rate_id) REFERENCES tax_rates(company_id, id)"
+  },
+  {
+    "name": "tax_transactions_company_id_source_id_fkey",
+    "child": "tax_transactions",
+    "parent": "source_documents",
+    "definition": "FOREIGN KEY (company_id, source_id) REFERENCES source_documents(company_id, id)"
+  },
+  {
+    "name": "tax_transactions_created_by_fkey",
+    "child": "tax_transactions",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "taxes_approved_by_fkey",
+    "child": "taxes",
+    "parent": "users",
+    "definition": "FOREIGN KEY (approved_by) REFERENCES users(id)"
+  },
+  {
+    "name": "taxes_company_id_fkey",
+    "child": "taxes",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "taxes_company_id_publication_request_id_fkey",
+    "child": "taxes",
+    "parent": "tax_change_requests",
+    "definition": "FOREIGN KEY (company_id, publication_request_id) REFERENCES tax_change_requests(company_id, id)"
+  },
+  {
+    "name": "taxes_created_by_fkey",
+    "child": "taxes",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "units_of_measure_company_id_fkey",
+    "child": "units_of_measure",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "units_of_measure_created_by_fkey",
+    "child": "units_of_measure",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "user_branch_scopes_company_id_branch_id_fkey",
+    "child": "user_branch_scopes",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "user_branch_scopes_company_id_fkey",
+    "child": "user_branch_scopes",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "user_branch_scopes_company_id_user_id_fkey",
+    "child": "user_branch_scopes",
+    "parent": "memberships",
+    "definition": "FOREIGN KEY (company_id, user_id) REFERENCES memberships(company_id, user_id)"
+  },
+  {
+    "name": "user_branch_scopes_user_id_fkey",
+    "child": "user_branch_scopes",
+    "parent": "users",
+    "definition": "FOREIGN KEY (user_id) REFERENCES users(id)"
+  },
+  {
+    "name": "user_roles_company_id_fkey",
+    "child": "user_roles",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "user_roles_company_id_role_id_fkey",
+    "child": "user_roles",
+    "parent": "roles",
+    "definition": "FOREIGN KEY (company_id, role_id) REFERENCES roles(company_id, id)"
+  },
+  {
+    "name": "user_roles_company_id_user_id_fkey",
+    "child": "user_roles",
+    "parent": "memberships",
+    "definition": "FOREIGN KEY (company_id, user_id) REFERENCES memberships(company_id, user_id)"
+  },
+  {
+    "name": "user_roles_user_id_fkey",
+    "child": "user_roles",
+    "parent": "users",
+    "definition": "FOREIGN KEY (user_id) REFERENCES users(id)"
+  },
+  {
+    "name": "valuation_policies_company_id_fkey",
+    "child": "valuation_policies",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "valuation_policies_company_id_warehouse_id_fkey",
+    "child": "valuation_policies",
+    "parent": "warehouses",
+    "definition": "FOREIGN KEY (company_id, warehouse_id) REFERENCES warehouses(company_id, id)"
+  },
+  {
+    "name": "valuation_policies_created_by_fkey",
+    "child": "valuation_policies",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "warehouses_company_id_branch_id_fkey",
+    "child": "warehouses",
+    "parent": "branches",
+    "definition": "FOREIGN KEY (company_id, branch_id) REFERENCES branches(company_id, id)"
+  },
+  {
+    "name": "warehouses_company_id_fkey",
+    "child": "warehouses",
+    "parent": "companies",
+    "definition": "FOREIGN KEY (company_id) REFERENCES companies(id)"
+  },
+  {
+    "name": "warehouses_created_by_fkey",
+    "child": "warehouses",
+    "parent": "users",
+    "definition": "FOREIGN KEY (created_by) REFERENCES users(id)"
+  },
+  {
+    "name": "warehouses_updated_by_fkey",
+    "child": "warehouses",
+    "parent": "users",
+    "definition": "FOREIGN KEY (updated_by) REFERENCES users(id)"
+  }
+]

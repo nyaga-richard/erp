@@ -1,0 +1,42 @@
+{
+  passed: true,
+  date: '2026-09-29T16:50:37.433Z',
+  warehouseId: '2bb470f6-9fe6-4aea-8c32-7074dd7d4e43',
+  productId: '57936db2-3780-4ca2-a922-e1acf5ab63f5',
+  gain: '7b211327-e9fd-4400-8eaf-3e9b9dc995c7',
+  loss: '0ba01c5d-3f97-4899-805d-2715beae8ade',
+  reversal: 'b12a8a30-884d-412e-bbef-e1b0f16aa88f',
+  checks: [
+    'Real independently reviewed scoped posting rules',
+    'Maker/approver/poster segregation',
+    'Atomic gain and weighted-average loss',
+    'Original-cost full reversal with immutable links',
+    'No editable stock balances',
+    'Reconciliation PASS',
+    'General-ledger and audit drilldowns open stock source, retained policy and posted lines',
+    'Exact decimal display',
+    'Keyboard focus and mobile/dark layout'
+  ],
+  consoleErrors: []
+}
+{
+  "passed": true,
+  "date": "2026-09-29T16:50:42.129Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Real reset-mail identity and isolated inventory reader",
+    "No costs, balances or source detail without cost grant",
+    "Inventory audit snapshots redacted without cost visibility",
+    "Explicit cost grant enables read-only source/journal/approval/reconciliation UI",
+    "No implicit finance or stock mutation authority; backend403 verified"
+  ],
+  "consoleErrors": []
+}
+locator.fill: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByLabel('Credit limit', { exact: true })
+
+    at /home/user/kenya-erp/scripts/browser-customers-test.cjs:8:264 {
+  log: [ "  - waiting for getByLabel('Credit limit', { exact: true })" ],
+  name: 'TimeoutError'
+}

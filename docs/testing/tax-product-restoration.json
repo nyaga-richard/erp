@@ -1,0 +1,26 @@
+{
+  "restored": true,
+  "kind": "database",
+  "target": "erp_restore_tax_product_verified",
+  "counts": {
+    "sources": "28",
+    "journals": "21",
+    "lines": "42",
+    "audit_events": "483"
+  },
+  "journalArithmetic": "PASS",
+  "operationalReconciliations": "NOT_IMPLEMENTED",
+  "date": "2026-09-29T11:56:43.762Z",
+  "configuration": {
+    "taxes": "3",
+    "tax_categories": "3",
+    "rates": "3",
+    "tax_requests": "9",
+    "units": "2",
+    "product_categories": "4",
+    "brands": "2"
+  },
+  "taxPublicationLinks": "PASS",
+  "productReferenceAudit": "PASS",
+  "sourceCheckpoint": "2026-09-29T11:56:42.717Z"
+}

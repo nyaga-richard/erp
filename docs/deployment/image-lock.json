@@ -1,0 +1,26 @@
+{
+  "resolvedAt": "2026-09-26T12:14:38.736715+00:00",
+  "manifestContentHashVerified": true,
+  "imageBuildExecuted": false,
+  "imageSignatureOrVulnerabilityScanVerified": false,
+  "images": [
+    {
+      "reference": "node:22-bookworm-slim",
+      "pinned": "node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c",
+      "manifestDigest": "sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c",
+      "source": "https://hub.docker.com/r/library/node"
+    },
+    {
+      "reference": "postgres:17-bookworm",
+      "pinned": "postgres:17-bookworm@sha256:639ab7ceb90e13123085b741fb31ef493fba25463002f6da665352e7b534b652",
+      "manifestDigest": "sha256:639ab7ceb90e13123085b741fb31ef493fba25463002f6da665352e7b534b652",
+      "source": "https://hub.docker.com/r/library/postgres"
+    },
+    {
+      "reference": "cloudflare/cloudflared:latest",
+      "pinned": "cloudflare/cloudflared:latest@sha256:072c067d25ccbe61d46e18f0d0723255f2bb5304f7317caa95b27031520ff92c",
+      "manifestDigest": "sha256:072c067d25ccbe61d46e18f0d0723255f2bb5304f7317caa95b27031520ff92c",
+      "source": "https://hub.docker.com/r/cloudflare/cloudflared"
+    }
+  ]
+}

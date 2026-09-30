@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "date": "2026-09-30",
+  "test": "configure-env.sh in disposable /tmp directory with non-secret SMTP/tunnel placeholders",
+  "checks": {
+    "shellSyntax": "PASS",
+    "customPortAndProjectAccepted": "PASS",
+    "publicOriginAndReleaseStored": "PASS",
+    "fiveIndependent256BitSecretsGenerated": "PASS",
+    "secretValuesNotPrinted": "PASS",
+    "fileMode": "0600",
+    "owner": "root:root",
+    "overwriteRefused": "implemented; not destructive-tested"
+  },
+  "scope": "Environment-generation helper only; no Docker deployment, SMTP delivery or Cloudflare Tunnel was exercised."
+}

@@ -1,0 +1,30 @@
+import {Inject,Injectable} from '@nestjs/common';
+import {z} from 'zod';
+import Decimal from 'decimal.js';
+import {PoolClient} from 'pg';
+import {Db,Context,BusinessError} from './db';
+import {CommandService} from './commands';
+const uuid=z.string().uuid(),reason=z.string().trim().min(5).max(500),optional=(min:number,max:number)=>z.string().trim().min(min).max(max).nullable();
+const proposal=z.object({expectedVersion:z.number().int().min(1).max(2147483646),name:z.string().trim().min(2).max(160),phone:optional(3,40),email:z.string().trim().email().max(254).nullable(),address:optional(2,1000),creditLimit:z.string().regex(/^(0|[1-9]\d{0,15})(\.\d{1,2})?$/),paymentTermsDays:z.number().int().min(0).max(3650),creditHold:z.boolean(),reason}).strict();
+@Injectable()
+export class CustomerAmendmentService{
+ constructor(@Inject(Db) private db:Db,@Inject(CommandService) private commands:CommandService){}
+ async list(ctx:Context,id:string,query:unknown){uuid.parse(id);const v=z.object({page:z.coerce.number().int().min(1).max(10000).default(1),limit:z.coerce.number().int().min(1).max(100).default(25)}).strict().parse(query);return this.db.transaction(ctx,async c=>{
+  if(!(await c.query('SELECT 1 FROM customers WHERE company_id=$1 AND id=$2 AND publication_request_id IS NOT NULL',[ctx.companyId,id])).rowCount)throw new BusinessError('NOT_FOUND','Customer unavailable.',404);
+  return {data:(await c.query(`SELECT r.*,r.credit_limit::text,u.display_name AS creator,a.display_name AS reviewer FROM customer_amendment_requests r JOIN users u ON u.id=r.created_by LEFT JOIN users a ON a.id=r.reviewed_by WHERE r.company_id=$1 AND r.customer_id=$2 ORDER BY r.created_at DESC,r.id LIMIT $3 OFFSET $4`,[ctx.companyId,id,v.limit,(v.page-1)*v.limit])).rows,total:(await c.query('SELECT count(*)::int n FROM customer_amendment_requests WHERE company_id=$1 AND customer_id=$2',[ctx.companyId,id])).rows[0].n,page:v.page,limit:v.limit};
+ });}
+ credit(ctx:Context,changed:boolean,action:'propose'|'approve'){if(changed&&!ctx.permissions.includes('customers:credit:'+action))throw new BusinessError('CREDIT_PERMISSION','Explicit customer credit-policy '+action+' permission is required.',403);}
+ async audit(c:PoolClient,ctx:Context,id:string,action:string,why:string,before:string|null){await c.query(`INSERT INTO audit_logs(company_id,actor_id,action,module,entity_type,entity_id,request_id,session_id,ip,device,new_values,reason) SELECT $1,$2,$3,'CORE','CUSTOMER_AMENDMENT',$4,$5,$6,$7,$8,jsonb_build_object('requestBefore',$9::jsonb,'requestAfter',customer_amendment_snapshot(r.id),'before',r.before_snapshot,'after',CASE WHEN r.state='APPLIED' THEN customer_amendment_after(r) ELSE 'null'::jsonb END),$10 FROM customer_amendment_requests r WHERE r.id=$4`,[ctx.companyId,ctx.userId,action,id,ctx.requestId,ctx.sessionId,ctx.ip,ctx.device,before,why]);}
+ async propose(ctx:Context,key:string|undefined,id:string,body:unknown){uuid.parse(id);const v=proposal.parse(body);return this.commands.run(ctx,key,'customer.amend.propose.'+id,v,async c=>{
+  const current=(await c.query('SELECT c.*,customer_current_snapshot(c.id)::text AS snapshot FROM customers c WHERE company_id=$1 AND id=$2 AND publication_request_id IS NOT NULL FOR UPDATE',[ctx.companyId,id])).rows[0];if(!current)throw new BusinessError('NOT_FOUND','Customer unavailable.',404);if(current.version!==v.expectedVersion)throw new BusinessError('VERSION_CONFLICT','Customer changed. Reload and propose against its current version.',409);
+  const changed=!new Decimal(v.creditLimit).eq(current.credit_limit)||v.paymentTermsDays!==current.payment_terms_days||v.creditHold!==current.credit_hold;this.credit(ctx,changed,'propose');
+  const r=(await c.query(`INSERT INTO customer_amendment_requests(company_id,customer_id,expected_version,name,phone,email,address,credit_limit,payment_terms_days,credit_hold,before_snapshot,credit_changed,created_by,reason) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb,$12,$13,$14) RETURNING id,state`,[ctx.companyId,id,v.expectedVersion,v.name,v.phone,v.email,v.address,v.creditLimit,v.paymentTermsDays,v.creditHold,current.snapshot,changed,ctx.userId,v.reason])).rows[0];await this.audit(c,ctx,r.id,'CUSTOMER_AMEND_PROPOSE',v.reason,null);return r;
+ },true);}
+ async decide(ctx:Context,key:string|undefined,id:string,body:unknown){uuid.parse(id);const v=z.object({decision:z.enum(['APPROVE','REJECT']),reason}).strict().parse(body);return this.commands.run(ctx,key,'customer.amend.decide.'+id,v,async c=>{
+  const r=(await c.query('SELECT r.*,customer_amendment_snapshot(r.id)::text AS snapshot FROM customer_amendment_requests r WHERE company_id=$1 AND id=$2 FOR UPDATE',[ctx.companyId,id])).rows[0];if(!r)throw new BusinessError('NOT_FOUND','Amendment unavailable.',404);if(r.state!=='PENDING')throw new BusinessError('STATE_CONFLICT','Amendment already decided.',409);if(r.created_by===ctx.userId)throw new BusinessError('INDEPENDENT_REVIEW','Another authorized person must review.',403);this.credit(ctx,r.credit_changed,'approve');
+  if(v.decision==='APPROVE'){const current=(await c.query('SELECT version FROM customers WHERE company_id=$1 AND id=$2 FOR UPDATE',[ctx.companyId,r.customer_id])).rows[0];if(!current||current.version!==r.expected_version)throw new BusinessError('VERSION_CONFLICT','Customer changed. Reject this stale request and propose a new revision.',409);}
+  const state=v.decision==='APPROVE'?'APPLIED':'REJECTED';await c.query('UPDATE customer_amendment_requests SET state=$2,reviewed_by=$3,reviewed_at=now(),review_reason=$4 WHERE id=$1',[id,state,ctx.userId,v.reason]);
+  if(state==='APPLIED')await c.query(`UPDATE customers c SET name=r.name,phone=r.phone,email=r.email,address=r.address,credit_limit=r.credit_limit,payment_terms_days=r.payment_terms_days,credit_hold=r.credit_hold,version=r.expected_version+1 FROM customer_amendment_requests r WHERE r.id=$1 AND c.id=r.customer_id AND c.company_id=r.company_id`,[id]);
+  await this.audit(c,ctx,id,'CUSTOMER_AMEND_'+v.decision,v.reason,r.snapshot);return {id,state,customerId:r.customer_id,...(state==='APPLIED'?{version:r.expected_version+1}:{})};
+ },true);}
+}

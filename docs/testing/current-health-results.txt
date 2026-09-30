@@ -1,0 +1,2 @@
+{"status":"alive","service":"erp-api"}
+{"ready":true,"status":"ready","checks":{"database":"ok","migrations":"ok","worker":"ok","storage":"not_required","redis":"not_required"},"productionReady":false}

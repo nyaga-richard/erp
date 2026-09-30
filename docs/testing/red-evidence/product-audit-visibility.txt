@@ -1,0 +1,251 @@
+TAP version 13
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +21ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mApiController {/api/v1}:[39m[38;5;3m +7ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/health, GET} route[39m[38;5;3m +4ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/config, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/login, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/me, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/logout, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/workspace, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/accounts, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/periods, GET} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/periods/:id/close, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/periods/:id/reopen, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/journals/drafts, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/submit, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/approve, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/post, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/journals/:id/reversal-drafts, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id, GET} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/journals, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/trial-balance, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/integrity, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/audit, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mControlController {/api/v1}:[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/products, GET} route[39m[38;5;3m +2ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/products/lookup, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/products/:id, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-changes, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-changes, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-changes/:id/decide, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/products/:id/tax-preview, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-references, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-references, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-configuration, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-accounts, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-changes, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-changes, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-changes/:id/decide, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-preview, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules/contracts, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules/accounts, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules/scope-options, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules/effective, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules, GET} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rule-changes, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rule-changes, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rule-changes/:id/decide, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policies, GET} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policies/effective, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policies/types, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policies/branches, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policy-changes, GET} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policy-changes, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policy-changes/:id/decide, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/accounts, GET} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/accounts/parents, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/account-changes, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/account-changes, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/account-changes/:id/decide, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/company, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/company/revise, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/warehouses/branch-options, GET} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/warehouses, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/warehouses, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/warehouses/:id/revise, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/branches, GET} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/branches, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/branches/:id/revise, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/users, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/users, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/users/:id/access, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/roles, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/roles, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/roles/:id/revise, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/permissions, GET} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/approval-policies, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/approval-policies, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/approval-policies/:id/publish, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/security-events, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/sessions, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/sessions/:id/revoke, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/password-reset/request, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/password-reset/consume, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/password/change, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/revise, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/reject, POST} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/cancel, POST} route[39m[38;5;3m +1ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHealthController {/api/health}:[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/health/live, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/health, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/health/ready, GET} route[39m[38;5;3m +0ms[39m
+# [32m[Nest] 8690  - [39m09/29/2026, 12:42:42 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +2ms[39m
+# Subtest: Product registration: independent review, exact prices and dated tax profiles
+    # Subtest: RBAC, tenant, CSRF and strict balances/tracking/price fields
+    ok 1 - RBAC, tenant, CSRF and strict balances/tracking/price fields
+      ---
+      duration_ms: 96.474769
+      type: 'test'
+      ...
+    # Subtest: Governed reference, tax coverage and coherent mode validation
+    ok 2 - Governed reference, tax coverage and coherent mode validation
+      ---
+      duration_ms: 178.632478
+      type: 'test'
+      ...
+    # Subtest: Tax schedule gaps cannot hide behind matching interval endpoints
+    ok 3 - Tax schedule gaps cannot hide behind matching interval endpoints
+      ---
+      duration_ms: 121.186595
+      type: 'test'
+      ...
+    # Subtest: Proposal inert, idempotent and maker cannot review
+    ok 4 - Proposal inert, idempotent and maker cannot review
+      ---
+      duration_ms: 62.581773
+      type: 'test'
+      ...
+    # Subtest: Independent concurrent replay publishes complete metadata once
+    ok 5 - Independent concurrent replay publishes complete metadata once
+      ---
+      duration_ms: 87.279323
+      type: 'test'
+      ...
+    # Subtest: Authoritative product-price preview follows dates and unit precision
+    ok 6 - Authoritative product-price preview follows dates and unit precision
+      ---
+      duration_ms: 47.205159
+      type: 'test'
+      ...
+    # Subtest: Maximum six-place decimal survives native audit and publication exactly
+    not ok 7 - Maximum six-place decimal survives native audit and publication exactly
+      ---
+      duration_ms: 75.189138
+      type: 'test'
+      location: '/home/user/kenya-erp/apps/api/test/product-configuration.test.ts:2:10453'
+      failureType: 'testCodeFailure'
+      error: |-
+        Expected values to be strictly equal:
+        + actual - expected
+        
+        + 100000000000000
+        - '99999999999999.999999'
+        
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: '99999999999999.999999'
+      actual: 100000000000000
+      operator: 'strictEqual'
+      stack: |-
+        TestContext.<anonymous> (/home/user/kenya-erp/apps/api/test/product-configuration.test.ts:59:509)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (/home/user/kenya-erp/apps/api/test/product-configuration.test.ts:58:3)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: Concurrent duplicate barcodes fail without partially publishing products
+    ok 8 - Concurrent duplicate barcodes fail without partially publishing products
+      ---
+      duration_ms: 110.322564
+      type: 'test'
+      ...
+    # Subtest: Approval requires current cost visibility, not just an approval grant
+    ok 9 - Approval requires current cost visibility, not just an approval grant
+      ---
+      duration_ms: 68.175666
+      type: 'test'
+      ...
+    # Subtest: Publication cannot change reviewed prices even before audit insertion
+    ok 10 - Publication cannot change reviewed prices even before audit insertion
+      ---
+      duration_ms: 55.397627
+      type: 'test'
+      ...
+    # Subtest: Current tax accounts revalidated before approval; rejection remains possible
+    ok 11 - Current tax accounts revalidated before approval; rejection remains possible
+      ---
+      duration_ms: 45.493734
+      type: 'test'
+      ...
+# {"event":"request_failed","requestId":"31e2feda-1fff-44d8-a2e1-4898e5743c00","code":"P0001"}
+    # Subtest: Intentional child failure rolls back header/audit; same-key retry succeeds
+    ok 12 - Intentional child failure rolls back header/audit; same-key retry succeeds
+      ---
+      duration_ms: 69.985666
+      type: 'test'
+      ...
+    # Subtest: Forged publication audit rolls back every local effect
+    ok 13 - Forged publication audit rolls back every local effect
+      ---
+      duration_ms: 65.63335
+      type: 'test'
+      ...
+    # Subtest: Product-only observer gets no purchase costs, ledger or mutation power
+    ok 14 - Product-only observer gets no purchase costs, ledger or mutation power
+      ---
+      duration_ms: 209.887457
+      type: 'test'
+      ...
+    # Subtest: Audit permission alone cannot reveal product purchase-price snapshots
+    not ok 15 - Audit permission alone cannot reveal product purchase-price snapshots
+      ---
+      duration_ms: 205.747758
+      type: 'test'
+      location: '/home/user/kenya-erp/apps/api/test/product-configuration.test.ts:2:17300'
+      failureType: 'testCodeFailure'
+      error: |-
+        The expression evaluated to a falsy value:
+        
+          assert.ok(events.every((e:any)=>e.new_values.redacted===true))
+        
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: true
+      actual: false
+      operator: '=='
+      stack: |-
+        TestContext.<anonymous> (/home/user/kenya-erp/apps/api/test/product-configuration.test.ts:85:438)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (/home/user/kenya-erp/apps/api/test/product-configuration.test.ts:84:3)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: Published headers/children immutable and no inventory or accounting side effect
+    ok 16 - Published headers/children immutable and no inventory or accounting side effect
+      ---
+      duration_ms: 9.114956
+      type: 'test'
+      ...
+    1..16
+not ok 1 - Product registration: independent review, exact prices and dated tax profiles
+  ---
+  duration_ms: 3828.207739
+  type: 'test'
+  location: '/home/user/kenya-erp/apps/api/test/product-configuration.test.ts:2:1176'
+  failureType: 'subtestsFailed'
+  error: '2 subtests failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..1
+# tests 17
+# suites 0
+# pass 14
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4746.974872

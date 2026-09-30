@@ -1,0 +1,21 @@
+{
+  "composeYamlParsed": true,
+  "privatePortsVerified": true,
+  "productionAuthFlagsVerified": true,
+  "dockerAvailable": true,
+  "sandboxHasSysAdminCapability": false,
+  "dockerBuildAndRuntimeVerified": false,
+  "blockingDependency": "A Docker execution environment with supported networking is still required. CLI and native Compose config validation succeeded; daemon/image/container/reboot/host deployment tests remain unverified.",
+  "date": "2026-09-26T12:13:57.959620+00:00",
+  "composeDependencyCycleCheck": true,
+  "apiStartsRequiredWorker": true,
+  "shellSyntaxPassed": true,
+  "rootlessUserNamespaceAvailable": true,
+  "rootlessProbeResult": "User namespace probe passed; rootless Docker requires separate build/runtime verification.",
+  "dockerVersion": "29.8.1",
+  "composeVersion": "5.5.1",
+  "nativeComposeConfigPassed": true,
+  "dockerDaemonRunning": false,
+  "rootlessAttempted": true,
+  "rootlessResult": "RootlessKit/slirp4netns failed to create TAP interface: open Permission denied. Official rootless launcher also rejects host driver."
+}

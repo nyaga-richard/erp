@@ -1,0 +1,48 @@
+{
+  "name": "kenya-retail-erp",
+  "version": "0.5.0",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "scripts": {
+    "build": "npm run build -w apps/api && npm run build -w apps/web",
+    "test": "npm test -w apps/api",
+    "test:e2e": "node scripts/browser-test.cjs",
+    "seed": "npm run seed -w apps/api",
+    "migrate": "node scripts/migrate.cjs",
+    "schema:export": "node scripts/export-schema.cjs",
+    "test:e2e:controls": "node scripts/browser-controls-test.cjs",
+    "worker:auth": "node scripts/auth-mail-worker.cjs",
+    "test:e2e:embedded": "node scripts/browser-embedded-test.cjs",
+    "test:e2e:branches": "node scripts/browser-branches-test.cjs",
+    "test:e2e:organization": "node scripts/browser-organization-test.cjs",
+    "test:e2e:preview-memory": "node scripts/browser-preview-memory-test.cjs",
+    "test:e2e:coa": "node scripts/browser-coa-test.cjs",
+    "test:e2e:numbering": "node scripts/browser-numbering-test.cjs",
+    "test:e2e:numbering-access": "node scripts/browser-numbering-access-test.cjs",
+    "test:unit:web": "node --import tsx --test tests/web-format.test.ts",
+    "test:e2e:rules": "node scripts/browser-posting-rules-test.cjs",
+    "test:e2e:rules-access": "node scripts/browser-rules-access-test.cjs",
+    "test:e2e:tax": "node scripts/browser-tax-test.cjs",
+    "test:e2e:tax-access": "node scripts/browser-tax-access-test.cjs",
+    "test:e2e:product-references": "node scripts/browser-product-references-test.cjs",
+    "test:e2e:product-access": "node scripts/browser-product-access-test.cjs",
+    "test:e2e:products": "node scripts/browser-products-test.cjs",
+    "test:e2e:product-catalog-access": "node scripts/browser-product-catalog-access-test.cjs",
+    "test:e2e:stock": "node scripts/browser-stock-test.cjs",
+    "test:e2e:stock-access": "node scripts/browser-stock-access-test.cjs",
+    "test:e2e:customers": "node scripts/browser-customers-test.cjs",
+    "test:e2e:customer-access": "node scripts/browser-customer-access-test.cjs",
+    "test:e2e:customer-amendments": "node scripts/browser-customer-amendments-test.cjs",
+    "test:e2e:customer-amendment-access": "node scripts/browser-customer-amendment-access-test.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "tsx": "4.23.15"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

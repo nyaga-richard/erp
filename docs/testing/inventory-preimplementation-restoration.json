@@ -1,0 +1,15 @@
+{
+  "restored": true,
+  "kind": "database",
+  "target": "erp_restore_inventory_start",
+  "counts": {
+    "sources": "35",
+    "journals": "26",
+    "lines": "52",
+    "audit_events": "666"
+  },
+  "journalArithmetic": "PASS",
+  "operationalReconciliations": "NOT_IMPLEMENTED",
+  "promotedIntoAbsentLive": true,
+  "date": "2026-09-29T15:52:03.790Z"
+}

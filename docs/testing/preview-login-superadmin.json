@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "date": "2026-09-30",
+  "scope": "Development-only restored preview database and Arena preview application",
+  "loginRepair": {
+    "cause": "The preview UI assumed every response was JSON; an HTML response was surfaced as a raw JSON.parse exception. The preview backend was also offline.",
+    "handling": "API fetch/network and non-JSON/invalid-JSON responses now produce an actionable service message.",
+    "typecheck": "PASS",
+    "browserHtmlResponseCheck": "PASS; mocked HTTP 404 HTML produces actionable message and no page exception",
+    "browserLogin": "PASS; HTTP 200 preview page, HTTP 201 login, control-center Roles view accessible, no browser errors"
+  },
+  "runtime": {
+    "apiReady": true,
+    "productionReady": false,
+    "database": "restored demo from encrypted 2026-09-30 backup; isolated preview database",
+    "webPort": 5173,
+    "apiPort": 3000,
+    "encryptedPreviewBackup": {
+      "path": ".runtime/backups/database-preview-superadmin-2026-09-30.erpbackup",
+      "createdAt": "2026-09-30T06:29:40.246Z",
+      "sha256": "1309bfa44b739b18e48d1e7fb3c872e3344bf555f45c97d6deda1b318131f150",
+      "actualRestore": "PASS",
+      "restoreTarget": "erp_restore_superadmin",
+      "restoredCounts": {
+        "sources": 62,
+        "journals": 48,
+        "lines": 96,
+        "auditEvents": 1090
+      },
+      "restoredSuperAdminPermissions": 58,
+      "restoredPermissionCatalog": 58,
+      "journalArithmetic": "PASS"
+    }
+  },
+  "superAdministrator": {
+    "email": "superadmin@demo.local",
+    "userId": "edf40d79-0848-4d67-80d7-1af434e4f46a",
+    "roleId": "69cfaede-4a69-4957-beb7-4adfcc24f8e9",
+    "currentCompanyPermissionCount": 58,
+    "allCurrentPermissionsGranted": true,
+    "apiLoginVerified": true,
+    "interactiveBrowserLoginVerified": true,
+    "credential": "Development-only shared preview password documented in DEMO_ACCESS.md",
+    "productionAccount": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:03:04.454Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Real reset-mail identity and isolated inventory reader",
+    "No costs, balances or source detail without cost grant",
+    "Inventory audit snapshots redacted without cost visibility",
+    "Explicit cost grant enables read-only source/journal/approval/reconciliation UI",
+    "No implicit finance or stock mutation authority; backend403 verified"
+  ],
+  "consoleErrors": []
+}

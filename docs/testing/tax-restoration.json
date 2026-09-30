@@ -1,0 +1,22 @@
+{
+  "restored": true,
+  "kind": "database",
+  "target": "erp_restore_tax_verified",
+  "counts": {
+    "sources": "25",
+    "journals": "19",
+    "lines": "38",
+    "audit_events": "405"
+  },
+  "journalArithmetic": "PASS",
+  "operationalReconciliations": "NOT_IMPLEMENTED",
+  "date": "2026-09-29T11:42:43.842Z",
+  "taxConfiguration": {
+    "taxes": "2",
+    "categories": "2",
+    "rates": "2",
+    "requests": "6"
+  },
+  "publicationLinks": "PASS",
+  "sourceCheckpoint": "2026-09-29T11:42:43.087Z"
+}

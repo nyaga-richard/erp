@@ -1,0 +1,242 @@
+{
+  "started": "2026-09-30T05:54:30.365Z",
+  "fingerprint": "2b32f6ef84f1d09161e9a23c018e677c62066c56676f8565d6987de911b04bbd",
+  "status": "VERIFIED",
+  "complete": true,
+  "suites": [
+    {
+      "name": "test:e2e",
+      "passed": true,
+      "date": "2026-09-30T05:54:42.438Z"
+    },
+    {
+      "name": "test:e2e:controls",
+      "passed": true,
+      "date": "2026-09-30T05:54:53.121Z"
+    },
+    {
+      "name": "test:e2e:embedded",
+      "passed": true,
+      "date": "2026-09-30T05:55:02.760Z"
+    },
+    {
+      "name": "test:e2e:branches",
+      "passed": true,
+      "date": "2026-09-30T05:55:10.748Z"
+    },
+    {
+      "name": "test:e2e:organization",
+      "passed": true,
+      "date": "2026-09-30T05:55:23.251Z"
+    },
+    {
+      "name": "test:e2e:preview-memory",
+      "passed": true,
+      "date": "2026-09-30T05:55:30.181Z"
+    },
+    {
+      "name": "test:e2e:coa",
+      "passed": true,
+      "date": "2026-09-30T05:55:49.940Z"
+    },
+    {
+      "name": "test:e2e:numbering",
+      "passed": true,
+      "date": "2026-09-30T05:56:10.241Z"
+    },
+    {
+      "name": "test:e2e:numbering-access",
+      "passed": true,
+      "date": "2026-09-30T05:56:13.784Z"
+    },
+    {
+      "name": "test:e2e:rules",
+      "passed": true,
+      "date": "2026-09-30T05:56:24.970Z"
+    },
+    {
+      "name": "test:e2e:rules-access",
+      "passed": true,
+      "date": "2026-09-30T06:01:38.865Z"
+    },
+    {
+      "name": "test:e2e:tax",
+      "passed": true,
+      "date": "2026-09-30T06:01:53.002Z"
+    },
+    {
+      "name": "test:e2e:tax-access",
+      "passed": true,
+      "date": "2026-09-30T06:01:56.783Z"
+    },
+    {
+      "name": "test:e2e:product-references",
+      "passed": true,
+      "date": "2026-09-30T06:02:03.901Z"
+    },
+    {
+      "name": "test:e2e:product-access",
+      "passed": true,
+      "date": "2026-09-30T06:02:07.452Z"
+    },
+    {
+      "name": "test:e2e:products",
+      "passed": true,
+      "date": "2026-09-30T06:02:16.916Z"
+    },
+    {
+      "name": "test:e2e:product-catalog-access",
+      "passed": true,
+      "date": "2026-09-30T06:02:20.714Z"
+    },
+    {
+      "name": "test:e2e:stock",
+      "passed": true,
+      "date": "2026-09-30T06:02:59.311Z"
+    },
+    {
+      "name": "test:e2e:stock-access",
+      "passed": true,
+      "date": "2026-09-30T06:03:04.553Z"
+    },
+    {
+      "name": "test:e2e:customers",
+      "passed": true,
+      "date": "2026-09-30T06:03:42.866Z"
+    },
+    {
+      "name": "test:e2e:customer-access",
+      "passed": true,
+      "date": "2026-09-30T06:03:47.598Z"
+    },
+    {
+      "name": "test:e2e:customer-amendments",
+      "passed": true,
+      "date": "2026-09-30T06:04:01.587Z"
+    },
+    {
+      "name": "test:e2e:customer-amendment-access",
+      "passed": true,
+      "date": "2026-09-30T06:04:06.477Z"
+    }
+  ],
+  "runs": [
+    {
+      "name": "test:e2e",
+      "passed": true,
+      "date": "2026-09-30T05:54:42.438Z"
+    },
+    {
+      "name": "test:e2e:controls",
+      "passed": true,
+      "date": "2026-09-30T05:54:53.121Z"
+    },
+    {
+      "name": "test:e2e:embedded",
+      "passed": true,
+      "date": "2026-09-30T05:55:02.760Z"
+    },
+    {
+      "name": "test:e2e:branches",
+      "passed": true,
+      "date": "2026-09-30T05:55:10.748Z"
+    },
+    {
+      "name": "test:e2e:organization",
+      "passed": true,
+      "date": "2026-09-30T05:55:23.251Z"
+    },
+    {
+      "name": "test:e2e:preview-memory",
+      "passed": true,
+      "date": "2026-09-30T05:55:30.181Z"
+    },
+    {
+      "name": "test:e2e:coa",
+      "passed": true,
+      "date": "2026-09-30T05:55:49.940Z"
+    },
+    {
+      "name": "test:e2e:numbering",
+      "passed": true,
+      "date": "2026-09-30T05:56:10.241Z"
+    },
+    {
+      "name": "test:e2e:numbering-access",
+      "passed": true,
+      "date": "2026-09-30T05:56:13.784Z"
+    },
+    {
+      "name": "test:e2e:rules",
+      "passed": true,
+      "date": "2026-09-30T05:56:24.970Z"
+    },
+    {
+      "name": "test:e2e:rules-access",
+      "passed": true,
+      "date": "2026-09-30T06:01:38.865Z"
+    },
+    {
+      "name": "test:e2e:tax",
+      "passed": true,
+      "date": "2026-09-30T06:01:53.002Z"
+    },
+    {
+      "name": "test:e2e:tax-access",
+      "passed": true,
+      "date": "2026-09-30T06:01:56.783Z"
+    },
+    {
+      "name": "test:e2e:product-references",
+      "passed": true,
+      "date": "2026-09-30T06:02:03.901Z"
+    },
+    {
+      "name": "test:e2e:product-access",
+      "passed": true,
+      "date": "2026-09-30T06:02:07.452Z"
+    },
+    {
+      "name": "test:e2e:products",
+      "passed": true,
+      "date": "2026-09-30T06:02:16.916Z"
+    },
+    {
+      "name": "test:e2e:product-catalog-access",
+      "passed": true,
+      "date": "2026-09-30T06:02:20.714Z"
+    },
+    {
+      "name": "test:e2e:stock",
+      "passed": true,
+      "date": "2026-09-30T06:02:59.311Z"
+    },
+    {
+      "name": "test:e2e:stock-access",
+      "passed": true,
+      "date": "2026-09-30T06:03:04.553Z"
+    },
+    {
+      "name": "test:e2e:customers",
+      "passed": true,
+      "date": "2026-09-30T06:03:42.866Z"
+    },
+    {
+      "name": "test:e2e:customer-access",
+      "passed": true,
+      "date": "2026-09-30T06:03:47.598Z"
+    },
+    {
+      "name": "test:e2e:customer-amendments",
+      "passed": true,
+      "date": "2026-09-30T06:04:01.587Z"
+    },
+    {
+      "name": "test:e2e:customer-amendment-access",
+      "passed": true,
+      "date": "2026-09-30T06:04:06.477Z"
+    }
+  ],
+  "finished": "2026-09-30T06:04:06.478Z",
+  "fingerprintRecheckedAt": "2026-09-30T06:14:14.217115+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "date": "2026-09-30T05:54:53.065Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Administrator has no posting UI",
+    "Delegated role created",
+    "Company member provisioned",
+    "Membership suspended/reactivated with version",
+    "Policy drafted",
+    "Different user publishes policy",
+    "Forgot-password generic acknowledgement",
+    "Encrypted outbox → private file adapter",
+    "Reset fragment removed from address bar",
+    "Single-use reset establishes new password",
+    "New member signs in",
+    "Own sessions shown",
+    "Revoke all signs out"
+  ],
+  "consoleErrors": [],
+  "liveSMTPTested": false
+}

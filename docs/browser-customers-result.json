@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:03:12.651Z",
+  "requestId": "0082b2d9-f255-4af8-a4b6-8f23f7a5094e",
+  "customerId": "d8a4a62e-487b-4822-97c6-e4f545bb0098",
+  "number": "C1790748184981",
+  "checks": [
+    "Real reviewed AR account picker; no hardcoded account binding",
+    "Inert proposal and independent exact publication",
+    "No implicit finance access",
+    "Original creator and separate reviewer retained",
+    "Exact decimal credit policy; no balance editor",
+    "Keyboard focus/Escape and mobile/dark without page overflow"
+  ],
+  "consoleErrors": []
+}

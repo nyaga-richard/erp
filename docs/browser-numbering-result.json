@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "date": "2026-09-30T05:56:10.195Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Server-searched branch and effective format",
+    "Inert pending proposal",
+    "Creator cannot self-review",
+    "Reviewer cannot propose without grant",
+    "Independent approval preserves maker/reviewer",
+    "Versioned unused-format revision",
+    "Independent rejection preserves format",
+    "Approved format numbers a real draft",
+    "Cancellation retains issued number",
+    "Initialized format locked against change",
+    "Read-only auditor",
+    "No prior-user notification leakage",
+    "Escape focus handling",
+    "Dark mode",
+    "390px layout"
+  ],
+  "prefix": "NB47750488R",
+  "year": 2036,
+  "sourceDocument": "NB47750488R-2036-00000001",
+  "consoleErrors": []
+}

@@ -1,0 +1,232 @@
+
+> kenya-retail-erp@0.5.0 test:e2e
+> node scripts/browser-test.cjs
+
+{
+  "passed": true,
+  "date": "2026-09-29T12:34:09.992Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Login as Amina",
+    "Create balanced draft",
+    "Revise and archive original source",
+    "Submit",
+    "Self-approval disabled",
+    "Login as Brian",
+    "Document navigation survives concurrent refresh",
+    "Independent approval",
+    "Self-post disabled",
+    "Login as Carol",
+    "Independent posting",
+    "Original attribution preserved",
+    "Source→journal→audit drilldown",
+    "Trial balance contains posting",
+    "Dark mode",
+    "390px responsive navigation"
+  ],
+  "sourceDocument": "JDR-2026-000024",
+  "consoleErrors": []
+}
+
+> kenya-retail-erp@0.5.0 test:e2e:embedded
+> node scripts/browser-embedded-test.cjs
+
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +24ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mApiController {/api/v1}:[39m[38;5;3m +12ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/health, GET} route[39m[38;5;3m +7ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/config, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/login, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/me, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/logout, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/workspace, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/accounts, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/periods, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/periods/:id/close, POST} route[39m[38;5;3m +3ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/periods/:id/reopen, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/journals/drafts, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/submit, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/approve, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/post, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/journals/:id/reversal-drafts, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/journals, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/trial-balance, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/integrity, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/audit, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mControlController {/api/v1}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/products, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/products/lookup, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/products/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-changes, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-changes, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-changes/:id/decide, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/products/:id/tax-preview, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-references, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/product-references, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-configuration, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-accounts, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-changes, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-changes, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-changes/:id/decide, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/tax-preview, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules/contracts, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules/accounts, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules/scope-options, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules/effective, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rules, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rule-changes, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rule-changes, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/posting-rule-changes/:id/decide, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policies, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policies/effective, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policies/types, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policies/branches, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policy-changes, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policy-changes, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/numbering-policy-changes/:id/decide, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/accounts, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/accounts/parents, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/account-changes, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/account-changes, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/account-changes/:id/decide, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/company, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/company/revise, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/warehouses/branch-options, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/warehouses, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/warehouses, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/warehouses/:id/revise, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/branches, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/branches, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/branches/:id/revise, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/users, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/users, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/users/:id/access, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/roles, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/roles, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/roles/:id/revise, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/permissions, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/approval-policies, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/approval-policies, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/approval-policies/:id/publish, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/admin/security-events, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/sessions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/sessions/:id/revoke, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/password-reset/request, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/password-reset/consume, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/password/change, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/revise, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/reject, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/documents/:id/cancel, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHealthController {/api/health}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/health/live, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/health, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/health/ready, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 6853  - [39m09/29/2026, 12:34:11 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +3ms[39m
+{
+  "passed": true,
+  "date": "2026-09-29T12:34:22.173Z",
+  "browser": "Chromium",
+  "parentOrigin": "https://127.0.0.1:<ephemeral>",
+  "childOrigin": "https://localhost:<ephemeral>",
+  "checks": [
+    "Sign-in disabled until held cookie bootstrap completes",
+    "Stale cookie/CSRF context requires sign-in",
+    "Missing tab CSRF requires sign-in",
+    "Cross-site iframe password login",
+    "Secure HttpOnly partitioned cookie",
+    "Session survives frame reload",
+    "Forged CSRF remains denied",
+    "Logout clears matching partitioned cookie"
+  ],
+  "consoleErrors": [],
+  "platformTrafficTokenTested": false
+}
+
+> kenya-retail-erp@0.5.0 test:e2e:controls
+> node scripts/browser-controls-test.cjs
+
+{
+  "passed": true,
+  "date": "2026-09-29T12:34:35.289Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Administrator has no posting UI",
+    "Delegated role created",
+    "Company member provisioned",
+    "Membership suspended/reactivated with version",
+    "Policy drafted",
+    "Different user publishes policy",
+    "Forgot-password generic acknowledgement",
+    "Encrypted outbox → private file adapter",
+    "Reset fragment removed from address bar",
+    "Single-use reset establishes new password",
+    "New member signs in",
+    "Own sessions shown",
+    "Revoke all signs out"
+  ],
+  "consoleErrors": [],
+  "liveSMTPTested": false
+}
+
+> kenya-retail-erp@0.5.0 test:e2e:organization
+> node scripts/browser-organization-test.cjs
+
+{
+  "passed": true,
+  "date": "2026-09-29T12:34:50.112Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Company display-name revision and restore",
+    "Company selector label refreshed",
+    "Create branch and search active parent",
+    "Create warehouse without stock",
+    "Immutable code, parent and type",
+    "Optimistic name revision",
+    "Active child prevents parent deactivation",
+    "Empty warehouse deactivation",
+    "Parent branch deactivation",
+    "Child cannot reactivate under inactive parent",
+    "Parent then child reactivation",
+    "Read-only reviewer cannot change configuration"
+  ],
+  "consoleErrors": []
+}
+
+> kenya-retail-erp@0.5.0 test:e2e:branches
+> node scripts/browser-branches-test.cjs
+
+{
+  "passed": true,
+  "date": "2026-09-29T12:35:27.875Z",
+  "browser": "Chromium",
+  "workflow": [
+    "Permissioned branch creation",
+    "Paginated branch search",
+    "Immutable code",
+    "Optimistic name revision",
+    "Deactivate unused branch",
+    "Reactivate preserving creator",
+    "Working branch dependency guard",
+    "Read-only reviewer cannot edit"
+  ],
+  "consoleErrors": []
+}
+
+> kenya-retail-erp@0.5.0 test:e2e:preview-memory
+> node scripts/browser-preview-memory-test.cjs
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+502 !== 201
+
+    at login (/home/user/kenya-erp/scripts/browser-preview-memory-test.cjs:23:39)
+    at async /home/user/kenya-erp/scripts/browser-preview-memory-test.cjs:34:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 502,
+  expected: 201,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

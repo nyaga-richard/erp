@@ -1,0 +1,46 @@
+# Delivery status — 30 September 2026
+
+**FULL ERP NOT COMPLETE. Production readiness is false. Continue autonomously.** This is a resumable working checkpoint, not the final completion report. The earlier v0.5 archive is historical and does not contain current changes.
+
+Authoritative ledgers: [implementation status](docs/IMPLEMENTATION_STATUS.md), [requirements matrix](docs/REQUIREMENTS_MATRIX.md), [execution checkpoint](docs/EXECUTION_CHECKPOINT.md). Earlier milestone detail is retained in [historical status through017](docs/history/status-through017.md).
+
+## Current implemented scope
+
+- Next.js/NestJS/PostgreSQL foundation; authenticated company/branch scope, granular RBAC, session/reset/revocation, attributable commands, retry-stable idempotency, native immutable balanced journals and linked reversals. Configurable financial approval snapshots retain thresholds, steps, quorums and maker/poster segregation. No role-name authorization.
+- Reviewed organization, COA, document numbering, posting mappings, initial tax schedules, product references and initial SKU registration, with bounded native integrity/audit tests. Exact tax/valuation kernels are reused. Their remaining lifecycle and operational requirements are not thereby verified.
+- **018 stock workflow:** reviewed single-product gains/losses and full linked original-cost reversals. Atomic source, valuation, reviewed mapping, movement, derived projection, balanced GL and audit. Locked pools, stale-value reapproval, duplicate protection and native rollback/forgery checks. No editable balances, partial returns, transfer/count/tracking or zero-cent stock posting. Separate stock and cost permissions; audit redaction and manual-document isolation.
+- **Stock UI:** searchable sources and balances, governed pickers, independent review/posting, cancellation/refresh/reversal, actual journal lines, retained policy/quorum, original-source links, GL/audit drilldown, on-demand stock/projection/inventory-control reconciliation, keyboard/mobile/dark.
+- **019 customer registration:** inert immutable proposal → independent APPLIED/REJECTED decision → exact customer and AR-control binding, with original maker/reviewer identities. Current account/classification eligibility, concurrent number/WALK_IN uniqueness, exact credit-policy strings, complete native audit, and deferred recheck against deliberate late row corruption. No AR transaction, opening balance or credit-sale authority is created.
+- **Customer UI:** catalog and request search/pagination, AR/classification pickers, profile proposal and review, immutable detail and permission-only navigation. Generic audit snapshots are redacted without customer-profile visibility. Zero credit limit is not unlimited credit.
+
+- **020 customer amendments:** exact optimistic versions, immutable preimage/proposal/decision, profile versus credit grants and independent review, final-row/audit native guards. Original publication/AR binding stay frozen. Operational references conservatively block credit edits; WALK_IN stays anonymous/zero-credit. Desktop/mobile history/proposal/review and least-privilege UI; no financial or stock effect.
+
+- **Next AR-source acceptance is IN_PROGRESS, not green:** isolated governed service/tax/customer fixtures succeed, then `/customer-invoices` fails404 versus201 as expected. Evidence: `docs/testing/red-evidence/service-credit-invoice.txt`; design and future atomic posting/reversal/concurrency assertions in `docs/customers/service-credit-invoice-next.md` and `apps/api/acceptance/service-credit-invoice.test.ts`. No invoice route,021 migration or AR entry exists yet.
+
+- Continued customer credit dependency:10 pure exact eligibility/due-date tests,3,465 cent cases, immutable replay, no endpoint/reservation/posting authority. Transactional credit enforcement and AR remain unfinished.
+
+## Executed evidence
+
+- **261 backend tests, zero failures**,87 top-level: `docs/test-results.txt`; API compile passed. Stock suite15 including parent; customer registration suite10 and amendment suite11 including parents. WALK_IN and late request/master/audit sabotage included. Genuine preimplementation RED records retained.
+- Stock workflow/access and customer workflow/access Chromium tests pass with zero page errors. Stock GL/audit drilldown, retained policy, exact posted lines and original-cost reversal are exercised. Customer independent publication and least-privilege read/no-mutation paths are exercised. Desktop/mobile/dark screenshots inspected.
+- **All23 frozen-source browser suites PASS**, finished2026-09-30T06:04:06.478Z, respecting natural login throttle. `docs/testing/browser-regression.{json,txt}`; prior01921-suite receipt retained separately. Amendment workflow/profile-only/read-only checks pass with loaded mobile screenshot and viewport assertions.
+- **Preview login incident fixed (30 Sep):** restored the verified encrypted demo baseline to an isolated preview database, brought API/worker/web online, and hardened the UI against non-JSON/API-offline responses. Web typecheck PASS; browser mocks HTML404 and receives a clear service message (no `JSON.parse` exception); real Chromium UI login PASS with zero page errors. Provisioned `superadmin@demo.local` through reviewed role/user endpoints with all **58/58 current company permissions**, and verified interactive login. An encrypted snapshot including the account was actually restored into a separate database; journal arithmetic and all58 permissions PASS. Receipts: `docs/testing/preview-login-superadmin.json`; latest private pointer `.runtime/latest-backup.json`. Development only; production readiness remains false.
+- Web typecheck, optimized build, six exact-presentation tests and production-web CSP/nonce/hydration/private-proxy smoke pass. Current020 build/typecheck/unit/smoke and recovery log: `docs/deployment/customer-amendment-build-results.txt`. Production backend/Docker flags remain false.
+- Six generic encrypted database/file recovery tests pass. Actual **020 encrypted isolated restoration** verifies all20 hashes, original publications, contiguous amendment before/after chain, current master version/policy, exact amendment audit, stock/projection/GL and full original-cost reversals with zero checked discrepancies. No live DB overwrite or fabricated AR entries. Receipt: `docs/testing/customer-amendment-restoration.json`; prior019 receipt preserved separately. Production-host/offsite/PITR recovery remains unverified.
+- Exported schema:136 tables,1473 columns,583 foreign keys. OpenAPI:97 paths. Table/API counts are not module-completion evidence.
+
+## Incidents and recovery boundaries
+
+Next development hosting can restart near its configured memory threshold; fresh stable hosts passed. Production forbids frame embedding, so it is not used as the Arena preview and CSP is not weakened.
+
+A combined browser run hit the unchanged60-logins/15-minute throttle. Waited for natural expiry; did not clear rate buckets. Stock tests now reuse three isolated authenticated browser sessions, and the full-suite runner pauses before exhausting the budget. The interrupted approved/unposted stock fixture was cancelled through Amina's authenticated API with a reason; all history retained. An access administrator was correctly denied stock cleanup authority.
+
+Development fixtures are explicitly DEMO and include real test stock movements/GL and customer registrations, not real commercial activity. No provider funds or production transactions are fabricated. The earlier sandbox recovery/history-loss incident remains documented in the recovery continuity note; backups are not claimed as zero-RPO/PITR/offsite recovery.
+
+Arena's live development preview uses tab-memory sessions, with normal expiry, revocation, CSRF and backend permissions; cookies are not required. Reload requires sign-in. Actual user-side Arena routing/login remains unconfirmed, despite local cookie-stripping/iframe tests. Credentials are unchanged and private.
+
+## Remaining modules and production gates
+
+Further customer/account lifecycle, serialized credit exposure, AR invoicing/allocations/statements/aging; suppliers/AP; purchase requests/PO/GRN/invoice matching; POS/cashiers; unified payments and verified M-Pesa; sales/supplier returns; expenses/cash; full financial/operational reports and reconciled end-to-end scenario. Inventory still needs counts/transfers/reservations/tracking, multi-line sources and commercial integration. Tax needs operational registers, amendments and validated eTIMS integration.
+
+Remaining security/organization/master lifecycle, MFA/step-up, external SMTP/provider contracts, meaningful load/soak/security/accessibility testing, attachments/retention/offsite/PITR and issuance-continuity policy remain visible in the matrix. Docker/Compose/operator scripts are authored and configuration checks pass, but actual rootless Docker execution is blocked here by TAP privileges. Ubuntu/Tunnel deployment, reboot/recreation/update/rollback and production-host recovery are not verified. No final24-point completion report until practical deliverables and the complete reconciled scenario pass.

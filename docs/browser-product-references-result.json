@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "date": "2026-09-30T06:02:03.839Z",
+  "records": [
+    "263fca97-a637-48e6-9395-f7ef71193717",
+    "0426b604-2bd7-4872-ae35-f98a588ba06e",
+    "ceb72c9e-71bd-4b1c-b68a-193f33c02eb9",
+    "e4839693-8ead-4f15-95fe-21aa5b471ece"
+  ],
+  "checks": [
+    "Unit and quantity precision",
+    "Category hierarchy with server parent search",
+    "Brand creation",
+    "Attribution and immutable catalog",
+    "Read-only permission enforced in UI",
+    "Keyboard focus/Escape",
+    "Mobile/dark layout"
+  ],
+  "consoleErrors": []
+}
