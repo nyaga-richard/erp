@@ -1,4 +1,4 @@
-# Delivery status — 30 September 2026
+# Delivery status — 1 October 2026
 
 **FULL ERP NOT COMPLETE. Production readiness is false. Continue autonomously.** This is a resumable working checkpoint, not the final completion report. The earlier v0.5 archive is historical and does not contain current changes.
 
@@ -19,7 +19,9 @@ Authoritative ledgers: [implementation status](docs/IMPLEMENTATION_STATUS.md), [
 
 - Continued customer credit dependency:10 pure exact eligibility/due-date tests,3,465 cent cases, immutable replay, no endpoint/reservation/posting authority. Transactional credit enforcement and AR remain unfinished.
 
-- **Production tenant bootstrap (021 authored, not runtime-verified):** added an owner-only interactive one-time command to create the first real company, branch and initial human administrator. It requires exact migrations and a fresh SMTP worker heartbeat; a locked pristine-database check, immutable marker, least-privilege setup role and atomic audit/security records are included. Seven focused unit tests pass (`docs/deployment/production-onboarding-test.json`). It creates no chart of accounts, financial periods or opening balances; production readiness remains false until those data workflows and live-host gates pass.
+- **Production tenant bootstrap/scaffold (021–023 authored, not runtime-verified):** owner-only pristine-database bootstrap and one-time additive `seed-starter` for an existing company. Both preserve existing rows and add only governed starter foundations; no tax rules, registered masters, stock, transactions or opening balances. Fixed the reported `could not determine data type of parameter $6` in the starter-reference audit insert by explicitly casting the `kind` bind to `text`; API build and 14 focused bootstrap/scaffold/seed tests pass (`docs/deployment/production-onboarding-test.json`). No real PostgreSQL or production database test has run; production readiness remains false.
+
+- **Company super-admin (026 authored, not PostgreSQL-tested):** added a company-scoped, owner-credential, typed-confirmation grant for the immutable original production administrator. Authorization dynamically resolves all present/future permission catalog codes and all active/new company branches, in both API commands and database authorization checks. It is separately audited; ordinary membership edits cannot remove it, UI displays a protected badge, and independent maker/reviewer/poster requirements remain. Added `erpctl superadmin` Day-2 flow; no production grant/deployment/database/Tunnel change occurred. API build and four focused auth/command/promotion tests pass. This work is not released or production-ready; migrations 024–026 have not run against PostgreSQL.
 
 ## Executed evidence
 

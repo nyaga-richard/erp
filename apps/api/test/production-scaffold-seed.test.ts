@@ -38,6 +38,7 @@ test('existing-production-company starter scaffold is additive, one-time and aud
   const sql=calls.map(x=>x.sql.replace(/\s+/g,' ').trim());
   assert.ok(sql.includes('COMMIT'));assert.ok(!sql.includes('ROLLBACK'));
   assert.ok(sql.some(q=>q.startsWith('INSERT INTO audit_logs(')));assert.ok(sql.some(q=>q.startsWith('INSERT INTO production_company_scaffolds(')));
+  assert.ok(calls.some(x=>x.sql.includes("jsonb_build_object('before',NULL,'after',$5::jsonb,'kind',$6::text)")),'governed reference kind parameter has an explicit type for PostgreSQL polymorphic jsonb_build_object');
   assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO accounts(')).length,22);
   assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO units_of_measure(')).length,2);
   assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO product_categories(')).length,2);

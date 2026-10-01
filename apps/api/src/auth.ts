@@ -57,13 +57,18 @@ export class AuthService {
  async context(req:Request,permission:string,write=false):Promise<Context>{
   const s=await this.session(req,write);const companyId=uuid.parse(req.header('X-Company-ID'));
   return this.db.transaction({userId:s.user_id,companyId},async c=>{
-   const m=await c.query(`SELECT 1 FROM memberships m JOIN companies co ON co.id=m.company_id WHERE m.company_id=$1 AND m.user_id=$2 AND m.active AND co.active`,[companyId,s.user_id]);
+   const m=await c.query(`SELECT m.super_admin FROM memberships m JOIN companies co ON co.id=m.company_id WHERE m.company_id=$1 AND m.user_id=$2 AND m.active AND co.active`,[companyId,s.user_id]);
    if(!m.rowCount)throw new BusinessError('FORBIDDEN','Company access denied.',403);
    (req as any).authContext={companyId};
-   const p=await c.query('SELECT DISTINCT rp.permission_code FROM user_roles ur JOIN role_permissions rp ON rp.company_id=ur.company_id AND rp.role_id=ur.role_id WHERE ur.company_id=$1 AND ur.user_id=$2',[companyId,s.user_id]);
+   const isSuperAdmin=m.rows[0].super_admin===true;
+   const p=isSuperAdmin
+    ? await c.query('SELECT code AS permission_code FROM permissions ORDER BY code')
+    : await c.query('SELECT DISTINCT rp.permission_code FROM user_roles ur JOIN role_permissions rp ON rp.company_id=ur.company_id AND rp.role_id=ur.role_id WHERE ur.company_id=$1 AND ur.user_id=$2',[companyId,s.user_id]);
    const permissions=p.rows.map(r=>r.permission_code);
    if(!permissions.includes(permission))throw new BusinessError('FORBIDDEN','You do not have permission for this action.',403);
-   const b=await c.query('SELECT branch_id FROM user_branch_scopes WHERE company_id=$1 AND user_id=$2',[companyId,s.user_id]);
+   const b=isSuperAdmin
+    ? await c.query('SELECT id AS branch_id FROM branches WHERE company_id=$1 AND active ORDER BY id',[companyId])
+    : await c.query('SELECT branch_id FROM user_branch_scopes WHERE company_id=$1 AND user_id=$2',[companyId,s.user_id]);
    const ctx:Context={requiredPermission:permission,userId:s.user_id,companyId,sessionId:s.id,ip:req.ip??'127.0.0.1',device:req.headers['user-agent']?.slice(0,512)??'',requestId:(req as any).requestId??requestId(),permissions,branches:b.rows.map(r=>r.branch_id)};(req as any).authContext=ctx;return ctx;
   });
  }

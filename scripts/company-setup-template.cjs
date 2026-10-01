@@ -124,7 +124,7 @@ async function seedProductReference(client, {kind, companyId, actorId, code = nu
   }
   await client.query(`INSERT INTO audit_logs(company_id,actor_id,action,module,entity_type,entity_id,request_id,new_values,reason)
     VALUES($1,$2,'PRODUCT_REFERENCE_CREATE','CORE','PRODUCT_REFERENCE',$3,$4,
-      jsonb_build_object('before',NULL,'after',$5::jsonb,'kind',$6),$7)`,
+      jsonb_build_object('before',NULL,'after',$5::jsonb,'kind',$6::text),$7)`,
   [companyId, actorId, snapshot.id, randomUUID(), JSON.stringify(snapshot), kind, reason]);
   return snapshot.id;
 }

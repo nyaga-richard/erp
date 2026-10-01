@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-30",
+  "date": "2026-10-01",
   "scope": "First-install production bootstrap and additive starter seeding for an existing production company; local unit/build verification only",
   "validation": {
     "command": "npm run build -w apps/api",
@@ -19,6 +19,7 @@
       "atomic first-install tenant/admin/scaffold transaction and no credential disclosure",
       "fail-closed pristine-database, marker, SMTP worker, role and production-mode checks",
       "existing-company additive scaffold, audited reference inserts, temporary permission grant/revoke and atomic marker",
+      "product-reference audit kind parameter is explicitly cast to text for PostgreSQL polymorphic jsonb_build_object inference",
       "second run is a no-write report from immutable ledger",
       "wrong confirmation and unmarked/demo database are refused before business-data writes",
       "shared adjacent fiscal-year helper and valid date boundaries",

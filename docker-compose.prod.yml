@@ -134,6 +134,21 @@ services:
     restart: 'no'
     security_opt: [no-new-privileges:true]
     cap_drop: [ALL]
+  promote-initial-superadmin:
+    <<: *api-image
+    profiles: [onboarding]
+    command: [node, scripts/promote-initial-superadmin.cjs]
+    stdin_open: true
+    tty: true
+    environment:
+      NODE_ENV: production
+      MIGRATION_DATABASE_URL: postgresql://erp_owner:${POSTGRES_PASSWORD}@db:5432/erp
+    networks: [database]
+    depends_on:
+      db: {condition: service_healthy}
+    restart: 'no'
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
   cloudflared:
     profiles: [tunnel]
     image: cloudflare/cloudflared:latest@sha256:072c067d25ccbe61d46e18f0d0723255f2bb5304f7317caa95b27031520ff92c
