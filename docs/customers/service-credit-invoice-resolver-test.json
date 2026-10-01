@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-30",
+  "scope": "Caller-transaction product/tax resolver preparation only; no invoice endpoint or posting claim",
+  "implementation": "ProductConfigurationService.resolveServiceInvoiceProduct resolves an active published SERVICE product, quantity precision, immutable selling price and dated profile, then calls TaxConfigurationService.calculateConfigured in the caller's transaction under the shared company configuration lock.",
+  "command": "cd apps/api && node --import tsx --test test/product-source-resolver.test.ts",
+  "passed": 3,
+  "failed": 0,
+  "checks": [
+    "company configuration lock precedes governed product read",
+    "server-owned price/profile/tax inputs are passed to the central calculator",
+    "STOCK products, over-precision quantities and extra client pricing fields are rejected",
+    "existing standalone tax-preview response shape is preserved"
+  ],
+  "apiTypeScriptBuild": "passed",
+  "runtime": "Node v20.20.2 (project requires Node >=22; compatibility warning applies)",
+  "notTested": [
+    "real PostgreSQL behavior or configuration-race locking",
+    "invoice draft/submit/approve/post/reversal routes",
+    "AR/customer subledger/tax ledger/journal atomicity",
+    "credit exposure serialization or invoice UI"
+  ],
+  "productionReady": false
+}

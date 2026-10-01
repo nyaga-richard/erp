@@ -48,14 +48,29 @@ export class ProductConfigurationService{
    await c.query(`INSERT INTO product_taxes(company_id,created_by,valid_from,valid_to,product_id,tax_id,profile_id) SELECT r.company_id,r.created_by,r.valid_from,r.valid_to,r.new_product_id,t.tax_id,r.new_profile_id FROM product_change_requests r JOIN product_request_taxes t ON t.request_id=r.id WHERE r.id=$1 ORDER BY t.tax_id`,[id]);}
   await this.recordAudit(c,ctx,id,'PRODUCT_CHANGE_'+v.decision,r.before_text,v.reason);return {id,state:apply?'APPLIED':'REJECTED',productId:apply?r.new_product_id:null};
  },true);}
- async preview(ctx:Context,id:string,body:unknown){uuid.parse(id);const v=z.object({date,quantity:z.string().regex(/^(0|[1-9]\d{0,13})(\.\d{1,6})?$/),discount:z.string().max(30).default('0')}).strict().parse(body);return this.db.transaction(ctx,async c=>{
+ private async resolveProduct(c:PoolClient,ctx:Context,id:string,v:{date:string;quantity:string;discount:string},serviceOnly:boolean){
+  // Lock the same shared company configuration scope before reading either the
+  // price/profile or tax schedule; approved configuration writers take its
+  // exclusive counterpart. Repeated shared acquisition in calculateConfigured
+  // is transaction-safe and keeps that service's standalone API contract intact.
   await c.query('SELECT pg_advisory_xact_lock_shared(hashtextextended($1,77))',[ctx.companyId]);
-  const p=(await c.query('SELECT p.selling_price::text AS price,p.price_mode,p.currency,u.quantity_scale FROM products p JOIN units_of_measure u ON u.company_id=p.company_id AND u.id=p.uom_id WHERE p.company_id=$1 AND p.id=$2 AND p.publication_request_id IS NOT NULL AND p.active',[ctx.companyId,id])).rows[0];if(!p)throw new BusinessError('NOT_FOUND','Product not found.',404);
+  const p=(await c.query(`SELECT p.sku,p.product_code,p.name,p.item_type,p.category_id,p.brand_id,p.uom_id,
+      p.selling_price::text AS price,p.price_mode,p.currency,u.quantity_scale
+    FROM products p JOIN units_of_measure u ON u.company_id=p.company_id AND u.id=p.uom_id
+    WHERE p.company_id=$1 AND p.id=$2 AND p.publication_request_id IS NOT NULL AND p.active`,[ctx.companyId,id])).rows[0];
+  if(!p)throw new BusinessError('NOT_FOUND','Product not found.',404);
+  if(serviceOnly&&p.item_type!=='SERVICE')throw new BusinessError('INVOICE_SERVICE_ONLY','The first credit-invoice source accepts governed SERVICE products only.');
   if(new Decimal(v.quantity).lte(0)||new Decimal(v.quantity).decimalPlaces()>p.quantity_scale)throw new BusinessError('PRODUCT_QUANTITY','Quantity must be positive and fit the base-unit precision.');
-  const profiles=(await c.query('SELECT * FROM product_tax_profiles WHERE company_id=$1 AND product_id=$2 AND valid_from<=$3 AND valid_to>=$3',[ctx.companyId,id,v.date])).rows;if(profiles.length!==1)throw new BusinessError('PRODUCT_TAX_PROFILE','Exactly one dated product tax profile is required.');
+  const profiles=(await c.query(`SELECT * FROM product_tax_profiles WHERE company_id=$1 AND product_id=$2 AND valid_from<=$3 AND valid_to>=$3`,[ctx.companyId,id,v.date])).rows;
+  if(profiles.length!==1)throw new BusinessError('PRODUCT_TAX_PROFILE','Exactly one dated product tax profile is required.');
   const f=profiles[0],taxIds=(await c.query('SELECT tax_id FROM product_taxes WHERE company_id=$1 AND profile_id=$2 ORDER BY tax_id',[ctx.companyId,f.id])).rows.map(r=>r.tax_id);
   const result=await this.taxes.calculateConfigured(c,ctx,{categoryId:f.tax_category_id,taxIds,date:v.date,quantity:v.quantity,unitPrice:p.price,discount:v.discount});
   if(result.calculation.snapshot.priceMode!==p.price_mode||result.calculation.snapshot.input.currency!==p.currency)throw new BusinessError('PRODUCT_PRICE_MODE','Current configured tax price mode/currency differs from the registered product.');
-  return {...result,productId:id,profileId:f.id};
+  return {productId:id,sku:p.sku,productCode:p.product_code,name:p.name,itemType:p.item_type,categoryId:p.category_id,brandId:p.brand_id,uomId:p.uom_id,quantityScale:p.quantity_scale,currency:p.currency,unitPrice:p.price,priceMode:p.price_mode,profileId:f.id,taxResult:result};
+ }
+ async resolveServiceInvoiceProduct(c:PoolClient,ctx:Context,id:string,body:unknown){uuid.parse(id);const v=z.object({date,quantity:z.string().regex(/^(0|[1-9]\d{0,13})(\.\d{1,6})?$/)}).strict().parse(body);return this.resolveProduct(c,ctx,id,{...v,discount:'0'},true);}
+ async preview(ctx:Context,id:string,body:unknown){uuid.parse(id);const v=z.object({date,quantity:z.string().regex(/^(0|[1-9]\d{0,13})(\.\d{1,6})?$/),discount:z.string().max(30).default('0')}).strict().parse(body);return this.db.transaction(ctx,async c=>{
+  const resolved=await this.resolveProduct(c,ctx,id,v,false);
+  return {...resolved.taxResult,productId:id,profileId:resolved.profileId};
  });}
 }

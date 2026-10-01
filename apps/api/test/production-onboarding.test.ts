@@ -4,6 +4,7 @@ import {createHash} from 'node:crypto';
 import {readFileSync,readdirSync} from 'node:fs';
 import path from 'node:path';
 const onboarding=require('../../../scripts/bootstrap-production.cjs');
+const {STARTER_ACCOUNTS}=require('../../../scripts/company-setup-template.cjs');
 
 const input={companyCode:'acme_ke',companyName:'Acme Kenya Limited',baseCurrency:'kes',branchCode:'hq',branchName:'Nairobi Head Office',adminName:'Admin User',adminEmail:'ADMIN@EXAMPLE.TEST'};
 const permissions=['workspace:view','users:view','users:manage','roles:view','roles:manage','organization:view','organization:manage','organization:profile:manage','warehouses:view','warehouses:manage','approvals:view','approvals:manage','audit:view','security:view','accounts:configuration:view','accounts:propose','products:manage','customers:propose','customers:approve','inventory:post','periods:close'];
@@ -25,6 +26,9 @@ function fakePool({companies=0,marker=false,workerFresh=true,role='erp_owner'}={
    if(q.includes("FROM service_heartbeats WHERE service_name='auth-mail'"))return {rows:[{fresh:workerFresh}],rowCount:1};
    if(q.startsWith('SELECT code FROM currencies'))return {rows:[{code:'KES'}],rowCount:1};
    if(q==='SELECT code FROM permissions ORDER BY code')return {rows:permissions.map(code=>({code})),rowCount:permissions.length};
+   if(q.startsWith('SELECT code,account_type,control_type,postable FROM accounts'))return {rows:STARTER_ACCOUNTS.map(([code,,account_type,control_type,postable]:any)=>({code,account_type,control_type,postable})),rowCount:STARTER_ACCOUNTS.length};
+   if(q.startsWith('SELECT starts_on::text AS starts_on'))return {rows:[],rowCount:0};
+   if(q.startsWith('SELECT branch_id,location_type FROM warehouses')){const branchId=calls.find(x=>x.sql.startsWith('INSERT INTO branches('))?.params[0];return {rows:[{branch_id:branchId,location_type:'SELLABLE'}],rowCount:1};}
    if(q.startsWith('SELECT id,catalog_version FROM'))return {rows:[],rowCount:0};
    if(q.includes('RETURNING to_jsonb('))return {rows:[{snapshot:{id:'11111111-1111-4111-8111-111111111111',catalog_version:1}}],rowCount:1};
    if(q==='COMMIT'||q==='BEGIN'||q==='ROLLBACK'||q.startsWith('SELECT pg_advisory_xact_lock')||q.startsWith("SELECT set_config"))return {rows:[],rowCount:0};
@@ -44,10 +48,15 @@ test('production bootstrap validates first-company fields and normalizes codes/c
 
 test('forward migration and production image include bootstrap prerequisites',()=>{
  const migration=readFileSync(path.resolve(__dirname,'../../../db/022-bootstrap-audit-permission.sql'),'utf8');
+ const scaffoldMigration=readFileSync(path.resolve(__dirname,'../../../db/023-production-starter-scaffold.sql'),'utf8');
  const dockerfile=readFileSync(path.resolve(__dirname,'../../../Dockerfile.api'),'utf8');
+ const compose=readFileSync(path.resolve(__dirname,'../../../docker-compose.prod.yml'),'utf8');
+ assert.match(scaffoldMigration,/CREATE TABLE production_company_scaffolds/);
  assert.match(migration,/INSERT INTO permissions[\s\S]*audit:view/);
  assert.match(migration,/ON CONFLICT \(code\) DO NOTHING/);
  assert.match(dockerfile,/scripts\/company-setup-template\.cjs/);
+ assert.match(dockerfile,/scripts\/seed-company-scaffold\.cjs/);
+ assert.match(compose,/seed-starter:[\s\S]*profiles: \[onboarding\][\s\S]*command: \[node, scripts\/seed-company-scaffold\.cjs\][\s\S]*networks: \[database\]/);
 });
 
 test('initial admin receives setup/proposal and access rights, never approval/posting rights',()=>{
@@ -63,7 +72,7 @@ test('production bootstrap commits tenant/admin atomically and keeps credentials
   const result=await onboarding.bootstrap(input,{pool});assert.match(result.companyId,/^[0-9a-f-]{36}$/);assert.match(result.branchId,/^[0-9a-f-]{36}$/);assert.ok(result.grantedPermissions>0);assert.equal(result.seededYears.length,3);
   const sql=calls.map(x=>x.sql.replace(/\s+/g,' ').trim());assert.ok(sql.includes('BEGIN'));assert.ok(sql.some(q=>q.startsWith('SELECT pg_advisory_xact_lock')));assert.ok(sql.includes('COMMIT'));assert.ok(!sql.includes('ROLLBACK'));
   const userInsert=calls.find(x=>x.sql.startsWith('INSERT INTO users('));assert.ok(userInsert);assert.match(userInsert.params[3],/^\$argon2id\$/);assert.deepEqual(Object.keys(result).sort(),['branchId','companyId','grantedPermissions','initialAdminId','roleId','seededYears']);
-  assert.ok(sql.some(q=>q.startsWith('INSERT INTO permission_delegations')));assert.ok(sql.some(q=>q.startsWith('INSERT INTO audit_logs')));assert.ok(sql.some(q=>q.startsWith('INSERT INTO production_onboarding')));
+  assert.ok(sql.some(q=>q.startsWith('INSERT INTO permission_delegations')));assert.ok(sql.some(q=>q.startsWith('INSERT INTO audit_logs')));assert.ok(sql.some(q=>q.startsWith('INSERT INTO production_onboarding')));assert.ok(sql.some(q=>q.startsWith('INSERT INTO production_company_scaffolds(')));
   assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO accounts(')).length,22);assert.equal(calls.filter(x=>x.sql.includes('INSERT INTO financial_periods(')).length,3);assert.ok(sql.some(q=>q.includes('INSERT INTO warehouses(')));
   assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO units_of_measure(')).length,2);assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO product_categories(')).length,2);assert.equal(calls.filter(x=>x.sql.startsWith('INSERT INTO brands(')).length,1);
   const markerPos=sql.findIndex(q=>q.startsWith('INSERT INTO production_onboarding'));const referencePos=sql.findIndex(q=>q.startsWith('INSERT INTO units_of_measure('));assert.ok(markerPos>=0&&markerPos<referencePos,'main onboarding audit/marker precedes reference inserts to preserve deferred actor context');

@@ -4,7 +4,7 @@ import {z} from 'zod';
 import {Db,Context,BusinessError,audit} from './db';
 import {CommandService} from './commands';
 export const reasonBody=z.object({reason:z.string().trim().min(5).max(500),expectedRevision:z.number().int().positive()}).strict();
-export const policyBody=z.object({eventType:z.enum(['MANUAL_JOURNAL','JOURNAL_REVERSAL','STOCK_GAIN','STOCK_LOSS','STOCK_REVERSAL']),threshold:z.string().regex(/^(0|[1-9]\d{0,15})(\.\d{1,2})?$/),independentCreator:z.boolean(),independentPoster:z.boolean(),steps:z.array(z.object({permission:z.string().min(3).max(80),minimumApprovers:z.number().int().min(1).max(5)}).strict()).min(1).max(5),reason:z.string().trim().min(5).max(500)}).strict();
+export const policyBody=z.object({eventType:z.enum(['MANUAL_JOURNAL','JOURNAL_REVERSAL','STOCK_GAIN','STOCK_LOSS','STOCK_REVERSAL','SERVICE_CREDIT_INVOICE']),threshold:z.string().regex(/^(0|[1-9]\d{0,15})(\.\d{1,2})?$/),independentCreator:z.boolean(),independentPoster:z.boolean(),steps:z.array(z.object({permission:z.string().min(3).max(80),minimumApprovers:z.number().int().min(1).max(5)}).strict()).min(1).max(5),reason:z.string().trim().min(5).max(500)}).strict();
 @Injectable()
 export class WorkflowService{
  constructor(@Inject(Db) private db:Db,@Inject(CommandService) private commands:CommandService){}

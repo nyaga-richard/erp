@@ -150,6 +150,8 @@ async function bootstrap(input, options = {}) {
       VALUES($1,$2,$3,'PRODUCTION_ONBOARDING','SUCCESS',$4,$5)`, [companyId, AUTH_SERVICE, adminId, requestId, JSON.stringify({companyCode: company.companyCode, branchCode: company.branchCode, initialAdminId: adminId})]);
     await client.query(`INSERT INTO production_onboarding(singleton,company_id,branch_id,initial_admin_id,completed_by,request_id)
       VALUES(1,$1,$2,$3,$4,$5)`, [companyId, branchId, adminId, AUTH_SERVICE, requestId]);
+    await client.query(`INSERT INTO production_company_scaffolds(company_id,template_code,completed_by,request_id,details)
+      VALUES($1,'STARTER_V1',$2,$3,$4::jsonb)`, [companyId, AUTH_SERVICE, requestId, JSON.stringify({accounts:'starter chart',fiscalYears:seededYears,warehouse:'MAIN',productReferences:['EA','KG','GENERAL','SERVICE','Unbranded']})]);
 
     // Must remain the final write: reference audit constraints are deferred and
     // validate the actor context at commit; the reference owner is the new admin.

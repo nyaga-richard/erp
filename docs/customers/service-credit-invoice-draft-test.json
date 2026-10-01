@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-01",
+  "scope": "Inert draft create/read and typed immutable valuation submission into PENDING_APPROVAL; no credit headroom authorization or ledger posting claim",
+  "apiTypeScriptBuild": "passed",
+  "openApiGeneration": "passed; 100 paths; JSON parse validation passed",
+  "sqlSyntaxChecks": {
+    "outerSqlStatements": {
+      "db/024-service-credit-invoice-foundation.sql": 8,
+      "db/025-service-credit-invoice-submission.sql": 16
+    },
+    "plpgsqlBodyGrammar": "Bodies parsed with pglast after parser-specific normalization of trigger return declarations; this does not validate PostgreSQL function compilation, object resolution or migration execution"
+  },
+  "focusedTests": {
+    "command": "cd apps/api && node --import tsx --test test/product-source-resolver.test.ts test/customer-invoice-draft.test.ts",
+    "passed": 10,
+    "failed": 0,
+    "checks": [
+      "company configuration coordinator is acquired before reading immutable governed SERVICE price/profile/tax inputs",
+      "strict draft create rejects client price, tax, account, balance, actor, paid and override fields",
+      "draft creation is idempotency-commanded, stores only IDs and normalized quantity, and creates no financial or stock ledger effects",
+      "submission re-resolves customer, active warehouse, registered SERVICE price/profile/tax and open-period eligibility in the same command transaction",
+      "submission freezes typed customer/AR/product/price/tax/terms/due-date values and immutable approval-policy snapshot; no debt reservation or ledger writes",
+      "submission rejects client-supplied valuation fields and stale revisions",
+      "draft list/detail remain branch-scoped; detail returns the immutable submitted valuation and masks credit-policy fields unless customer-invoices:credit:view is granted",
+      "migrations register the controlled number, sealed future posting legs, typed immutable snapshot and native guards; OpenAPI exposes no approval/post routes",
+      "standalone tax-preview response shape remains unchanged"
+    ]
+  },
+  "additionalFocusedRegression": {
+    "command": "node --import tsx --test apps/api/test/production-onboarding.test.ts apps/api/test/production-scaffold-seed.test.ts apps/api/test/demo-seed.test.ts apps/api/test/seed-safety.test.ts",
+    "passed": 14,
+    "failed": 0
+  },
+  "databaseAndHttpIntegration": "Not run. PostgreSQL was unavailable; migrations024–025 were not applied and no test/live database was started or changed.",
+  "runtime": "Node v20.20.2 (project requires Node >=22; npm install warned about engine mismatch)",
+  "notTested": [
+    "PostgreSQL execution/compilation of migration025 PL/pgSQL functions and native triggers",
+    "Nest HTTP route, CSRF, real RBAC/RLS, idempotency and numbering integration against a database",
+    "independent approval/rejection, serialized credit exposure/headroom enforcement or reservations",
+    "AR/revenue/tax/journal posting, reconciliation, reversal, invoice UI or fiscal/eTIMS integration"
+  ],
+  "productionReady": false
+}

@@ -119,6 +119,21 @@ services:
     restart: 'no'
     security_opt: [no-new-privileges:true]
     cap_drop: [ALL]
+  seed-starter:
+    <<: *api-image
+    profiles: [onboarding]
+    command: [node, scripts/seed-company-scaffold.cjs]
+    stdin_open: true
+    tty: true
+    environment:
+      NODE_ENV: production
+      MIGRATION_DATABASE_URL: postgresql://erp_owner:${POSTGRES_PASSWORD}@db:5432/erp
+    networks: [database]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    restart: 'no'
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
   cloudflared:
     profiles: [tunnel]
     image: cloudflare/cloudflared:latest@sha256:072c067d25ccbe61d46e18f0d0723255f2bb5304f7317caa95b27031520ff92c

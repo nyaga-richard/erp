@@ -1,6 +1,7 @@
-// NEXT SOURCE ACCEPTANCE: expected RED until the full transactional source is
-// implemented. Kept outside test/*.test.ts so unreleased work cannot masquerade
-// as a green production suite. Run from apps/api: tsx --test acceptance/*.test.ts.
+// NEXT SOURCE ACCEPTANCE: the inert draft slice is implemented; end-to-end
+// acceptance remains RED until the full transactional source is complete. Kept
+// outside test/*.test.ts so unreleased work cannot masquerade as a green suite.
+// Run from apps/api: tsx --test acceptance/*.test.ts.
 // Disposable database only. No live demo state, passwords or rate buckets change.
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -39,13 +40,13 @@ test('NEXT service credit invoice: inert draft and atomic source/AR/tax/journal 
   const body={warehouseId,customerId,productId,quantity:'1.25',date:'2026-09-30',reason:'Synthetic reviewed service credit invoice'};
   await t.test('Authenticated registered service source accepts only an inert governed draft',async()=>{
    const key=randomUUID();
-   const r=await call('/customer-invoices',creator,body,{'Idempotency-Key':key});assert.equal(r.status,201,'The first governed invoice draft route must exist; '+JSON.stringify(r.data)); // Genuine route-missing RED.
+   const r=await call('/customer-invoices',creator,body,{'Idempotency-Key':key});assert.equal(r.status,201,'The inert governed draft route must exist; '+JSON.stringify(r.data));
    invoiceId=r.data.id;assert.equal(r.data.status,'DRAFT');assert.equal((await call('/customer-invoices',creator,body,{'Idempotency-Key':key})).data.id,r.data.id);
    for(const extra of [{unitPrice:'1'},{taxRate:'0'},{balance:'0'},{postedOutstanding:'0'},{accountId:ar},{createdBy:ids[0]},{paidAmount:'100'},{creditOverride:true}])assert.equal((await call('/customer-invoices',creator,{...body,...extra})).status,400);
    for(const table of ['journal_entries','customer_transactions','tax_transactions','inventory_movements'])assert.equal((await owner.query('SELECT count(*) FROM '+table)).rows[0].count,'0',table+' must remain inert before posting');
   });
-  // Later assertions intentionally cannot run until the prerequisite draft
-  // exists. They are NOT recorded as passed by the initial route-missing RED.
+  // The source lifecycle assertions remain outside the released suite and are
+  // expected to fail until submit/review/post/reversal and native controls exist.
   if(invoiceId){
    const cmd=(id:string,action:string,user:User,revision=1,key=randomUUID())=>call('/customer-invoices/'+id+'/'+action,user,{expectedRevision:revision,reason:'Synthetic independent invoice action'},{'Idempotency-Key':key});
    await t.test('Governed mapping and independent review retain exact server-derived totals',async()=>{

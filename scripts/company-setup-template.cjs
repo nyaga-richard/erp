@@ -40,6 +40,15 @@ async function seedChartOfAccounts(client, companyId, createdBy) {
       VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(company_id,code) DO NOTHING`,
     [companyId, code, name, type, control, postable, createdBy]);
   }
+  const accountRows = (await client.query(`SELECT code,account_type,control_type,postable FROM accounts
+    WHERE company_id=$1 AND code=ANY($2::text[])`, [companyId, STARTER_ACCOUNTS.map(account => account[0])])).rows;
+  const accountByCode = new Map(accountRows.map(row => [row.code, row]));
+  for (const [code, , accountType, controlType, postable] of STARTER_ACCOUNTS) {
+    const row = accountByCode.get(code);
+    if (!row || row.account_type !== accountType || row.control_type !== controlType || row.postable !== postable) {
+      throw new Error(`Starter account ${code} conflicts with existing company configuration; refusing to overwrite or reclassify it.`);
+    }
+  }
   for (const prefix of ['1','2','3','6']) {
     await client.query(`UPDATE accounts child SET parent_id=parent.id
       FROM accounts parent
@@ -56,12 +65,19 @@ async function seedFiscalPeriods(client, companyId, createdBy, currentYear) {
   for (const year of years) {
     const startsOn = `${year}-01-01`;
     const endsOn = `${year}-12-31`;
+    const overlapping = (await client.query(`SELECT starts_on::text AS starts_on,ends_on::text AS ends_on
+      FROM financial_periods WHERE company_id=$1
+        AND daterange(starts_on,ends_on,'[]') && daterange($2::date,$3::date,'[]')`,
+    [companyId, startsOn, endsOn])).rows;
+    if (overlapping.length) {
+      const exactCalendarYear = overlapping.some(row => row.starts_on === startsOn && row.ends_on === endsOn);
+      if (!exactCalendarYear || overlapping.length !== 1) {
+        throw new Error(`An existing fiscal period overlaps FY ${year}; review the company's fiscal calendar before applying the starter scaffold.`);
+      }
+      continue;
+    }
     await client.query(`INSERT INTO financial_periods(company_id,name,starts_on,ends_on,created_by)
-      SELECT $1,$2,$3::date,$4::date,$5
-      WHERE NOT EXISTS (
-        SELECT 1 FROM financial_periods WHERE company_id=$1
-          AND daterange(starts_on,ends_on,'[]') && daterange($3::date,$4::date,'[]')
-      )`, [companyId, `FY ${year}`, startsOn, endsOn, createdBy]);
+      VALUES($1,$2,$3::date,$4::date,$5)`, [companyId, `FY ${year}`, startsOn, endsOn, createdBy]);
   }
   return years;
 }
@@ -71,6 +87,10 @@ async function seedMainWarehouse(client, companyId, branchId, branchName, create
     SELECT $1,$2,'MAIN',$3,'SELLABLE',$4
     WHERE NOT EXISTS(SELECT 1 FROM warehouses WHERE company_id=$1 AND code='MAIN')`,
   [companyId, branchId, `${branchName} — Main warehouse`, createdBy]);
+  const main = (await client.query(`SELECT branch_id,location_type FROM warehouses WHERE company_id=$1 AND code='MAIN'`,[companyId])).rows[0];
+  if (!main || main.branch_id !== branchId || main.location_type !== 'SELLABLE') {
+    throw new Error('Existing MAIN warehouse conflicts with the starter scaffold branch/type; refusing to overwrite it.');
+  }
 }
 
 async function seedProductReference(client, {kind, companyId, actorId, code = null, name, quantityScale}) {

@@ -1,32 +1,36 @@
 {
   "date": "2026-09-30",
-  "scope": "One-time production first-company/branch/administrator bootstrap and safe starter scaffold; local unit/build verification only",
+  "scope": "First-install production bootstrap and additive starter seeding for an existing production company; local unit/build verification only",
   "validation": {
     "command": "npm run build -w apps/api",
     "result": "passed",
     "runtime": "Node v20.20.2 (project requires Node >=22; compatibility warning applies)"
   },
   "unitTests": {
-    "command": "node --import tsx --test apps/api/test/production-onboarding.test.ts apps/api/test/demo-seed.test.ts apps/api/test/seed-safety.test.ts",
-    "passed": 11,
+    "command": "node --import tsx --test apps/api/test/production-onboarding.test.ts apps/api/test/production-scaffold-seed.test.ts apps/api/test/demo-seed.test.ts apps/api/test/seed-safety.test.ts",
+    "passed": 14,
     "failed": 0,
-    "productionOnboardingTests": 8,
+    "firstInstallBootstrapTests": 8,
+    "existingCompanySeedTests": 3,
     "checks": [
       "input validation and normalization",
-      "migration audit:view permission prerequisite",
-      "least-privilege initial administrator permission set including governed product-reference setup",
-      "atomic transaction, undisclosed Argon2 hash and presence of all starter scaffold writes",
-      "fail-closed behavior for existing companies",
-      "fail-closed behavior for existing onboarding marker and stale mail worker",
-      "dedicated erp_owner role enforcement",
-      "production-only configuration gate",
+      "migration permissions, immutable scaffold ledger and runtime-image script packaging",
+      "least-privilege initial administrator permission set",
+      "atomic first-install tenant/admin/scaffold transaction and no credential disclosure",
+      "fail-closed pristine-database, marker, SMTP worker, role and production-mode checks",
+      "existing-company additive scaffold, audited reference inserts, temporary permission grant/revoke and atomic marker",
+      "second run is a no-write report from immutable ledger",
+      "wrong confirmation and unmarked/demo database are refused before business-data writes",
       "shared adjacent fiscal-year helper and valid date boundaries",
       "development seed forbidden in production before database connection"
     ]
   },
   "staticChecks": {
-    "bootstrapJavaScriptSyntax": "passed as part of Node test execution",
-    "apiTypeScriptBuild": "passed",
+    "bootstrapJavaScriptSyntax": "passed",
+    "supplementalSeedJavaScriptSyntax": "passed",
+    "APITypeScriptBuild": "passed",
+    "operatorShellSyntax": "passed",
+    "productionComposeYamlParse": "passed with PyYAML; Docker Compose CLI/image build not run",
     "realPostgreSQLExecution": "not run"
   },
   "notTested": [
@@ -34,7 +38,7 @@
     "Docker image build or Compose run",
     "Ubuntu host deployment",
     "live SMTP reset delivery",
-    "first real production tenant bootstrap"
+    "first production bootstrap or existing-company scaffold against a real database"
   ],
   "productionReady": false
 }

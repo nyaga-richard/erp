@@ -3,7 +3,7 @@
   "info": {
     "title": "Karibu ERP \u2014 implemented foundation API",
     "version": "0.5.0",
-    "description": "Only implemented routes are specified. Reviewed stock gain/loss/full-reversal posting is available. No sales, purchasing, M-Pesa or fiscal posting is released. Runtime authorization, branch scope and database integrity checks are mandatory. Decimal values travel as strings. The full target domain catalog is in 03-api-security.md."
+    "description": "Only implemented routes are specified. Reviewed stock gain/loss/full-reversal posting is available. Service-credit invoices support inert drafts and immutable valuation submission into independent review; no approval, exposure reservation, AR invoice posting, sales, purchasing, M-Pesa or fiscal posting is released. Runtime authorization, branch scope and database integrity checks are mandatory. Decimal values travel as strings. The full target domain catalog is in 03-api-security.md."
   },
   "servers": [
     {
@@ -17154,6 +17154,661 @@
           }
         }
       }
+    },
+    "/customer-invoices": {
+      "get": {
+        "operationId": "get_customer_invoices",
+        "summary": "Paginated branch-scoped inert credit invoice drafts; no AR balance or posting implied",
+        "description": "Required permission: `customer-invoices:view`. All actors are resolved from the authenticated session; supplied actor fields are rejected.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Company-ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Membership is verified by backend, not trusted as authorization."
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string",
+              "maxLength": 100,
+              "default": ""
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000,
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Command result or read projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Record"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "total",
+                    "page",
+                    "limit"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session missing/expired/revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission/scope/CSRF/segregation denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found or not visible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State or duplicate/idempotency conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "JSON content type required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Business/integrity rule rejected",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Login throttled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error, transaction rolled back",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Transient contention, retry same key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post_customer_invoices",
+        "summary": "Create an inert functional-currency credit invoice draft for an active registered customer and governed SERVICE product; no AR, tax, stock or journal effects",
+        "description": "Required permission: `customer-invoices:create`. All actors are resolved from the authenticated session; supplied actor fields are rejected.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Company-ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Membership is verified by backend, not trusted as authorization."
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token returned at login, tied to server session."
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            "description": "Reuse for retries of the exact same command. Changed payload returns 409."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Command result or read projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceCreditInvoiceDraftResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session missing/expired/revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission/scope/CSRF/segregation denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found or not visible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State or duplicate/idempotency conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "JSON content type required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Business/integrity rule rejected",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Login throttled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error, transaction rolled back",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Transient contention, retry same key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceCreditInvoiceDraft"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer-invoices/{id}": {
+      "get": {
+        "operationId": "get_customer_invoices_id",
+        "summary": "Branch-scoped source details; credit-policy fields require customer-invoices:credit:view. A submitted valuation does not imply headroom authorization, ledger posting or fiscal issuance",
+        "description": "Required permission: `customer-invoices:view`. All actors are resolved from the authenticated session; supplied actor fields are rejected.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Company-ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Membership is verified by backend, not trusted as authorization."
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Command result or read projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Record"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session missing/expired/revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission/scope/CSRF/segregation denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found or not visible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State or duplicate/idempotency conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "JSON content type required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Business/integrity rule rejected",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Login throttled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error, transaction rolled back",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Transient contention, retry same key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer-invoices/{id}/submit": {
+      "post": {
+        "operationId": "post_customer_invoices_id_submit",
+        "summary": "Re-resolve governed customer/product/tax inputs and freeze a typed valuation with independent approval-policy snapshot; no exposure reservation or ledger effects",
+        "description": "Required permission: `customer-invoices:submit`. All actors are resolved from the authenticated session; supplied actor fields are rejected.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Company-ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Membership is verified by backend, not trusted as authorization."
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token returned at login, tied to server session."
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            "description": "Reuse for retries of the exact same command. Changed payload returns 409."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Command result or read projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceCreditInvoiceSubmitResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session missing/expired/revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission/scope/CSRF/segregation denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found or not visible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State or duplicate/idempotency conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "JSON content type required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Business/integrity rule rejected",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Login throttled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error, transaction rolled back",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Transient contention, retry same key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceCreditInvoiceSubmit"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -17560,7 +18215,8 @@
               "JOURNAL_REVERSAL",
               "STOCK_GAIN",
               "STOCK_LOSS",
-              "STOCK_REVERSAL"
+              "STOCK_REVERSAL",
+              "SERVICE_CREDIT_INVOICE"
             ]
           },
           "threshold": {
@@ -19133,6 +19789,168 @@
           "reason",
           "expectedVersion",
           "creditHold"
+        ],
+        "additionalProperties": false
+      },
+      "ServiceCreditInvoiceDraft": {
+        "type": "object",
+        "properties": {
+          "warehouseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "customerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "quantity": {
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d{0,13})(\\.\\d{1,6})?$",
+            "description": "Strictly positive; governed base-unit precision enforced server-side."
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?!0000)\\d{4}-\\d{2}-\\d{2}$",
+            "description": "Finite Gregorian calendar date, years 0001\u20139999. Full interval must have compatible reviewed schedules."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "warehouseId",
+          "customerId",
+          "productId",
+          "quantity",
+          "date",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "InvoiceAmountPreview": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          },
+          "net": {
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d{0,15})(\\.\\d{1,2})?$",
+            "examples": [
+              "12500.00"
+            ]
+          },
+          "tax": {
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d{0,15})(\\.\\d{1,2})?$",
+            "examples": [
+              "12500.00"
+            ]
+          },
+          "gross": {
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d{0,15})(\\.\\d{1,2})?$",
+            "examples": [
+              "12500.00"
+            ]
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "currency",
+          "net",
+          "tax",
+          "gross",
+          "dueDate"
+        ],
+        "additionalProperties": false
+      },
+      "ServiceCreditInvoiceDraftResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "documentNumber": {
+            "type": "string"
+          },
+          "status": {
+            "const": "DRAFT"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "amountPreview": {
+            "$ref": "#/components/schemas/InvoiceAmountPreview",
+            "description": "Informational current valuation only; not persisted, not a quote commitment and not posting authority."
+          }
+        },
+        "required": [
+          "id",
+          "documentNumber",
+          "status",
+          "revision",
+          "amountPreview"
+        ],
+        "additionalProperties": false
+      },
+      "ServiceCreditInvoiceSubmit": {
+        "type": "object",
+        "properties": {
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "expectedRevision",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "ServiceCreditInvoiceSubmitResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "documentNumber": {
+            "type": "string"
+          },
+          "status": {
+            "const": "PENDING_APPROVAL"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "valuation": {
+            "$ref": "#/components/schemas/InvoiceAmountPreview"
+          }
+        },
+        "required": [
+          "id",
+          "documentNumber",
+          "status",
+          "revision",
+          "valuation"
         ],
         "additionalProperties": false
       }
